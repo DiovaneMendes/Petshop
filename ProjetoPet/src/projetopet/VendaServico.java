@@ -4,23 +4,34 @@ relacionando o dia/hora realizado (LocalDateTime),
 o cliente, os serviços realizados vinculados com o pet do cliente.
 O sistema deverá calcular o valor total da venda.
 */
-
 package projetopet;
 
-import java.time.LocalDate;
-
 public class VendaServico {
-    private int tipoServico;
-    private LocalDate dataEHora;
+    private String dataEHora;
     private Cliente cliente;
-    private Pet pet;
+    private TipoServico tipoServico;
     private double valorTotal;
     
-    public VendaServico(){
-        
+    public VendaServico(String dataEHora, Cliente cliente, TipoServico tipoServico, double valorTotal){
+        this.dataEHora = dataEHora;
+        this.cliente = cliente;
+        this.tipoServico = tipoServico;
+        this.valorTotal = valorTotal;
     }
-    
-    private void calculoDeVenda(){
-        
+
+    public String getDataEHora() {
+        return dataEHora;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public TipoServico getTipoServico() {
+        return tipoServico;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
     }
 }

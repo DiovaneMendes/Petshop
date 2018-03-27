@@ -8,8 +8,8 @@ public class Cliente {
     private int rg, telefone;
 
     public Cliente(String nome, int rg, int telefone) {
-        this.rg = rg;
         this.nome = nome;
+        this.rg = rg;
         this.telefone = telefone;
     }
 
@@ -27,6 +27,6 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Paciente{" + "rg=" + rg + ", nome=" + nome + ", telefone=" + telefone + '}';
+        return "Cliente{" + "rg=" + rg + ", nome=" + nome + ", telefone=" + telefone + '}';
     }
 }
