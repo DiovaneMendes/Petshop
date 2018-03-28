@@ -18,6 +18,13 @@ public class Console {
 		Scanner scanner = new Scanner (System.in);
 		return(scanner.nextInt());		
 	}
+        
+        public static long scanLong(Object out)
+	{
+		System.out.print(out);
+		Scanner scanner = new Scanner (System.in);
+		return(scanner.nextLong());		
+	}
 
 	public static double scanDouble(Object out)
 	{

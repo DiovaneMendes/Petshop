@@ -2,7 +2,6 @@
 package projetopet;
 
 import Util.Console;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import Util.DateTimeUtil;
@@ -13,11 +12,13 @@ public class ProjetoPet {
     private static ArrayList<Cliente> listaClientes;
     private static ArrayList<Pet> listaPets;
     private static ArrayList<TipoServico> listaServico;
+    private static ArrayList<VendaServico> listaVendaServico;
     
     public static void main(String[] args) {
         listaClientes = new ArrayList<>();
         listaPets = new ArrayList<>();
         listaServico = new ArrayList<>();
+        listaVendaServico = new ArrayList<>();
 
         int opcao = 0;
         do {
@@ -45,7 +46,7 @@ public class ProjetoPet {
                         listarPets();
                         break;
                     case 5:
-                        adicionarServico();
+                        adicionarServico();   
                         break;
                     case 6:
                         listarServico();
@@ -73,11 +74,8 @@ public class ProjetoPet {
         System.out.println("\nAdicionando Cliente...");
         try{            
             String nome = Console.scanString("Nome: ");
-            int rg = Console.scanInt("RG: ");
-            int telefone = Console.scanInt("Telefone: ");
-        
-            //String dataString = Console.scanString("Data Nascimento:");        
-            //LocalDate dataNascimento = DateTimeUtil.stringToDate(dataString);
+            long rg = Console.scanLong("RG: ");
+            long telefone = Console.scanLong("Telefone: ");
         
             Cliente cliente = new Cliente(nome, rg, telefone);
             listaClientes.add(cliente);
@@ -98,12 +96,11 @@ public class ProjetoPet {
             }
             else{
                 System.out.print(String.format("%-20s","|NOME"));
-                System.out.print(String.format("%-10s","|RG"));
+                System.out.print(String.format("%-15s","|RG"));
                 System.out.println(String.format("%-10s","|TELEFONE"));
                 for(Cliente c: listaClientes){
-                    System.out.print(String.format("%-10s",c.getRg()));
                     System.out.print(String.format("%-20s",c.getNome()));
-                    //String dataUtil = DateTimeUtil.dateToString(c.getDataNascimento());
+                    System.out.print(String.format("%-15s",c.getRg()));
                     System.out.println(String.format("%-10s",c.getTelefone()));
 
                 }
@@ -117,33 +114,59 @@ public class ProjetoPet {
             System.out.println("Adicione cliente e servico antes dessa acao!");
         } else{
             System.out.println("\nAdicionando Pet...");
-            try{            
-                String nomePet = Console.scanString("Nome: ");
-                String tipoAnimal = Console.scanString("Tipo pet: ");
+            String nomePet = Console.scanString("Nome: ");
+            String tipoAnimal = Console.scanString("Tipo pet: ");
+            Cliente dono = null;
+            boolean validarCliente = true;
+            do{
                 //Lista de clientes antes de escolher um
                 listarClientes();
                 String donoString = Console.scanString("Dono: ");
-                Cliente dono = null;
+                //DANDO ERRO!
                 for(Cliente c: listaClientes){
                     if(donoString.equals(c.getNome())){
                         dono = c;
+                        validarCliente = false;
+                    } else{
+                        System.out.println("Erro: Nome não confere com a lista de clientes acima!");
+                        int adicionarCliente = Console.scanInt("\nDeseja cadastrar cliente novo? \n1- Adicionar\n2- Escolher cliente existente\nOpcao: ");
+                        if(adicionarCliente == 1){
+                            adicionarCliente();
+                            listarClientes();
+                            donoString = Console.scanString("Dono: ");
+                            if(donoString.equals(c.getNome())){
+                                dono = c;
+                            }
+                        }                        
                     }
                 }
+            } while(validarCliente);
+            
+            TipoServico servicoRealizado = null;
+            boolean validarServico = true;
+            do{   
                 //Lista de servicos antes de escolher um
                 listarServico();
-                String servicoReal = Console.scanString("Servico Realizado: ");
-                TipoServico servicoRealizado = null;
+                String servicoReal = Console.scanString("Servico Realizado: ");                
                 for(TipoServico t: listaServico){
                     if(servicoReal.equals(t.getNomeServico())){
                         servicoRealizado = t;
+                        validarServico = false;
+                    } else{
+                        System.out.println("Erro: Nome não confere com a lista de servicos acima!");
+                        int adicionarServico = Console.scanInt("\nDeseja cadastrar servico novo? \n1- Adicionar\n2- Escolher servico existente\nOpcao: ");
+                        if(adicionarServico == 1){
+                            adicionarServico();
+                            listarServico();
+                            servicoReal = Console.scanString("Servico Realizado: ");
+                        }
                     }
-                }        
-                Pet pet = new Pet(nomePet, tipoAnimal, dono, servicoRealizado);
-                listaPets.add(pet);
-                System.out.println("Cadastro realizado com sucesso!");
-            } catch(Exception e){
-                System.out.println("ERROOOOOOOOOOOO!");
-            }
+                }
+            }while(validarServico);
+
+            Pet pet = new Pet(nomePet, tipoAnimal, dono, servicoRealizado);
+            listaPets.add(pet);
+            System.out.println("Cadastro realizado com sucesso!");
         }
     }
         
@@ -157,13 +180,15 @@ public class ProjetoPet {
                 System.out.println("Nenhum pet cadastrado!");
             }
             else{
-                System.out.print(String.format("%-20s","|NOME"));
-                System.out.print(String.format("%-10s","|TIPO ANIMAL"));
-                System.out.println(String.format("%-10s","|CLIENTE"));
+                System.out.print(String.format("%-10s","|NOME"));
+                System.out.print(String.format("%-15s","|TIPO ANIMAL"));
+                System.out.print(String.format("%-20s","|CLIENTE"));
+                System.out.println(String.format("%-10s","|TIPO SERVICO"));
                 for(Pet p: listaPets){
                     System.out.print(String.format("%-10s",p.getNomePet()));
-                    System.out.print(String.format("%-20s",p.getTipoanimal()));
-                    System.out.println(String.format("%-10s",p.getDono().getNome()));
+                    System.out.print(String.format("%-15s",p.getTipoanimal()));
+                    System.out.print(String.format("%-20s",p.getDono().getNome()));
+                    System.out.println(String.format("%-10s",p.getServicoRealizado().getNomeServico()));
                 }
             }        
         }
@@ -172,6 +197,16 @@ public class ProjetoPet {
     //==============================CASE 5======================================
     private static void adicionarServico() {
         System.out.println("\nAdicionando Servico...");
+        /*
+        TRY funciona da seguinte forma: 
+            *Adicionando Servico...
+            *Numero servico: tosa
+            *ERROOOOOOOOOOOO!
+        como eu coloquei pra dar erro em todos, no momento que coloquei uma string 
+        no lugar de um int, parou toda a adicao e deu erro, assim fazendo com que
+        eu volte ao menu principal. A ideia mais tarde é fazer um TRY para cada 
+        elemento da adicao e não para todos!
+        */
         try{   
             int numeroServico = Console.scanInt("Numero servico: ");         
             String nomeServico = Console.scanString("Nome servico: ");
@@ -195,15 +230,15 @@ public class ProjetoPet {
                 System.out.println("Nenhum servico cadastrado!");
             }
             else{
-                System.out.print(String.format("%-20s","|NUMERO"));
-                System.out.print(String.format("%-10s","|NOME"));
-                System.out.println(String.format("%-10s","|TIPO ATENDIMENTO"));
-                System.out.println(String.format("%-10s","|PRECO"));
+                System.out.print(String.format("%-10s","|NUMERO"));
+                System.out.print(String.format("%-15s","|NOME"));
+                System.out.print(String.format("%-20s","|TIPO ATENDIMENTO"));
+                System.out.println(String.format("%-15s","|PRECO"));
                 for(TipoServico t: listaServico){
-                    System.out.print(String.format("%-20s",t.getNumeroServico()));
-                    System.out.print(String.format("%-10s",t.getNomeServico()));
-                    System.out.println(String.format("%-10s",t.getTipoDeAtendimento()));
-                    System.out.println(String.format("%-10s",t.getPrecoServico()));
+                    System.out.print(String.format("%-10s",t.getNumeroServico()));
+                    System.out.print(String.format("%-15s",t.getNomeServico()));
+                    System.out.print(String.format("%-20s",t.getTipoDeAtendimento()));
+                    System.out.println(String.format("%-15s",t.getPrecoServico()));
                 }
             }        
         }
@@ -228,10 +263,9 @@ public class ProjetoPet {
                     }
                 }
 
-                String tipoAtendimento = Console.scanString("Servico realizado: ");
+                //String tipoAtendimento = Console.scanString("Servico realizado: ");
                 TipoServico tipoServico = null;
                 double valorTotal = 0;
-                
                 for(Pet p: listaPets){
                     if(nomeCliente.equals(p.getDono().getNome())){
                         tipoServico = p.getServicoRealizado();
@@ -240,7 +274,7 @@ public class ProjetoPet {
                 }
                 
                 VendaServico vendaServico = new VendaServico(data, cliente, tipoServico, valorTotal);
-                listaServico.add(tipoServico);
+                listaVendaServico.add(vendaServico);
                 System.out.println("Venda concluida!");
             } catch(Exception e){
                 System.out.println("ERROOOOOOOOOOOO!");

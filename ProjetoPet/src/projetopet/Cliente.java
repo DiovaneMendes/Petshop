@@ -5,9 +5,9 @@ package projetopet;
 
 public class Cliente {
     private String nome;
-    private int rg, telefone;
+    private long rg, telefone;
 
-    public Cliente(String nome, int rg, int telefone) {
+    public Cliente(String nome, long rg, long telefone) {
         this.nome = nome;
         this.rg = rg;
         this.telefone = telefone;
@@ -17,16 +17,11 @@ public class Cliente {
         return nome;
     }
 
-    public int getRg() {
+    public long getRg() {
         return rg;
     }
 
-    public int getTelefone() {
+    public long getTelefone() {
         return telefone;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente{" + "rg=" + rg + ", nome=" + nome + ", telefone=" + telefone + '}';
     }
 }
