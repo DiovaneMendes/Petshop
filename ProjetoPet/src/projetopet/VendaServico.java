@@ -6,16 +6,19 @@ O sistema deverá calcular o valor total da venda.
 */
 package projetopet;
 
+import java.util.ArrayList;
+
 public class VendaServico {
     private String dataEHora;
     private Cliente cliente;
-    private TipoServico tipoServico;
+    //private TipoServico tipoServico;
     private double valorTotal;
+    private ArrayList<TipoServico> listaServico;
     
-    public VendaServico(String dataEHora, Cliente cliente, TipoServico tipoServico, double valorTotal){
+    public VendaServico(String dataEHora, Cliente cliente, ArrayList<TipoServico> listaServico, double valorTotal){
         this.dataEHora = dataEHora;
         this.cliente = cliente;
-        this.tipoServico = tipoServico;
+        this.listaServico = listaServico;
         this.valorTotal = valorTotal;
     }
 
@@ -27,11 +30,16 @@ public class VendaServico {
         return cliente;
     }
 
-    public TipoServico getTipoServico() {
-        return tipoServico;
+    public ArrayList<TipoServico> getListaServico() {
+        return listaServico;
     }
 
     public double getValorTotal() {
         return valorTotal;
+    }
+    
+    @Override
+    public String toString(){
+        return "" + cliente.getNome();
     }
 }

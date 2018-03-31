@@ -33,4 +33,9 @@ public class TipoServico {
     public double getPrecoServico(){
         return precoServico;
     }
+    
+    @Override
+    public String toString(){
+        return nomeServico;
+    }
 }

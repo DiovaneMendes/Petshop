@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import Util.DateTimeUtil;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class ProjetoPet {
 
@@ -19,6 +23,32 @@ public class ProjetoPet {
         listaPets = new ArrayList<>();
         listaServico = new ArrayList<>();
         listaVendaServico = new ArrayList<>();
+        
+        //============TESTE CLIENTE========
+        Cliente c1 = new Cliente("diovane", 609606722, 457896321);
+        Cliente c2 = new Cliente("bianca", 604826722, 457987891);
+        Cliente c3 = new Cliente("juliana", 604894722, 457364721);
+            listaClientes.add(c1);
+            listaClientes.add(c2);
+            listaClientes.add(c3);
+            
+        //===========TESTE SERVICO==========
+        TipoServico t1 = new TipoServico(10, "tosa1", "a", 28);
+        TipoServico t2 = new TipoServico(20, "tosa2", "b", 38);
+        TipoServico t3 = new TipoServico(30, "tosa3", "c", 48);
+            listaServico.add(t1);
+            listaServico.add(t2);
+            listaServico.add(t3);
+            
+        //============TESTE PET============
+        Pet pet1 = new Pet("TED1", "gato", c1, t1);
+        Pet pet2 = new Pet("TED2", "dog", c1, t2);
+        Pet pet3 = new Pet("TED3", "gato", c3, t3);
+            listaPets.add(pet1);
+            listaPets.add(pet2);
+            listaPets.add(pet3);
+        
+        
 
         int opcao = 0;
         do {
@@ -34,7 +64,8 @@ public class ProjetoPet {
 
                 switch (opcao) {
                     case 1:
-                        adicionarCliente();
+                        //adicionarCliente();
+                        clienteMaisFrequentes();
                         break;
                     case 2:
                         listarClientes();
@@ -55,6 +86,9 @@ public class ProjetoPet {
                         vendido();
                         break;
                     case 8:
+                        listaVenda();
+                        break;
+                    case 9:
                         //relatorio();
                         break;
                     case 0:
@@ -70,6 +104,7 @@ public class ProjetoPet {
     }
     
     //==============================CASE 1======================================
+    //CADASTRANDO CLIENTES
     private static void adicionarCliente() {
         System.out.println("\nAdicionando Cliente...");
         try{            
@@ -86,6 +121,7 @@ public class ProjetoPet {
     }
     
     //==============================CASE 2======================================
+    //LISTANDO CLIENTES CADASTRADOS
     private static void listarClientes() {
         System.out.println("\nListando Clientes...");
         if (listaClientes.isEmpty()) {
@@ -109,7 +145,8 @@ public class ProjetoPet {
     }
     
     //==============================CASE 3======================================
-    private static void adicionarPet() {
+    //CADASTRANDO PETS
+    private static void adicionarPet() {        
         if (listaClientes.isEmpty() || listaServico.isEmpty()) {
             System.out.println("Adicione cliente e servico antes dessa acao!");
         } else{
@@ -117,52 +154,41 @@ public class ProjetoPet {
             String nomePet = Console.scanString("Nome: ");
             String tipoAnimal = Console.scanString("Tipo pet: ");
             Cliente dono = null;
-            boolean validarCliente = true;
-            do{
-                //Lista de clientes antes de escolher um
-                listarClientes();
-                String donoString = Console.scanString("Dono: ");
-                //DANDO ERRO!
+            
+            //LISTANDO CLIENTES PARA ESCOLHA DE DONO
+            System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
+            for(Cliente c: listaClientes){
+                System.out.println(String.format("%-20s",c.getNome()));
+            }
+            //ESCOLHENDO DONO
+            String donoString = Console.scanString("Dono: ");
+            try{
                 for(Cliente c: listaClientes){
                     if(donoString.equals(c.getNome())){
                         dono = c;
-                        validarCliente = false;
-                    } else{
-                        System.out.println("Erro: Nome não confere com a lista de clientes acima!");
-                        int adicionarCliente = Console.scanInt("\nDeseja cadastrar cliente novo? \n1- Adicionar\n2- Escolher cliente existente\nOpcao: ");
-                        if(adicionarCliente == 1){
-                            adicionarCliente();
-                            listarClientes();
-                            donoString = Console.scanString("Dono: ");
-                            if(donoString.equals(c.getNome())){
-                                dono = c;
-                            }
-                        }                        
                     }
                 }
-            } while(validarCliente);
+            }catch(Exception e){
+                System.out.println("ERROOOOOOOOOOOO!");
+            }
             
-            TipoServico servicoRealizado = null;
-            boolean validarServico = true;
-            do{   
-                //Lista de servicos antes de escolher um
-                listarServico();
-                String servicoReal = Console.scanString("Servico Realizado: ");                
+            TipoServico servicoRealizado = null; 
+            //LISTANDO SERVICOS PARA ESCOLHA
+            System.out.println(String.format("%-20s","\n|LISTA DE SERVICOS:"));
+            for(TipoServico ts: listaServico){
+                System.out.println(String.format("%-20s",ts.getNomeServico()));
+            }
+            //ESCOLHENDO SERVICO DESEJADO
+            String servicoReal = Console.scanString("Servico Realizado: ");
+            try{
                 for(TipoServico t: listaServico){
                     if(servicoReal.equals(t.getNomeServico())){
                         servicoRealizado = t;
-                        validarServico = false;
-                    } else{
-                        System.out.println("Erro: Nome não confere com a lista de servicos acima!");
-                        int adicionarServico = Console.scanInt("\nDeseja cadastrar servico novo? \n1- Adicionar\n2- Escolher servico existente\nOpcao: ");
-                        if(adicionarServico == 1){
-                            adicionarServico();
-                            listarServico();
-                            servicoReal = Console.scanString("Servico Realizado: ");
-                        }
                     }
                 }
-            }while(validarServico);
+            }catch(Exception e){
+                System.out.println("ERROOOOOOOOOOOO!");
+            }
 
             Pet pet = new Pet(nomePet, tipoAnimal, dono, servicoRealizado);
             listaPets.add(pet);
@@ -171,6 +197,7 @@ public class ProjetoPet {
     }
         
     //==============================CASE 4======================================
+    //LISTANDO PETS CADASTRADOS
     private static void listarPets() {
         System.out.println("\nListando Pets...");
         if (listaPets.isEmpty()) {
@@ -195,7 +222,8 @@ public class ProjetoPet {
     }
     
     //==============================CASE 5======================================
-    private static void adicionarServico() {
+    //CADASTRANDO SERVICOS
+    private static void adicionarServico() {        
         System.out.println("\nAdicionando Servico...");
         /*
         TRY funciona da seguinte forma: 
@@ -221,6 +249,7 @@ public class ProjetoPet {
     }
     
     //==============================CASE 6======================================
+    //LISTANDO SERVICOS CADASTRADOS
     private static void listarServico() {
         System.out.println("\nListando Servicos...");
         if (listaServico.isEmpty()) {
@@ -245,16 +274,24 @@ public class ProjetoPet {
     }
     
     //==============================CASE 7======================================
+    //REALIZANDO UMA VENDA
     private static void vendido(){
         if (listaClientes.isEmpty() || listaServico.isEmpty() || listaPets.isEmpty()) {
-	    System.out.println("Adicione cliente e servico antes dessa acao!");
+	    System.out.println("Adicione cliente, servico e/ou pet antes dessa acao!");
         } else{
             System.out.println("\nRealizando venda...");
-            try{  
-                System.out.println("Data: "); 
+            try{
+                //INSERINDO DATA ATUAL
                 String data = DateTimeUtil.dateTimeToString(LocalDateTime.now());
-                //Lista de clientes antes de escolher um
-	        listarClientes();
+                System.out.println("Data: " + data); 
+                
+                //MOSTRA A LISTA DE CLIENTES
+                System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
+                for(Cliente c: listaClientes){
+                    System.out.println(String.format("%-20s",c.getNome()));
+
+                }
+                //INCLUINDO NOME DE CLIENTE E VERIFICANDO SE COSTA NA LISTA DE CLIENTES
                 String nomeCliente = Console.scanString("Nome cliente: ");
                 Cliente cliente = null;
                 for(Cliente c: listaClientes){
@@ -262,18 +299,21 @@ public class ProjetoPet {
                         cliente = c;
                     }
                 }
-
-                //String tipoAtendimento = Console.scanString("Servico realizado: ");
-                TipoServico tipoServico = null;
+                
+                //LISTANDO SERVICOS REALIZADOS E INCLUINDO VALOR TOTAL
+                TipoServico tipoServico;
+                ArrayList<TipoServico> listaServicoVenda = new ArrayList<>();
                 double valorTotal = 0;
                 for(Pet p: listaPets){
                     if(nomeCliente.equals(p.getDono().getNome())){
                         tipoServico = p.getServicoRealizado();
+                        listaServicoVenda.add(tipoServico);
                         valorTotal = valorTotal + tipoServico.getPrecoServico();
                     }                
                 }
                 
-                VendaServico vendaServico = new VendaServico(data, cliente, tipoServico, valorTotal);
+                //INSERINDO INFORMACOES COLETADAS ACIMA PARA CRIAR UM NOVO OBJETO E DEPOIS ADICIONANDO NO ARRAY
+                VendaServico vendaServico = new VendaServico(data, cliente, listaServicoVenda, valorTotal);
                 listaVendaServico.add(vendaServico);
                 System.out.println("Venda concluida!");
             } catch(Exception e){
@@ -283,7 +323,50 @@ public class ProjetoPet {
     }
     
     //==============================CASE 8======================================
-    private static void relatorio(){
+    //LISTANDO VENDAS REALIZADAS
+    private static void listaVenda(){
+        System.out.println("\nListando vendas...");
+        if(listaVendaServico.isEmpty()){
+            System.out.println("Nenhuma venda realizada!");
+        }
+        else{
+            System.out.print(String.format("%-20s","|DATA E HORA"));
+            System.out.print(String.format("%-15s","|NOME CLIENTE"));
+            System.out.print(String.format("%-25s","|SERVICOS REALIZADOS"));
+            System.out.println(String.format("%-15s","|VALOR TOTAL"));
+            for(VendaServico vs: listaVendaServico){
+                System.out.print(String.format("%-20s",vs.getDataEHora()));
+                System.out.print(String.format("%-15s",vs.getCliente().getNome()));
+                System.out.print(String.format("%-25s",vs.getListaServico()));
+                System.out.println(String.format("%-15s",vs.getValorTotal()));
+            }
+        }        
+    } 
+    
+    //==============================CASE 9======================================
+    // TA DANDO RUIM AQUIIIIIIIIIIIII!
+    private static void clienteMaisFrequentes(){
+        int tamanhoVetor = 0;
+        for(int i=0; i<listaVendaServico.size(); i++){
+            tamanhoVetor++;
+        }
+        String[] maisFrequente = new String [tamanhoVetor];
+        int[] quantidade = new int[tamanhoVetor];
         
+        int acumulador = 0;
+        for(Cliente c: listaClientes){
+            int indice = 0;
+            String nome = null;
+            for(VendaServico vs:listaVendaServico){
+                acumulador++;
+                if(c.getNome().equals(vs.getCliente().getNome())){
+                    if(indice==0){
+                        nome = c.getNome();
+                    }
+                    indice++;
+                }
+            }
+            maisFrequente[acumulador] = nome;
+        }
     }
 }
