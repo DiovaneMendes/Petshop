@@ -1,11 +1,12 @@
 /*
 Cadastro de clientes: para cada cliente, anota-se o RG, nome e telefone.
 */
-package projetopet;
+package model;
 
-public class Cliente {
+public class Cliente{
     private String nome;
     private long rg, telefone;
+    private int quantidadeCompra;
 
     public Cliente(String nome, long rg, long telefone) {
         this.nome = nome;
@@ -23,5 +24,13 @@ public class Cliente {
 
     public long getTelefone() {
         return telefone;
+    }
+    
+    public void setQuantidadeCompra(int quantidadeCompra){
+        this.quantidadeCompra = quantidadeCompra;
+    }
+    
+    public int getQuantidadeCompra(){
+        return quantidadeCompra;
     }
 }

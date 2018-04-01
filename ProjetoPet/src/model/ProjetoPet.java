@@ -1,52 +1,57 @@
 
-package projetopet;
+package model;
 
+import Relatorio.MaisFrequente;
 import Util.Console;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import Util.DateTimeUtil;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 public class ProjetoPet {
-
     private static ArrayList<Cliente> listaClientes;
     private static ArrayList<Pet> listaPets;
     private static ArrayList<TipoServico> listaServico;
     private static ArrayList<VendaServico> listaVendaServico;
+    private static ArrayList<MaisFrequente> listaMaisFrequente;
     
     public static void main(String[] args) {
         listaClientes = new ArrayList<>();
         listaPets = new ArrayList<>();
         listaServico = new ArrayList<>();
         listaVendaServico = new ArrayList<>();
+        listaMaisFrequente = new ArrayList<>();
         
         //============TESTE CLIENTE========
         Cliente c1 = new Cliente("diovane", 609606722, 457896321);
         Cliente c2 = new Cliente("bianca", 604826722, 457987891);
         Cliente c3 = new Cliente("juliana", 604894722, 457364721);
+        Cliente c4 = new Cliente("yohana", 987543564, 457361423);
             listaClientes.add(c1);
             listaClientes.add(c2);
             listaClientes.add(c3);
+            listaClientes.add(c4);
             
         //===========TESTE SERVICO==========
         TipoServico t1 = new TipoServico(10, "tosa1", "a", 28);
         TipoServico t2 = new TipoServico(20, "tosa2", "b", 38);
         TipoServico t3 = new TipoServico(30, "tosa3", "c", 48);
+        TipoServico t4 = new TipoServico(40, "tosa4", "d", 58);
             listaServico.add(t1);
             listaServico.add(t2);
             listaServico.add(t3);
+            listaServico.add(t4);
             
         //============TESTE PET============
         Pet pet1 = new Pet("TED1", "gato", c1, t1);
         Pet pet2 = new Pet("TED2", "dog", c1, t2);
         Pet pet3 = new Pet("TED3", "gato", c3, t3);
+        Pet pet4 = new Pet("TED4", "dog", c4, t4);
             listaPets.add(pet1);
             listaPets.add(pet2);
             listaPets.add(pet3);
+            listaPets.add(pet4);
         
         
 
@@ -65,7 +70,6 @@ public class ProjetoPet {
                 switch (opcao) {
                     case 1:
                         //adicionarCliente();
-                        clienteMaisFrequentes();
                         break;
                     case 2:
                         listarClientes();
@@ -315,7 +319,7 @@ public class ProjetoPet {
                 //INSERINDO INFORMACOES COLETADAS ACIMA PARA CRIAR UM NOVO OBJETO E DEPOIS ADICIONANDO NO ARRAY
                 VendaServico vendaServico = new VendaServico(data, cliente, listaServicoVenda, valorTotal);
                 listaVendaServico.add(vendaServico);
-                System.out.println("Venda concluida!");
+                System.out.println("Venda concluida!");           
             } catch(Exception e){
                 System.out.println("ERROOOOOOOOOOOO!");
             }
@@ -344,29 +348,41 @@ public class ProjetoPet {
     } 
     
     //==============================CASE 9======================================
-    // TA DANDO RUIM AQUIIIIIIIIIIIII!
-    private static void clienteMaisFrequentes(){
-        int tamanhoVetor = 0;
-        for(int i=0; i<listaVendaServico.size(); i++){
-            tamanhoVetor++;
-        }
-        String[] maisFrequente = new String [tamanhoVetor];
-        int[] quantidade = new int[tamanhoVetor];
-        
-        int acumulador = 0;
-        for(Cliente c: listaClientes){
-            int indice = 0;
-            String nome = null;
-            for(VendaServico vs:listaVendaServico){
-                acumulador++;
-                if(c.getNome().equals(vs.getCliente().getNome())){
-                    if(indice==0){
-                        nome = c.getNome();
+    //LISTANDO CLIENTE MAIS FREQUENTES
+    private static void listaMaisFrequente(){
+        if(listaVendaServico.isEmpty()){
+            System.out.println("\nNão há nenhuma venda!");
+        }else{
+            listaMaisFrequente.clear();
+            for(Cliente c: listaClientes){
+                String nome = null;
+                int acumulador = 0;
+                for(VendaServico vs:listaVendaServico){
+                    if(c.getNome().equals(vs.getCliente().getNome())){
+                        if(acumulador==0){
+                            nome = c.getNome();
+                        }
+                        acumulador++;
                     }
-                    indice++;
+                }
+                if(nome!=null || acumulador!=0){
+                    MaisFrequente maisFrequente = new MaisFrequente(acumulador, nome);
+                    listaMaisFrequente.add(maisFrequente);
+                    Collections.sort(listaMaisFrequente);
                 }
             }
-            maisFrequente[acumulador] = nome;
+            //MOSTRANDO A LISTA
+            System.out.println("\nCLIENTES MAIS FREQUENTES:");
+            System.out.print(String.format("%-15s","|QUANTIDADE"));
+            System.out.println(String.format("%-15s","|NOME"));
+            int i =0;
+            for(MaisFrequente mf: listaMaisFrequente){
+                i++;
+                if(i<4){
+                    System.out.print(String.format("%-15s", mf.getQuantidade()));
+                    System.out.println(String.format("%-15s", mf.getCliente()));
+                }
+            }
         }
     }
 }

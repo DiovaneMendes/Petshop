@@ -4,7 +4,7 @@ o nome do serviço, tipo de atendimento (clínico, estético - String)
 e o preço do serviço.
 */
 
-package projetopet;
+package model;
 
 public class TipoServico {
     private int numeroServico;

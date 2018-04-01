@@ -3,7 +3,7 @@ Cadastro de pets: o pet possui como informação o nome,
 o tipo de animal (String) e o cliente (dono do animal).
 */
 
-package projetopet;
+package model;
 
 public class Pet {
     private String nomePet, tipoAnimal;
