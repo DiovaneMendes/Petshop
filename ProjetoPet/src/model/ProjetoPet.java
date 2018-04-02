@@ -2,12 +2,16 @@
 package model;
 
 import Relatorio.MaisFrequente;
+import Relatorio.MaisGastam;
+import Relatorio.VendasPorMes;
 import Util.Console;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import Util.DateTimeUtil;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Random;
 
 public class ProjetoPet {
     private static ArrayList<Cliente> listaClientes;
@@ -15,6 +19,8 @@ public class ProjetoPet {
     private static ArrayList<TipoServico> listaServico;
     private static ArrayList<VendaServico> listaVendaServico;
     private static ArrayList<MaisFrequente> listaMaisFrequente;
+    private static ArrayList<MaisGastam> listaMaisGastam;
+    private static ArrayList<VendasPorMes> listaVendasPorMes;
     
     public static void main(String[] args) {
         listaClientes = new ArrayList<>();
@@ -22,6 +28,8 @@ public class ProjetoPet {
         listaServico = new ArrayList<>();
         listaVendaServico = new ArrayList<>();
         listaMaisFrequente = new ArrayList<>();
+        listaMaisGastam = new ArrayList<>();
+        listaVendasPorMes = new ArrayList<>();
         
         //============TESTE CLIENTE========
         Cliente c1 = new Cliente("diovane", 609606722, 457896321);
@@ -52,9 +60,7 @@ public class ProjetoPet {
             listaPets.add(pet2);
             listaPets.add(pet3);
             listaPets.add(pet4);
-        
-        
-
+            
         int opcao = 0;
         do {
 
@@ -70,9 +76,11 @@ public class ProjetoPet {
                 switch (opcao) {
                     case 1:
                         //adicionarCliente();
+                        listaMaisFrequente();
                         break;
                     case 2:
-                        listarClientes();
+                        //listarClientes();
+                        listaVendaPorMes();
                         break;
                     case 3:
                         adicionarPet();
@@ -286,8 +294,20 @@ public class ProjetoPet {
             System.out.println("\nRealizando venda...");
             try{
                 //INSERINDO DATA ATUAL
-                String data = DateTimeUtil.dateTimeToString(LocalDateTime.now());
-                System.out.println("Data: " + data); 
+                /*String data = DateTimeUtil.dateTimeToString(LocalDateTime.now());
+                System.out.println("Data: " + data);*/
+                
+                //DATA PARA TESTE
+                String[] sorteioData = new String [12];
+                sorteioData[0] = "10/01/2017"; sorteioData[1] = "15/02/2017"; sorteioData[2] = "30/03/2017";
+                sorteioData[3] = "18/04/2017"; sorteioData[4] = "21/05/2017"; sorteioData[5] = "31/06/2017";
+                sorteioData[6] = "07/07/2017"; sorteioData[7] = "13/08/2017"; sorteioData[8] = "24/09/2017";
+                sorteioData[9] = "22/10/2017"; sorteioData[10] = "02/11/2017"; sorteioData[11] = "11/12/2017";
+                
+                Random gerador = new Random();
+                String dataTeste = sorteioData[gerador.nextInt(10)];
+                LocalDate datta = DateTimeUtil.stringToDate(dataTeste);
+                System.out.println("NÃO FORMATADA: "+datta);
                 
                 //MOSTRA A LISTA DE CLIENTES
                 System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
@@ -317,8 +337,9 @@ public class ProjetoPet {
                 }
                 
                 //INSERINDO INFORMACOES COLETADAS ACIMA PARA CRIAR UM NOVO OBJETO E DEPOIS ADICIONANDO NO ARRAY
-                VendaServico vendaServico = new VendaServico(data, cliente, listaServicoVenda, valorTotal);
+                VendaServico vendaServico = new VendaServico(datta, cliente, listaServicoVenda, valorTotal);
                 listaVendaServico.add(vendaServico);
+                
                 System.out.println("Venda concluida!");           
             } catch(Exception e){
                 System.out.println("ERROOOOOOOOOOOO!");
@@ -339,7 +360,7 @@ public class ProjetoPet {
             System.out.print(String.format("%-25s","|SERVICOS REALIZADOS"));
             System.out.println(String.format("%-15s","|VALOR TOTAL"));
             for(VendaServico vs: listaVendaServico){
-                System.out.print(String.format("%-20s",vs.getDataEHora()));
+                System.out.print(String.format("%-20s",vs.getDataEHora().format(DateTimeUtil.formatadorData)));
                 System.out.print(String.format("%-15s",vs.getCliente().getNome()));
                 System.out.print(String.format("%-25s",vs.getListaServico()));
                 System.out.println(String.format("%-15s",vs.getValorTotal()));
@@ -382,6 +403,89 @@ public class ProjetoPet {
                     System.out.print(String.format("%-15s", mf.getQuantidade()));
                     System.out.println(String.format("%-15s", mf.getCliente()));
                 }
+            }
+        }
+    }
+    
+    //LISTANDO CLIENTE QUE MAIS GASTAM
+    private static void listaMaisGastam(){
+        if(listaVendaServico.isEmpty()){
+            System.out.println("\nNão há nenhuma venda!");
+        }else{
+            listaMaisGastam.clear();
+            for(Cliente c: listaClientes){
+                String nome = null;
+                double valorTotal = 0;
+                for(VendaServico vs:listaVendaServico){
+                    if(c.getNome().equals(vs.getCliente().getNome())){
+                        if(valorTotal==0){
+                            nome = c.getNome();
+                        }
+                        valorTotal = valorTotal + vs.getValorTotal();
+                    }
+                }
+                if(nome!=null || valorTotal!=0){
+                    MaisGastam maisGastam = new MaisGastam(nome, valorTotal);
+                    listaMaisGastam.add(maisGastam);
+                    Collections.sort(listaMaisGastam);
+                }
+            }
+            //MOSTRANDO A LISTA
+            System.out.println("\nCLIENTES MAIS GASTAM:");
+            System.out.print(String.format("%-15s","|NOME"));
+            System.out.println(String.format("%-15s","|VALOR TOTAL"));
+            int i =0;
+            for(MaisGastam mg: listaMaisGastam){
+                i++;
+                if(i<4){
+                    System.out.print(String.format("%-15s", mg.getCliente()));
+                    System.out.println(String.format("%-15s", mg.getValorTotal()));
+                }
+            }
+        }
+    }
+    
+    //LISTANDO VENDAS POR MES
+    //PRECISA RECODIFICAR
+    private static void listaVendaPorMes(){
+        if(listaVendaServico.isEmpty()){
+            System.out.println("\nNão há nenhuma venda!");
+        }else{
+            listaVendasPorMes.clear();
+            for(TipoServico ts: listaServico){
+                double valorTotalMes = 0;
+                int quantidade = 0;
+                int mes = 0;
+                int ano = 0;
+                
+                for(VendaServico vs: listaVendaServico){
+                    if(mes != vs.getDataEHora().getMonthValue()){
+                        mes = vs.getDataEHora().getMonthValue();
+                        ano = vs.getDataEHora().getYear();
+                    }
+                    if(mes==vs.getDataEHora().getMonthValue()){
+                        if(vs.getDataEHora().getMonthValue()==mes && vs.getDataEHora().getYear()==ano){
+                            valorTotalMes = valorTotalMes + ts.getPrecoServico();
+                            quantidade++;
+                        }                        
+                    }
+                }
+                if(mes!=0){
+                    VendasPorMes vendasPorMes = new VendasPorMes(mes, ano, quantidade, valorTotalMes);
+                    listaVendasPorMes.add(vendasPorMes);
+                    Collections.sort(listaVendasPorMes);
+                }
+            }
+            
+            //MOSTRANDO A LISTA
+            System.out.println("\nVENDAS POR MES:");
+            System.out.print(String.format("%-15s","|MES/ANO"));
+            System.out.print(String.format("%-15s","|QTD VENDAS"));
+            System.out.println(String.format("%-15s","|VALOR"));
+            for(VendasPorMes vpm: listaVendasPorMes){
+                System.out.print(String.format("%-15s", vpm.getMes()+"/"+vpm.getAno()));
+                System.out.print(String.format("%-15s", vpm.getQuantidadeVenda()));
+                System.out.println(String.format("%-15s", vpm.getValorPorMes()));
             }
         }
     }

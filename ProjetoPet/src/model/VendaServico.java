@@ -6,22 +6,23 @@ O sistema deverá calcular o valor total da venda.
 */
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class VendaServico {
-    private String dataEHora;
+    private LocalDate dataEHora;
     private Cliente cliente;
     private double valorTotal;
     private ArrayList<TipoServico> listaServico;
     
-    public VendaServico(String dataEHora, Cliente cliente, ArrayList<TipoServico> listaServico, double valorTotal){
+    public VendaServico(LocalDate dataEHora, Cliente cliente, ArrayList<TipoServico> listaServico, double valorTotal){
         this.dataEHora = dataEHora;
         this.cliente = cliente;
         this.listaServico = listaServico;
         this.valorTotal = valorTotal;
     }
 
-    public String getDataEHora() {
+    public LocalDate getDataEHora() {
         return dataEHora;
     }
 
