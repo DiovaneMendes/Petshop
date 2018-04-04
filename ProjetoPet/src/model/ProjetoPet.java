@@ -451,42 +451,51 @@ public class ProjetoPet {
         if(listaVendaServico.isEmpty()){
             System.out.println("\nNão há nenhuma venda!");
         }else{
+            int mes = 0;
             listaVendasPorMes.clear();
-            for(TipoServico ts: listaServico){
+            
+            for(VendaServico vs: listaVendaServico){
                 double valorTotalMes = 0;
                 int quantidade = 0;
-                int mes = 0;
                 int ano = 0;
-                
-                for(VendaServico vs: listaVendaServico){
-                    if(mes != vs.getDataEHora().getMonthValue()){
-                        mes = vs.getDataEHora().getMonthValue();
-                        ano = vs.getDataEHora().getYear();
-                    }
-                    if(mes==vs.getDataEHora().getMonthValue()){
-                        if(vs.getDataEHora().getMonthValue()==mes && vs.getDataEHora().getYear()==ano){
-                            valorTotalMes = valorTotalMes + ts.getPrecoServico();
-                            quantidade++;
-                        }                        
-                    }
+                for(VendasPorMes vpm: listaVendasPorMes){
+                    if(mes == vs.getDataEHora().getMonthValue()){
+                        ano = vpm.getAno();
+                        quantidade = vpm.getQuantidadeVenda();
+                        valorTotalMes = vpm.getValorPorMes();
+                    }else{
+                        mes = 0;
+                    }   
                 }
+                 
+                if(mes != vs.getDataEHora().getMonthValue()){
+                    mes = vs.getDataEHora().getMonthValue();
+                    ano = vs.getDataEHora().getYear();
+                    valorTotalMes = vs.getValorTotal();
+                    quantidade = 1;
+                }else{
+                    valorTotalMes = valorTotalMes + vs.getValorTotal();
+                    quantidade++;
+                }
+                
                 if(mes!=0){
                     VendasPorMes vendasPorMes = new VendasPorMes(mes, ano, quantidade, valorTotalMes);
                     listaVendasPorMes.add(vendasPorMes);
-                    Collections.sort(listaVendasPorMes);
                 }
             }
             
-            //MOSTRANDO A LISTA
-            System.out.println("\nVENDAS POR MES:");
-            System.out.print(String.format("%-15s","|MES/ANO"));
-            System.out.print(String.format("%-15s","|QTD VENDAS"));
-            System.out.println(String.format("%-15s","|VALOR"));
-            for(VendasPorMes vpm: listaVendasPorMes){
-                System.out.print(String.format("%-15s", vpm.getMes()+"/"+vpm.getAno()));
-                System.out.print(String.format("%-15s", vpm.getQuantidadeVenda()));
-                System.out.println(String.format("%-15s", vpm.getValorPorMes()));
-            }
+            Collections.sort(listaVendasPorMes);
+        }
+            
+        //MOSTRANDO A LISTA
+        System.out.println("\nVENDAS POR MES:");
+        System.out.print(String.format("%-15s","|MES/ANO"));
+        System.out.print(String.format("%-15s","|QTD VENDAS"));
+        System.out.println(String.format("%-15s","|VALOR"));
+        for(VendasPorMes vpm: listaVendasPorMes){
+            System.out.print(String.format("%-15s", vpm.getMes()+"/"+vpm.getAno()));
+            System.out.print(String.format("%-15s", vpm.getQuantidadeVenda()));
+            System.out.println(String.format("%-15s", vpm.getValorPorMes()));
         }
     }
 }
