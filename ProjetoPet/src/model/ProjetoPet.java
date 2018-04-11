@@ -3,6 +3,7 @@ package model;
 
 import Relatorio.MaisFrequente;
 import Relatorio.MaisGastam;
+import Relatorio.ServicoMaisVendido;
 import Relatorio.VendasPorMes;
 import Util.Console;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class ProjetoPet {
     private static ArrayList<MaisFrequente> listaMaisFrequente;
     private static ArrayList<MaisGastam> listaMaisGastam;
     private static ArrayList<VendasPorMes> listaVendasPorMes;
+    private static ArrayList<ServicoMaisVendido> listaServicoMaisVendido;
+    
     
     public static void main(String[] args) {
         listaClientes = new ArrayList<>();
@@ -30,6 +33,7 @@ public class ProjetoPet {
         listaMaisFrequente = new ArrayList<>();
         listaMaisGastam = new ArrayList<>();
         listaVendasPorMes = new ArrayList<>();
+        listaServicoMaisVendido = new ArrayList<>();
         
         //============TESTE CLIENTE========
         Cliente c1 = new Cliente("diovane", 609606722, 457896321);
@@ -446,46 +450,48 @@ public class ProjetoPet {
     }
     
     //LISTANDO VENDAS POR MES
-    //PRECISA RECODIFICAR
     private static void listaVendaPorMes(){
         if(listaVendaServico.isEmpty()){
             System.out.println("\nNão há nenhuma venda!");
-        }else{
-            int mes = 0;
+        }
+        else{
+            ArrayList<Integer> listaApoio = new ArrayList<Integer>();
+            listaApoio.add(0);
             listaVendasPorMes.clear();
+            int mes;
+            int ano;
             
-            for(VendaServico vs: listaVendaServico){
-                double valorTotalMes = 0;
-                int quantidade = 0;
-                int ano = 0;
-                for(VendasPorMes vpm: listaVendasPorMes){
-                    if(mes == vs.getDataEHora().getMonthValue()){
-                        ano = vpm.getAno();
-                        quantidade = vpm.getQuantidadeVenda();
-                        valorTotalMes = vpm.getValorPorMes();
-                    }else{
+
+            for(VendaServico vs1: listaVendaServico){
+            mes = vs1.getDataEHora().getMonthValue();
+            ano = vs1.getDataEHora().getYear();
+            int quantidade = 0;
+            double valorTotalMes = 0;
+            
+                for(Integer i: listaApoio){
+                    if(mes == i){
                         mes = 0;
-                    }   
+                        ano = 0;
+                    }
                 }
-                 
-                if(mes != vs.getDataEHora().getMonthValue()){
-                    mes = vs.getDataEHora().getMonthValue();
-                    ano = vs.getDataEHora().getYear();
-                    valorTotalMes = vs.getValorTotal();
-                    quantidade = 1;
-                }else{
-                    valorTotalMes = valorTotalMes + vs.getValorTotal();
-                    quantidade++;
+                
+                for(VendaServico vs2: listaVendaServico){
+                    if(mes == vs2.getDataEHora().getMonthValue() && ano == vs2.getDataEHora().getYear()){
+                        quantidade++;
+                        valorTotalMes = valorTotalMes + vs2.getValorTotal();
+                    }
                 }
                 
                 if(mes!=0){
                     VendasPorMes vendasPorMes = new VendasPorMes(mes, ano, quantidade, valorTotalMes);
                     listaVendasPorMes.add(vendasPorMes);
                 }
+                listaApoio.add(mes);
             }
-            
-            Collections.sort(listaVendasPorMes);
         }
+            
+        Collections.sort(listaVendasPorMes);
+        
             
         //MOSTRANDO A LISTA
         System.out.println("\nVENDAS POR MES:");
@@ -498,4 +504,44 @@ public class ProjetoPet {
             System.out.println(String.format("%-15s", vpm.getValorPorMes()));
         }
     }
+    
+    //- Relatório: serviços mais vendidos, tipos de pets que fornecem mais lucro, etc.
+    //LISTANDO SERVICOS MAIS VENDIDOS
+    private static void listaServicoMaisVendido(){
+        if(listaVendaServico.isEmpty()){
+            System.out.println("\nNão há nenhuma venda!");
+        }
+        else{
+            ArrayList<Integer> listaApoio = new ArrayList<Integer>();
+            listaApoio.add(0);
+            
+            listaServicoMaisVendido.clear();
+            int quantidade;
+            String nomeServico;
+            
+            for(VendaServico vs: listaVendaServico){
+                for(TipoServico ts :listaServico){
+                    
+                }
+            }
+
+            
+        }
+            
+        //Collections.sort();
+        
+            
+        //MOSTRANDO A LISTA
+        System.out.println("\nSERVICOS MAIS VENDIDOS:");
+        System.out.print(String.format("%-15s","|QTD VENDAS"));
+        System.out.println(String.format("%-15s","|TIPO SERVICO"));
+        for(VendasPorMes vpm: listaVendasPorMes){
+            System.out.print(String.format("%-15s", vpm.getQuantidadeVenda()));
+            System.out.println(String.format("%-15s", vpm.getValorPorMes()));
+        }
+    }
 }
+
+
+
+
