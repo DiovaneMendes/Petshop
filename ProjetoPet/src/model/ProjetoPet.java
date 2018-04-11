@@ -84,7 +84,7 @@ public class ProjetoPet {
                         break;
                     case 2:
                         //listarClientes();
-                        listaVendaPorMes();
+                        listaServicoMaisVendido();
                         break;
                     case 3:
                         adicionarPet();
@@ -512,32 +512,48 @@ public class ProjetoPet {
             System.out.println("\nNão há nenhuma venda!");
         }
         else{
-            ArrayList<Integer> listaApoio = new ArrayList<Integer>();
-            listaApoio.add(0);
+            ArrayList<String> listaApoio = new ArrayList<String>();
+            listaApoio.add("a");
             
             listaServicoMaisVendido.clear();
-            int quantidade;
             String nomeServico;
             
             for(VendaServico vs: listaVendaServico){
-                for(TipoServico ts :listaServico){
+                for(TipoServico tsDaVenda1: vs.getListaServico()){
+                    int quantidade = 0;
+                    nomeServico = tsDaVenda1.getNomeServico();
                     
+                    for(String str: listaApoio){
+                        if(str.equals(nomeServico)){
+                            nomeServico = null;
+                        }
+                    }
+                    
+                    for(TipoServico tsDaVenda2: vs.getListaServico()){  
+                        if(nomeServico.equals(tsDaVenda2.getNomeServico())){
+                            quantidade++;
+                        }
+                    }
+                    
+                    if(nomeServico != null){
+                        ServicoMaisVendido servicoMV = new ServicoMaisVendido(quantidade, nomeServico);
+                        listaServicoMaisVendido.add(servicoMV);  
+                    }
+                    listaApoio.add(nomeServico);
                 }
-            }
-
-            
+            }            
         }
             
-        //Collections.sort();
+        Collections.sort(listaServicoMaisVendido);
         
             
         //MOSTRANDO A LISTA
         System.out.println("\nSERVICOS MAIS VENDIDOS:");
         System.out.print(String.format("%-15s","|QTD VENDAS"));
         System.out.println(String.format("%-15s","|TIPO SERVICO"));
-        for(VendasPorMes vpm: listaVendasPorMes){
-            System.out.print(String.format("%-15s", vpm.getQuantidadeVenda()));
-            System.out.println(String.format("%-15s", vpm.getValorPorMes()));
+        for(ServicoMaisVendido smv: listaServicoMaisVendido){
+            System.out.print(String.format("%-15s", smv.getQuantidade()));
+            System.out.println(String.format("%-15s", smv.getNomeServico()));
         }
     }
 }
