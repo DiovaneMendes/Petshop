@@ -463,25 +463,25 @@ public class ProjetoPet {
             
 
             for(VendaServico vs1: listaVendaServico){
-            mes = vs1.getDataEHora().getMonthValue();
-            ano = vs1.getDataEHora().getYear();
-            int quantidade = 0;
-            double valorTotalMes = 0;
-            
+                mes = vs1.getDataEHora().getMonthValue();
+                ano = vs1.getDataEHora().getYear();
+                int quantidade = 0;
+                double valorTotalMes = 0;
+
                 for(Integer i: listaApoio){
                     if(mes == i){
                         mes = 0;
                         ano = 0;
                     }
                 }
-                
+
                 for(VendaServico vs2: listaVendaServico){
                     if(mes == vs2.getDataEHora().getMonthValue() && ano == vs2.getDataEHora().getYear()){
                         quantidade++;
                         valorTotalMes = valorTotalMes + vs2.getValorTotal();
                     }
                 }
-                
+
                 if(mes!=0){
                     VendasPorMes vendasPorMes = new VendasPorMes(mes, ano, quantidade, valorTotalMes);
                     listaVendasPorMes.add(vendasPorMes);
@@ -519,18 +519,20 @@ public class ProjetoPet {
             String nomeServico;
             
             for(VendaServico vs: listaVendaServico){
+                
                 for(TipoServico tsDaVenda1: vs.getListaServico()){
                     int quantidade = 0;
                     nomeServico = tsDaVenda1.getNomeServico();
                     
                     for(String str: listaApoio){
-                        if(str.equals(nomeServico)){
+                        if(str==nomeServico){
                             nomeServico = null;
                         }
                     }
                     
                     for(TipoServico tsDaVenda2: vs.getListaServico()){  
-                        if(nomeServico.equals(tsDaVenda2.getNomeServico())){
+                        if(nomeServico==tsDaVenda2.getNomeServico()){
+                            System.out.println("AQUI!!!!!!!");
                             quantidade++;
                         }
                     }
