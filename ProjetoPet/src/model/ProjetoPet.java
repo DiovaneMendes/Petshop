@@ -505,50 +505,64 @@ public class ProjetoPet {
         }
     }
     
-    //- Relatório: serviços mais vendidos, tipos de pets que fornecem mais lucro, etc.
     //LISTANDO SERVICOS MAIS VENDIDOS
     private static void listaServicoMaisVendido(){
         if(listaVendaServico.isEmpty()){
             System.out.println("\nNão há nenhuma venda!");
         }
         else{
-            ArrayList<String> listaApoio = new ArrayList<String>();
+            ArrayList<String> listaApoio = new ArrayList<String>();            
             listaApoio.add("a");
             
-            listaServicoMaisVendido.clear();
-            String nomeServico;
+            //Uso de apoio
+            ArrayList<TipoServico> listaSegundariaTipoServico = new ArrayList<TipoServico>();
             
-            for(VendaServico vs: listaVendaServico){
-                
-                for(TipoServico tsDaVenda1: vs.getListaServico()){
-                    int quantidade = 0;
-                    nomeServico = tsDaVenda1.getNomeServico();
+            
+            listaServicoMaisVendido.clear();
+            
+            int numeroServico;
+            String nomeServico, tipoDeAtendimento;
+            double precoServico;
+            
+            for(VendaServico vs: listaVendaServico){                
+                for(TipoServico tsDaVenda: vs.getListaServico()){
+                    numeroServico = tsDaVenda.getNumeroServico();
+                    nomeServico = tsDaVenda.getNomeServico();
+                    tipoDeAtendimento = tsDaVenda.getTipoDeAtendimento();
+                    precoServico = tsDaVenda.getPrecoServico();
                     
-                    for(String str: listaApoio){
-                        if(str==nomeServico){
-                            nomeServico = null;
-                        }
-                    }
                     
-                    for(TipoServico tsDaVenda2: vs.getListaServico()){  
-                        if(nomeServico==tsDaVenda2.getNomeServico()){
-                            System.out.println("AQUI!!!!!!!");
-                            quantidade++;
-                        }
-                    }
-                    
-                    if(nomeServico != null){
-                        ServicoMaisVendido servicoMV = new ServicoMaisVendido(quantidade, nomeServico);
-                        listaServicoMaisVendido.add(servicoMV);  
-                    }
-                    listaApoio.add(nomeServico);
+                    TipoServico segTipoServico = new TipoServico(numeroServico, nomeServico, tipoDeAtendimento, precoServico);
+                    listaSegundariaTipoServico.add(segTipoServico);  
                 }
-            }            
+            }
+            
+            for(TipoServico ts1: listaSegundariaTipoServico){
+                int quantidade = 0;
+                String nomeServicoRelatorio = ts1.getNomeServico();
+                
+                for(String str: listaApoio){
+                    if(nomeServicoRelatorio == str){
+                        nomeServicoRelatorio = null;
+                    }
+                }
+                
+                for(TipoServico ts2: listaSegundariaTipoServico){
+                    if(nomeServicoRelatorio == ts2.getNomeServico()){
+                        quantidade++;
+                    }
+                }
+                
+                if(nomeServicoRelatorio != null){
+                    ServicoMaisVendido servicoMV = new ServicoMaisVendido(quantidade, nomeServicoRelatorio);
+                    listaServicoMaisVendido.add(servicoMV);
+                }
+                listaApoio.add(nomeServicoRelatorio);
+            }
         }
             
         Collections.sort(listaServicoMaisVendido);
         
-            
         //MOSTRANDO A LISTA
         System.out.println("\nSERVICOS MAIS VENDIDOS:");
         System.out.print(String.format("%-15s","|QTD VENDAS"));
@@ -557,6 +571,12 @@ public class ProjetoPet {
             System.out.print(String.format("%-15s", smv.getQuantidade()));
             System.out.println(String.format("%-15s", smv.getNomeServico()));
         }
+    }    
+    
+    //- Relatório: tipos de pets que fornecem mais lucro, etc.
+    //LISTANDO PETS QUE FORNECEM MAIS LUCRO
+    private static void listaPetsMaisLucro(){
+        
     }
 }
 
