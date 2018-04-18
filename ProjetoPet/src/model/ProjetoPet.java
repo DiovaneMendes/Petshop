@@ -3,6 +3,7 @@ package model;
 
 import Relatorio.MaisFrequente;
 import Relatorio.MaisGastam;
+import Relatorio.PetGeraMaisLucro;
 import Relatorio.ServicoMaisVendido;
 import Relatorio.VendasPorMes;
 import Util.Console;
@@ -23,6 +24,7 @@ public class ProjetoPet {
     private static ArrayList<MaisGastam> listaMaisGastam;
     private static ArrayList<VendasPorMes> listaVendasPorMes;
     private static ArrayList<ServicoMaisVendido> listaServicoMaisVendido;
+    private static ArrayList<PetGeraMaisLucro> listaPetMaisLucro;
     
     
     public static void main(String[] args) {
@@ -34,6 +36,7 @@ public class ProjetoPet {
         listaMaisGastam = new ArrayList<>();
         listaVendasPorMes = new ArrayList<>();
         listaServicoMaisVendido = new ArrayList<>();
+        listaPetMaisLucro = new ArrayList<>();
         
         //============TESTE CLIENTE========
         Cliente c1 = new Cliente("diovane", 609606722, 457896321);
@@ -84,7 +87,7 @@ public class ProjetoPet {
                         break;
                     case 2:
                         //listarClientes();
-                        listaServicoMaisVendido();
+                        listaPetsMaisLucro();
                         break;
                     case 3:
                         adicionarPet();
@@ -229,7 +232,7 @@ public class ProjetoPet {
                 System.out.println(String.format("%-10s","|TIPO SERVICO"));
                 for(Pet p: listaPets){
                     System.out.print(String.format("%-10s",p.getNomePet()));
-                    System.out.print(String.format("%-15s",p.getTipoanimal()));
+                    System.out.print(String.format("%-15s",p.getTipoAnimal()));
                     System.out.print(String.format("%-20s",p.getDono().getNome()));
                     System.out.println(String.format("%-10s",p.getServicoRealizado().getNomeServico()));
                 }
@@ -576,7 +579,68 @@ public class ProjetoPet {
     //- Relatório: tipos de pets que fornecem mais lucro, etc.
     //LISTANDO PETS QUE FORNECEM MAIS LUCRO
     private static void listaPetsMaisLucro(){
+        if(listaVendaServico.isEmpty()){
+            System.out.println("\nNão há nenhuma venda!");
+        }
+        else{
+            ArrayList<Pet> listaApoio = new ArrayList<Pet>();            
+            listaApoio.add(null);        
+            
+            //Uso de apoio
+            ArrayList<Pet> listaSegundariaPet = new ArrayList<Pet>();
+            
+            listaPetMaisLucro.clear(); 
+            
+            for(Pet p: listaPets){
+                for(VendaServico vs: listaVendaServico){                
+                    Pet pet = null;
+                    if(p.getDono() == vs.getCliente()){
+                        pet = p;
+                    }
+                    
+                    if(pet != null){
+                        listaSegundariaPet.add(pet);
+                    }
+                }
+            }
+            //==================================================================
+            // ta dando erro pq ta comparando objetos, porem os pets não tem o mesmo nome, por isso não junta na quantidade
+            int quantidade; 
+            Pet pet;
+            for(Pet sp1: listaSegundariaPet){
+                quantidade = 0;
+                pet = sp1;
+                
+                for(Pet pa: listaApoio){
+                    if(pet == pa){
+                        pet = null;
+                    }
+                }
+                
+                for(Pet sp2: listaSegundariaPet){
+                    if(pet == sp2){
+                        quantidade++;
+                    }
+                }  
+                
+                if(pet != null){
+                    PetGeraMaisLucro segTipoServico = new PetGeraMaisLucro(quantidade, pet);
+                    listaPetMaisLucro.add(segTipoServico);
+                }
+                listaApoio.add(pet);
+            }
+        }
+            
+        Collections.sort(listaPetMaisLucro);
         
+        //MOSTRANDO A LISTA
+        System.out.println("\nTIPO DE PET QUE GERA MAIS LUCROS:");
+        System.out.print(String.format("%-15s","|QTD VENDAS"));
+        System.out.println(String.format("%-15s","|TIPO PET"));
+        for(PetGeraMaisLucro pgml: listaPetMaisLucro){
+            System.out.print(String.format("%-15s", pgml.getQuantidade()));
+            System.out.println(String.format("%-15s", pgml.getPet().getTipoAnimal()));
+        }
     }
 }
 

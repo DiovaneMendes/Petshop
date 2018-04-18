@@ -21,7 +21,7 @@ public class Pet {
         return nomePet;
     }
     
-    public String getTipoanimal(){
+    public String getTipoAnimal(){
         return tipoAnimal;
     }
     
