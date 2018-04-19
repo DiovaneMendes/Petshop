@@ -574,9 +574,8 @@ public class ProjetoPet {
             System.out.print(String.format("%-15s", smv.getQuantidade()));
             System.out.println(String.format("%-15s", smv.getNomeServico()));
         }
-    }    
+    }
     
-    //- Relatório: tipos de pets que fornecem mais lucro, etc.
     //LISTANDO PETS QUE FORNECEM MAIS LUCRO
     private static void listaPetsMaisLucro(){
         if(listaVendaServico.isEmpty()){
@@ -604,7 +603,6 @@ public class ProjetoPet {
                 }
             }
             //==================================================================
-            // ta dando erro pq ta comparando objetos, porem os pets não tem o mesmo nome, por isso não junta na quantidade
             int quantidade; 
             String tipoPet;
             for(String stp1: listaSegundariaTipoPet){
