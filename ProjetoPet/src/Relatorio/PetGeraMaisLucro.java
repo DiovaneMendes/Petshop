@@ -1,22 +1,21 @@
-package Relatorio;
 
-import model.Pet;
+package Relatorio;
 
 public class PetGeraMaisLucro implements Comparable<PetGeraMaisLucro>{
     private int quantidade;
-    private Pet pet;
+    private String tipoPet;
     
-    public PetGeraMaisLucro(int quantidade, Pet pet){
+    public PetGeraMaisLucro(int quantidade, String tipoPet){
         this.quantidade = quantidade;
-        this.pet = pet;
+        this.tipoPet = tipoPet;
     }
 
     public int getQuantidade() {
         return quantidade;
     }
 
-    public Pet getPet() {
-        return pet;
+    public String getTipoPet() {
+        return tipoPet;
     }
 
     @Override

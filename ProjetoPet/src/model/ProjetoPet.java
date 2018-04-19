@@ -583,51 +583,51 @@ public class ProjetoPet {
             System.out.println("\nNão há nenhuma venda!");
         }
         else{
-            ArrayList<Pet> listaApoio = new ArrayList<Pet>();            
+            ArrayList<String> listaApoio = new ArrayList<String>();            
             listaApoio.add(null);        
             
             //Uso de apoio
-            ArrayList<Pet> listaSegundariaPet = new ArrayList<Pet>();
+            ArrayList<String> listaSegundariaTipoPet = new ArrayList<String>();
             
             listaPetMaisLucro.clear(); 
             
             for(Pet p: listaPets){
                 for(VendaServico vs: listaVendaServico){                
-                    Pet pet = null;
+                    String tipoPet = null;
                     if(p.getDono() == vs.getCliente()){
-                        pet = p;
+                        tipoPet = p.getTipoAnimal();
                     }
                     
-                    if(pet != null){
-                        listaSegundariaPet.add(pet);
+                    if(tipoPet != null){
+                        listaSegundariaTipoPet.add(tipoPet);
                     }
                 }
             }
             //==================================================================
             // ta dando erro pq ta comparando objetos, porem os pets não tem o mesmo nome, por isso não junta na quantidade
             int quantidade; 
-            Pet pet;
-            for(Pet sp1: listaSegundariaPet){
+            String tipoPet;
+            for(String stp1: listaSegundariaTipoPet){
                 quantidade = 0;
-                pet = sp1;
+                tipoPet = stp1;
                 
-                for(Pet pa: listaApoio){
-                    if(pet == pa){
-                        pet = null;
+                for(String str: listaApoio){
+                    if(tipoPet == str){
+                        tipoPet = null;
                     }
                 }
                 
-                for(Pet sp2: listaSegundariaPet){
-                    if(pet == sp2){
+                for(String stp2: listaSegundariaTipoPet){
+                    if(tipoPet == stp2){
                         quantidade++;
                     }
                 }  
                 
-                if(pet != null){
-                    PetGeraMaisLucro segTipoServico = new PetGeraMaisLucro(quantidade, pet);
-                    listaPetMaisLucro.add(segTipoServico);
+                if(tipoPet != null){
+                    PetGeraMaisLucro tipoGeraMaisLucro = new PetGeraMaisLucro(quantidade, tipoPet);
+                    listaPetMaisLucro.add(tipoGeraMaisLucro);
                 }
-                listaApoio.add(pet);
+                listaApoio.add(tipoPet);
             }
         }
             
@@ -639,7 +639,7 @@ public class ProjetoPet {
         System.out.println(String.format("%-15s","|TIPO PET"));
         for(PetGeraMaisLucro pgml: listaPetMaisLucro){
             System.out.print(String.format("%-15s", pgml.getQuantidade()));
-            System.out.println(String.format("%-15s", pgml.getPet().getTipoAnimal()));
+            System.out.println(String.format("%-15s", pgml.getTipoPet()));
         }
     }
 }
