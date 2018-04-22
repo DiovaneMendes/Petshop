@@ -3,12 +3,13 @@ Cadastro de clientes: para cada cliente, anota-se o RG, nome e telefone.
 */
 package model;
 
+//Criando o objeto cliente
 public class Cliente{
     private String nome;
-    private long rg, telefone;
+    private String rg, telefone;
     private int quantidadeCompra;
 
-    public Cliente(String nome, long rg, long telefone) {
+    public Cliente(String nome, String rg, String telefone) {
         this.nome = nome;
         this.rg = rg;
         this.telefone = telefone;
@@ -18,11 +19,11 @@ public class Cliente{
         return nome;
     }
 
-    public long getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public long getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
     

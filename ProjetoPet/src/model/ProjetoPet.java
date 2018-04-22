@@ -122,23 +122,6 @@ public class ProjetoPet {
         } while (opcao != 0);
     }
     
-    //==============================CASE 1======================================
-    //CADASTRANDO CLIENTES
-    private static void adicionarCliente() {
-        System.out.println("\nAdicionando Cliente...");
-        try{            
-            String nome = Console.scanString("Nome: ");
-            long rg = Console.scanLong("RG: ");
-            long telefone = Console.scanLong("Telefone: ");
-        
-            Cliente cliente = new Cliente(nome, rg, telefone);
-            listaClientes.add(cliente);
-            System.out.println("Cadastro realizado com sucesso!");
-        } catch(Exception e){
-            System.out.println("ERROOOOOOOOOOOO!");
-        }
-    }
-    
     //==============================CASE 2======================================
     //LISTANDO CLIENTES CADASTRADOS
     private static void listarClientes() {
