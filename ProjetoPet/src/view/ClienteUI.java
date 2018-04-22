@@ -60,11 +60,11 @@ public class ClienteUI {
     //Listando clientes cadastrados
     private void listarClientes() {
         if (clienteNegocio.naoHaClientes()) {
-            System.out.println("-----------------------------");
+            System.out.println("=============================");
             System.out.println("Nao ha clientes cadastrados");
-            System.out.println("-----------------------------\n");
+            System.out.println("=============================\n");
         } else {
-            System.out.println("-----------------------------\n");
+            System.out.println("=============================\n");
             System.out.println(String.format("%-20s", "NOME") + "\t"
                     + String.format("%-10s", "|RG") + "\t"
                     + String.format("%-10s", "|TELEFONE"));
