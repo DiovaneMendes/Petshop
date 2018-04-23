@@ -1,6 +1,6 @@
 package negocio;
 
-//Tratando exceções aqui para não ter que botar campo por campo na classe clienteUI
+//Tratando exceções aqui para não ter que botar campo por campo
 public class NegocioException extends Exception{    
     
     //Mostrando apenas mensagem de erro

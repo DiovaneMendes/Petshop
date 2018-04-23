@@ -2,7 +2,9 @@
 package view;
 
 import Negocio.PetNegocio;
+import Negocio.TipoServicoNegocio;
 import Repositorio.RepositorioClientes;
+import Repositorio.RepositorioTipoServico;
 import Util.Console;
 import model.Cliente;
 import model.Pet;
@@ -14,9 +16,10 @@ import view_menu.PetMenu;
  * @author Diovane
  */
 
-//Aqui é criada toda a lógica de adicionar e listar cliente
+//Aqui é criada toda a lógica de adicionar e listar pet
 public class PetUI {
     private PetNegocio petNegocio;
+    private TipoServicoNegocio servicoNegocio;
     
     //Executnado menu de cliente
     public void executar() {
@@ -42,38 +45,44 @@ public class PetUI {
     }
     
     private void adicionarPet() {
-        String nomePet = Console.scanString("Nome: ");
-        String tipoAnimal = Console.scanString("Tipo pet: ");
-        Cliente dono = null;
+        if (servicoNegocio.naoHaServicos()) {
+            System.out.println("=============================");
+            System.out.println("Cadastrar servicos primeiro!");
+            System.out.println("=============================\n");
+        }else{
+            String nomePet = Console.scanString("Nome: ");
+            String tipoAnimal = Console.scanString("Tipo pet: ");
+            Cliente dono = null;
 
-        //LISTANDO CLIENTES PARA ESCOLHA DE DONO
-        System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
-        for(Cliente c: RepositorioClientes.getInstance().getClientes()){
-            System.out.println(String.format("%-20s",c.getNome()));
-        }
-        //ESCOLHENDO DONO
-        String donoString = Console.scanString("Dono: ");
-        for(Cliente c: RepositorioClientes.getInstance().getClientes()){
-            if(donoString.equals(c.getNome())){
-                dono = c;
+            //LISTANDO CLIENTES PARA ESCOLHA DE DONO
+            System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
+            for(Cliente c: RepositorioClientes.getInstance().getClientes()){
+                System.out.println(String.format("%-20s",c.getNome()));
             }
-        }
+            //ESCOLHENDO DONO
+            String donoString = Console.scanString("Dono: ");
+            for(Cliente c: RepositorioClientes.getInstance().getClientes()){
+                if(donoString.equals(c.getNome())){
+                    dono = c;
+                }
+            }
 
-        TipoServico servicoRealizado = null; 
-        //LISTANDO SERVICOS PARA ESCOLHA
-        System.out.println(String.format("%-20s","\n|LISTA DE SERVICOS:"));
-        for(TipoServico ts: RepositorioServicos.getInstance().getNomeServico()){
-            System.out.println(String.format("%-20s",ts.getNomeServico()));
-        }
-        //ESCOLHENDO SERVICO DESEJADO
-        String servicoReal = Console.scanString("Servico Realizado: ");
-        for(TipoServico ts: RepositorioServicos.getInstance().getNomeServico()){
-            if(servicoReal.equals(ts.getNomeServico())){
-                servicoRealizado = ts;
+            TipoServico servicoRealizado = null; 
+            //LISTANDO SERVICOS PARA ESCOLHA
+            System.out.println(String.format("%-20s","\n|LISTA DE SERVICOS:"));
+            for(TipoServico ts: RepositorioTipoServico.getInstance().getTipoServico()){
+                System.out.println(String.format("%-20s",ts.getNomeServico()));
             }
+            //ESCOLHENDO SERVICO DESEJADO
+            String servicoReal = Console.scanString("Servico Realizado: ");
+            for(TipoServico ts: RepositorioTipoServico.getInstance().getTipoServico()){
+                if(servicoReal.equals(ts.getNomeServico())){
+                    servicoRealizado = ts;
+                }
+            }
+            petNegocio.salvar(new Pet(nomePet, tipoAnimal, dono, servicoRealizado));
+            System.out.println("Cadastro realizado com sucesso!");
         }
-        petNegocio.salvar(new Pet(nomePet, tipoAnimal, dono, servicoRealizado));
-        System.out.println("Cadastro realizado com sucesso!");
     }
     
     //LISTANDO PETS CADASTRADOS

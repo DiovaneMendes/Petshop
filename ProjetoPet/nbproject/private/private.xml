@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/model/Pet.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Repositorio/RepositorioPet.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Negocio/PetNegocio.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view/PetUI.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/model/ProjetoPet.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view_menu/ClienteMenu.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Negocio/NegocioException.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Negocio/ClienteNegocio.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Repositorio/RepositorioClientes.java</file>
             <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view/ClienteUI.java</file>
         </group>
     </open-files>

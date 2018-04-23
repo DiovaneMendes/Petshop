@@ -13,10 +13,10 @@ public class PetMenu {
     public static final int OP_VOLTAR = 0;
 
     public static String getOpcoes() {
-        return ("\n--------------------------------------\n"
+        return ("\n======================================\n"
                 + "1- Adicionar Pets\n"
                 + "2- Listar Pets\n"
                 + "0- Voltar"
-                + "\n--------------------------------------");
+                + "\n======================================");
     }
 }
