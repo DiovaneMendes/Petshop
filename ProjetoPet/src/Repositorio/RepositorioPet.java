@@ -36,7 +36,7 @@ public class RepositorioPet {
     }
     
     //Busca a lista de pets
-    public List<Pet> getClientes() {
+    public List<Pet> getPets() {
         return pets;
     }
 }

@@ -20,7 +20,7 @@ public class PetNegocio {
     
     //Listar a lista de pets
     public List<Pet> listarPets() {
-        return(RepositorioPet.getInstance().getClientes());
+        return(RepositorioPet.getInstance().getPets());
     }
     
     //Retorn se não há pets na lista
@@ -38,7 +38,7 @@ public class PetNegocio {
             throw new NegocioException("Campo Tipo Animal nao informado!");
         }          
         
-        if(p.getDono()== null){
+        if(p.getDono() == null){
             throw new NegocioException("Campo Dono nao informado!");
         } 
     }

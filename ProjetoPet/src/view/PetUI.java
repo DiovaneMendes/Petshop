@@ -4,6 +4,7 @@ package view;
 import Negocio.PetNegocio;
 import Negocio.TipoServicoNegocio;
 import Repositorio.RepositorioClientes;
+import Repositorio.RepositorioPet;
 import Repositorio.RepositorioTipoServico;
 import Util.Console;
 import model.Cliente;
@@ -45,9 +46,9 @@ public class PetUI {
     }
     
     private void adicionarPet() {
-        if (servicoNegocio.naoHaServicos()) {
+        if (RepositorioTipoServico.getInstance().estaVazio() || RepositorioClientes.getInstance().estaVazio()) {
             System.out.println("=============================");
-            System.out.println("Cadastrar servicos primeiro!");
+            System.out.println("Cadastrar clientes e servicos primeiro!");
             System.out.println("=============================\n");
         }else{
             String nomePet = Console.scanString("Nome: ");
@@ -73,6 +74,7 @@ public class PetUI {
             for(TipoServico ts: RepositorioTipoServico.getInstance().getTipoServico()){
                 System.out.println(String.format("%-20s",ts.getNomeServico()));
             }
+            System.out.println("------------------------");
             //ESCOLHENDO SERVICO DESEJADO
             String servicoReal = Console.scanString("Servico Realizado: ");
             for(TipoServico ts: RepositorioTipoServico.getInstance().getTipoServico()){
@@ -87,7 +89,7 @@ public class PetUI {
     
     //LISTANDO PETS CADASTRADOS
     private void listarPets() {
-        if (petNegocio.naoHaPets()) {
+        if (RepositorioPet.getInstance().estaVazio()) {
             System.out.println("=============================");
             System.out.println("Nao ha pets cadastrados");
             System.out.println("=============================\n");
