@@ -1,4 +1,3 @@
-
 package view;
 
 import model.Pet;
@@ -7,7 +6,6 @@ import model.TipoServico;
 import Util.Console;
 import view_menu.PetMenu;
 import Negocio.PetNegocio;
-import Negocio.TipoServicoNegocio;
 import Negocio.NegocioException;
 import Repositorio.RepositorioPet;
 import Repositorio.RepositorioClientes;
@@ -106,4 +104,3 @@ public class PetUI {
         }  
     }
 }
-

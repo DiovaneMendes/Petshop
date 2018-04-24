@@ -7,13 +7,13 @@ package view_menu;
  */
 
 //Cria o modelo de menu para o objeto cliente
-public class ClienteMenu {
+public class ClienteMenu{
     public static final int OP_ADICIONAR = 1;
     public static final int OP_LISTAR = 2;
     public static final int OP_VOLTAR = 0;
 
-    public static String getOpcoes() {
-        return ("\n======================================\n"
+    public static String getOpcoes(){
+        return ("\n=============MENU CLIENTE=============\n"
                 + "1- Adicionar Clientes\n"
                 + "2- Listar Clientes\n"
                 + "0- Voltar"

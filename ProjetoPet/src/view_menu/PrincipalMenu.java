@@ -7,7 +7,7 @@ package view_menu;
  */
 
 //Menu principal da aplicação
-public class PrincipalMenu {
+public class PrincipalMenu{
     public static final int OP_CLIENTES = 1;
     public static final int OP_PETS = 2;
     public static final int OP_TIPOSERVICO= 3;
@@ -16,8 +16,8 @@ public class PrincipalMenu {
     public static final int OP_SAIR = 0;
     
     //Mostra as opções
-    public static String getOpcoes() {
-        return ("\n======================================\n"
+    public static String getOpcoes(){
+        return ("\n===========MENU PRINCIPAL=============\n"
                 + "1- Menu Clientes\n"
                 + "2- Menu Pets\n"
                 + "3- Menu Servicos\n"
