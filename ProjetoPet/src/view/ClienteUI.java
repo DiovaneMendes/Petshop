@@ -3,8 +3,8 @@ package view;
 
 import Util.Console;
 import model.Cliente;
-import negocio.ClienteNegocio;
-import negocio.NegocioException;
+import Negocio.ClienteNegocio;
+import Negocio.NegocioException;
 import view_menu.ClienteMenu;
 
 /**

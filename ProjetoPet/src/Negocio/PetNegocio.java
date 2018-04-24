@@ -2,7 +2,6 @@
 package Negocio;
 
 import Repositorio.RepositorioPet;
-import negocio.NegocioException;
 import java.util.List;
 import model.Pet;
 

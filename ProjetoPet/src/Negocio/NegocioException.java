@@ -1,4 +1,4 @@
-package negocio;
+package Negocio;
 
 //Tratando exceções aqui para não ter que botar campo por campo
 public class NegocioException extends Exception{    

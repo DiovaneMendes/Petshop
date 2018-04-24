@@ -15,7 +15,9 @@ import model.Cliente;
 import model.Pet;
 import model.TipoServico;
 import model.VendaServico;
-import negocio.NegocioException;
+import Negocio.NegocioException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import view_menu.VendaMenu;
 
 /**
@@ -91,6 +93,8 @@ public class VendasUI {
             System.out.println("Venda concluida!");
         }catch (DateTimeParseException ex) {
             System.out.println("Formato de Data inválido!");
+        } catch (NegocioException ex) {
+            Logger.getLogger(VendasUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
