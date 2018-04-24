@@ -64,10 +64,20 @@ public class RepositorioTipoServico{
     //Busca um serviço dentro da lista pelo o numero
     public boolean buscarServicoNumero(int numero) {
         for (TipoServico tipoServico : tipoServicos) {
-            if (tipoServico.getNumeroServico()== numero) {
+            if (tipoServico.getNumeroServico() == numero) {
                 return true;
             }
         }
         return false;
+    }
+    
+    //Teste para validar pet
+    public TipoServico testeParaPet(String nomeServico) {
+        for(TipoServico tipoServico : tipoServicos) {
+            if (tipoServico.getNomeServico().equals(nomeServico)) {
+                return tipoServico;
+           }
+        }
+        return null;
     }
 }
