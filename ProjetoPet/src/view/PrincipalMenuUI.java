@@ -30,7 +30,7 @@ public class PrincipalMenuUI {
                     new VendasUI().executar();
                     break;
                 case PrincipalMenu.OP_RELATORIO:
-                    //new HistoricoUI().executar();
+                    new RelatorioUI().executar();
                     break;
                 case PrincipalMenu.OP_SAIR:
                     System.out.println("Aplicação finalizada!!!");

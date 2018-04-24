@@ -17,7 +17,7 @@ public class PrincipalMenu{
     
     //Mostra as opções
     public static String getOpcoes(){
-        return ("\n===========MENU PRINCIPAL=============\n"
+        return ("\n============MENU PRINCIPAL============\n"
                 + "1- Menu Clientes\n"
                 + "2- Menu Pets\n"
                 + "3- Menu Servicos\n"

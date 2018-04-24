@@ -16,7 +16,7 @@ public class RelatorioMenu{
     public static final int OP_VOLTAR = 0;
 
     public static String getOpcoes(){
-        return ("\n=============MENU RELATORIO===========\n"
+        return ("\n============MENU RELATORIO============\n"
                 + "1- Clientes mais frequentes\n"
                 + "2- Clientes que mais gastam\n"
                 + "3- Pets que geram mais lucros\n"
