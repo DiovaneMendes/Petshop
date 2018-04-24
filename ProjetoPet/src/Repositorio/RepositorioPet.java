@@ -39,4 +39,24 @@ public class RepositorioPet {
     public List<Pet> getPets() {
         return pets;
     }
+    
+    //Verifica se o pet existe ou não
+    public boolean petExiste(String nome) {
+        for (Pet pet : pets) {
+            if (pet.getNomePet().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    //Busca um cliente dentro da lista
+    public Pet buscarPet(String nome) {
+        for (Pet pet : pets) {
+            if (pet.getNomePet().equals(nome)) {
+                return pet;
+           }
+        }
+        return null;
+    }
 }

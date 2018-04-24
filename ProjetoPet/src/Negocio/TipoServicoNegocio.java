@@ -16,7 +16,6 @@ public class TipoServicoNegocio {
     //Validando campos e adicionando a lista
     public void salvar(TipoServico ts) throws negocio.NegocioException{
         this.validarCamposObrigatorios(ts);
-        this.validarServicosExistente(ts);
         RepositorioTipoServico.getInstance().add(ts);
     }
     
@@ -36,9 +35,17 @@ public class TipoServicoNegocio {
             throw new negocio.NegocioException("Campo Numero invalido!");
         }
         
+        if(RepositorioTipoServico.getInstance().buscarServicoNumero(ts.getNumeroServico())){
+            throw new negocio.NegocioException("Numero ja consiste no sistema!");
+        }
+        
         if(ts.getNomeServico() == null || ts.getNomeServico().isEmpty()){
             throw new negocio.NegocioException("Campo Nome nao informado!");
-        } 
+        }
+        
+        if(RepositorioTipoServico.getInstance().buscarServicoNome(ts.getNomeServico())){
+            throw new negocio.NegocioException("Servico informado ja consiste no sistema!");
+        }
         
         if(!ts.getTipoDeAtendimento().equals("estetico") && !ts.getTipoDeAtendimento().equals("clinico")){
             throw new negocio.NegocioException("Informacao nao corresponde as opcoes!");
@@ -50,13 +57,6 @@ public class TipoServicoNegocio {
         
         if(ts.getPrecoServico() <= 0){
             throw new negocio.NegocioException("Campo Preco invalido!");
-        }
-    }
-    
-    //Validando com o rg se o servico é existente
-    private void validarServicosExistente(TipoServico ts) throws negocio.NegocioException {
-        if(RepositorioTipoServico.getInstance().servicoExiste(ts.getNomeServico())){
-            throw new negocio.NegocioException("Servico ja existente!");
         }
     }
 }

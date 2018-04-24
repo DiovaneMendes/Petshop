@@ -2,6 +2,7 @@
 package view;
 
 import Negocio.TipoServicoNegocio;
+import Repositorio.RepositorioTipoServico;
 import Util.Console;
 import model.TipoServico;
 import negocio.NegocioException;
@@ -45,7 +46,7 @@ public class TipoServicoUI {
     
     //ADICIONANDO SERVICOS
     private void adicionarServicos() {  
-        int numeroServico = Console.scanInt("Numero servico: ");         
+        int numeroServico = Console.scanInt("Numero servico: ");
         String nomeServico = Console.scanString("Nome servico: ");
         String tipoAtendimento = Console.scanString("Tipo atendimento ->(clinico ou estetico): ");
         double preco = Console.scanDouble("Preco: ");

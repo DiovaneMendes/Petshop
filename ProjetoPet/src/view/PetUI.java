@@ -60,11 +60,13 @@ public class PetUI {
             for(Cliente c: RepositorioClientes.getInstance().getClientes()){
                 System.out.println(String.format("%-20s",c.getNome()));
             }
+            System.out.println("------------------------");
             //ESCOLHENDO DONO
             String donoString = Console.scanString("Dono: ");
             for(Cliente c: RepositorioClientes.getInstance().getClientes()){
                 if(donoString.equals(c.getNome())){
                     dono = c;
+                    break;
                 }
             }
 
@@ -74,12 +76,14 @@ public class PetUI {
             for(TipoServico ts: RepositorioTipoServico.getInstance().getTipoServico()){
                 System.out.println(String.format("%-20s",ts.getNomeServico()));
             }
+            
             System.out.println("------------------------");
             //ESCOLHENDO SERVICO DESEJADO
             String servicoReal = Console.scanString("Servico Realizado: ");
             for(TipoServico ts: RepositorioTipoServico.getInstance().getTipoServico()){
                 if(servicoReal.equals(ts.getNomeServico())){
                     servicoRealizado = ts;
+                    break;
                 }
             }
             petNegocio.salvar(new Pet(nomePet, tipoAnimal, dono, servicoRealizado));

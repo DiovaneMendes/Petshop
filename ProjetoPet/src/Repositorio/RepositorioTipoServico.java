@@ -51,13 +51,23 @@ public class RepositorioTipoServico{
         return false;
     }
     
-    //Busca um serviço dentro da lista
-    public TipoServico buscarCliente(String nomeServico) {
+    //Busca um serviço dentro da lista pelo o nome
+    public boolean buscarServicoNome(String nomeServico) {
         for (TipoServico tipoServico : tipoServicos) {
             if (tipoServico.getNomeServico().equals(nomeServico)) {
-                return tipoServico;
+                return true;
            }
         }
-        return null;
+        return false;
+    }
+    
+    //Busca um serviço dentro da lista pelo o numero
+    public boolean buscarServicoNumero(int numero) {
+        for (TipoServico tipoServico : tipoServicos) {
+            if (tipoServico.getNumeroServico()== numero) {
+                return true;
+            }
+        }
+        return false;
     }
 }

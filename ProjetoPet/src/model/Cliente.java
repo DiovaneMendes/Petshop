@@ -9,10 +9,10 @@ import java.util.Objects;
 
 public class Cliente{
     private String nome;
-    private String rg, telefone;
+    private long rg, telefone;
     private int quantidadeCompra;
 
-    public Cliente(String nome, String rg, String telefone) {
+    public Cliente(String nome, long rg, long telefone) {
         this.nome = nome;
         this.rg = rg;
         this.telefone = telefone;
@@ -22,11 +22,11 @@ public class Cliente{
         return nome;
     }
 
-    public String getRg() {
+    public long getRg() {
         return rg;
     }
 
-    public String getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
     

@@ -1,5 +1,6 @@
 
 package Negocio;
+
 import Repositorio.RepositorioPet;
 import java.util.List;
 import model.Pet;
@@ -14,7 +15,8 @@ public class PetNegocio {
     
     //Validando campos e adicionando a lista
     public void salvar(Pet p) throws NegocioException{
-        this.validarCamposObrigatorios(p);
+        this.validarCamposObrigatorios(p);        
+        this.validarPetsExistente(p);
         RepositorioPet.getInstance().add(p);
     }
     
@@ -23,7 +25,7 @@ public class PetNegocio {
         return(RepositorioPet.getInstance().getPets());
     }
     
-    //Retorn se não há pets na lista
+    //Retorna se não há pets na lista
     public boolean naoHaPets(){
         return RepositorioPet.getInstance().estaVazio();
     }
@@ -40,6 +42,17 @@ public class PetNegocio {
         
         if(p.getDono() == null){
             throw new NegocioException("Campo Dono nao informado!");
-        } 
+        }
+        
+        if(p.getServicoRealizado() == null){
+            throw new NegocioException("Campo Tipo Servico nao informado!");
+        }
+    }
+    
+    //Validando se o pet é existente
+    private void validarPetsExistente(Pet p) throws NegocioException {
+        if(RepositorioPet.getInstance().petExiste(p.getNomePet())){
+            throw new NegocioException("Pet ja existente!");
+        }
     }
 }

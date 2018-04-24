@@ -1,3 +1,4 @@
+
 package negocio;
 
 import Repositorio.RepositorioClientes;
@@ -33,13 +34,13 @@ public class ClienteNegocio {
     private void validarCamposObrigatorios(Cliente c) throws NegocioException{
         if(c.getNome() == null || c.getNome().isEmpty()){
             throw new NegocioException("Campo Nome nao informado!");
-        } 
+        }
         
-        if(c.getRg() == null || c.getRg().isEmpty()){
+        if(c.getRg() <= 0){
             throw new NegocioException("Campo RG nao informado!");
         }          
         
-        if(c.getTelefone()== null || c.getTelefone().isEmpty()){
+        if(c.getTelefone() <= 0){
             throw new NegocioException("Campo Telefone nao informado!");
         } 
     }

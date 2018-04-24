@@ -77,7 +77,7 @@ public class VendasUI {
         TipoServico tipoServico;
         ArrayList<TipoServico> listaServicoVenda = new ArrayList<>();
         double valorTotal = 0;
-        for(Pet p: RepositorioPet.getInstance().getClientes()){
+        for(Pet p: RepositorioPet.getInstance().getPets()){
             if(nomeCliente.equals(p.getDono().getNome())){
                 tipoServico = p.getServicoRealizado();
                 listaServicoVenda.add(tipoServico);

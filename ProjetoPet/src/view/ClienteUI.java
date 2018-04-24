@@ -46,8 +46,8 @@ public class ClienteUI {
     //Adicionando um novo cliente e dando uma ultima validação
     private void adicionarCliente() {     
         String nome = Console.scanString("Nome: ");
-        String rg = Console.scanString("RG: ");
-        String telefone = Console.scanString("Telefone: ");
+        long rg = Console.scanLong("RG: ");
+        long telefone = Console.scanLong("Telefone: ");
         
         try{
             clienteNegocio.salvar(new Cliente (nome, rg, telefone));

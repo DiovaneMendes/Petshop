@@ -42,22 +42,12 @@ public class RepositorioClientes {
     }
     
     //Verifica se o cliente existe ou não
-    public boolean clienteExiste(String rg) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getRg().equals(rg)) {
+    public boolean clienteExiste(long rg) {
+        for(Cliente cliente : clientes) {
+            if (cliente.getRg() == rg) {
                 return true;
             }
         }
         return false;
-    }
-    
-    //Busca um cliente dentro da lista
-    public Cliente buscarCliente(String rg) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getRg().equals(rg)) {
-                return cliente;
-           }
-        }
-        return null;
     }
 }
