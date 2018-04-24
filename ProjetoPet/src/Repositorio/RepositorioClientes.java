@@ -51,7 +51,7 @@ public class RepositorioClientes {
         return false;
     }
     
-    //Teste para validar pet
+    //Teste para validar pet.
     public Cliente testeParaPet(String nomeDono) {
         for(Cliente cliente : clientes) {
             if (cliente.getNome().equals(nomeDono)) {
