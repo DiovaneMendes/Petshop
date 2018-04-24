@@ -1,6 +1,7 @@
 
 package Repositorio;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.VendaServico;
@@ -39,5 +40,15 @@ public class RepositorioVenda {
     //Busca a lista de vendas
     public List<VendaServico> getVendas() {
         return vendas;
+    }
+    
+    //Conferi a venda
+    public boolean conferirVenda(LocalDateTime dataHora){
+        for(VendaServico venda: vendas){
+            if(venda.getDataEHora() == dataHora){
+                return true;
+            }
+        }
+        return false;
     }
 }

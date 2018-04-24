@@ -32,14 +32,15 @@ public class VendaNegocio{
     }
     
     //Validando campos
-    private void validarCamposObrigatorios(VendaServico ts) throws NegocioException{
-        if(ts.getCliente() == null){
+    private void validarCamposObrigatorios(VendaServico vs) throws NegocioException{
+        if(vs.getCliente() == null){
             throw new NegocioException("Campo Cliente nao informado!");
         }
-        for(Cliente c: RepositorioClientes.getInstance().getClientes()){
-            if(ts.getCliente().getNome().equals(c.getNome())){
-                throw new NegocioException("Cliente não confere com a lista acima!");
-            }
+    }
+    
+    private void vendaExiste (VendaServico vs) throws NegocioException{
+        if(RepositorioVenda.getInstance().conferirVenda(vs.getDataEHora())){
+            throw new NegocioException("Venda ja existente!");
         }
     }
 }
