@@ -11,7 +11,7 @@ import Repositorio.RepositorioPet;
 import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioTipoServico;
 
-/**
+/*
  *
  * @author Diovane
  */
@@ -45,9 +45,9 @@ public class PetUI {
     
     private void adicionarPet() {
         if (RepositorioTipoServico.getInstance().estaVazio() || RepositorioClientes.getInstance().estaVazio()) {
-            System.out.println("=============================");
+            System.out.println("    =============================");
             System.out.println("Cadastrar clientes e servicos primeiro!");
-            System.out.println("=============================\n");
+            System.out.println("    =============================\n");
         }else{
             String nomePet = Console.scanString("Nome: ");
             String tipoAnimal = Console.scanString("Tipo pet: ");
@@ -87,7 +87,7 @@ public class PetUI {
     private void listarPets() {
         if (RepositorioPet.getInstance().estaVazio()) {
             System.out.println("=============================");
-            System.out.println("Nao ha pets cadastrados");
+            System.out.println("  Nao ha pets cadastrados");
             System.out.println("=============================\n");
         }else{
             System.out.println("=============================");
