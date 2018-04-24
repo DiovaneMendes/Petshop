@@ -1,16 +1,17 @@
 
 package view;
 
+import model.Pet;
+import model.Cliente;
+import model.TipoServico;
+import Util.Console;
+import view_menu.PetMenu;
 import Negocio.PetNegocio;
 import Negocio.TipoServicoNegocio;
-import Repositorio.RepositorioClientes;
+import negocio.NegocioException;
 import Repositorio.RepositorioPet;
+import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioTipoServico;
-import Util.Console;
-import model.Cliente;
-import model.Pet;
-import model.TipoServico;
-import view_menu.PetMenu;
 
 /**
  *
@@ -60,6 +61,7 @@ public class PetUI {
             for(Cliente c: RepositorioClientes.getInstance().getClientes()){
                 System.out.println(String.format("%-20s",c.getNome()));
             }
+            
             System.out.println("------------------------");
             //ESCOLHENDO DONO
             String donoString = Console.scanString("Dono: ");            
@@ -73,12 +75,17 @@ public class PetUI {
                 System.out.println(String.format("%-20s",ts.getNomeServico()));
             }            
             System.out.println("------------------------");
+            
             //ESCOLHENDO SERVICO DESEJADO
             String servicoString = Console.scanString("Servico Realizado: ");            
             servicoRealizado = RepositorioTipoServico.getInstance().testeParaPet(servicoString);
             
-            petNegocio.salvar(new Pet(nomePet, tipoAnimal, dono, servicoRealizado));
-            System.out.println("Cadastro realizado com sucesso!");
+            try{
+                petNegocio.salvar(new Pet(nomePet, tipoAnimal, dono, servicoRealizado));
+                System.out.println("Cadastro realizado com sucesso!");
+            } catch(NegocioException ne){
+                System.err.println(ne.getMessage());
+            }
         }
     }
     

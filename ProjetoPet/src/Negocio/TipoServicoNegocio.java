@@ -4,6 +4,7 @@ package Negocio;
 import Repositorio.RepositorioTipoServico;
 import java.util.List;
 import model.TipoServico;
+import negocio.NegocioException;
 
 /**
  *
@@ -14,7 +15,7 @@ import model.TipoServico;
 public class TipoServicoNegocio {
     
     //Validando campos e adicionando a lista
-    public void salvar(TipoServico ts) throws negocio.NegocioException{
+    public void salvar(TipoServico ts) throws NegocioException{
         this.validarCamposObrigatorios(ts);
         RepositorioTipoServico.getInstance().add(ts);
     }

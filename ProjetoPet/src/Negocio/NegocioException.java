@@ -16,6 +16,5 @@ public class NegocioException extends Exception{
     //Mostrando apenas causa do erro
     public NegocioException(Throwable cause) {
         super(cause);
-    }
-    
+    }    
 }
