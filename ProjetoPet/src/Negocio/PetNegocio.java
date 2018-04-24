@@ -51,7 +51,8 @@ public class PetNegocio {
     
     //Validando se o pet é existente
     private void validarPetsExistente(Pet p) throws NegocioException {
-        if(RepositorioPet.getInstance().petExiste(p.getNomePet())){
+        if(RepositorioPet.getInstance().petExiste(p.getNomePet()) && 
+              RepositorioPet.getInstance().conferirDono(p.getDono().getNome())){
             throw new NegocioException("Pet ja existente!");
         }
     }

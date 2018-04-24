@@ -40,9 +40,9 @@ public class RepositorioPet {
         return pets;
     }
     
-    //Verifica se o pet existe ou não
+    //Verifica se o pet existe
     public boolean petExiste(String nome) {
-        for (Pet pet : pets) {
+        for(Pet pet : pets) {
             if (pet.getNomePet().equals(nome)) {
                 return true;
             }
@@ -50,13 +50,13 @@ public class RepositorioPet {
         return false;
     }
     
-    //Busca um cliente dentro da lista
-    public Pet buscarPet(String nome) {
-        for (Pet pet : pets) {
-            if (pet.getNomePet().equals(nome)) {
-                return pet;
+    //Verifica se o dono é igual
+    public boolean conferirDono(String nomeDono) {
+        for(Pet pet : pets) {
+            if (pet.getDono().getNome().equals(nomeDono)) {
+                return true;
            }
         }
-        return null;
+        return false;
     }
 }
