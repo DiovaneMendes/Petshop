@@ -76,7 +76,7 @@ public class RepositorioTipoServico{
         for(TipoServico tipoServico : tipoServicos) {
             if (tipoServico.getNomeServico().equals(nomeServico)) {
                 return tipoServico;
-           }
+            }
         }
         return null;
     }

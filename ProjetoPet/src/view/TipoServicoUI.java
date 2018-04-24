@@ -5,7 +5,7 @@ import Negocio.TipoServicoNegocio;
 import Repositorio.RepositorioTipoServico;
 import Util.Console;
 import model.TipoServico;
-import negocio.NegocioException;
+import Negocio.NegocioException;
 import view_menu.TipoServicoMenu;
 
 /**

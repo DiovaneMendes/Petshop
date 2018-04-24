@@ -1,5 +1,5 @@
 
-package negocio;
+package Negocio;
 
 import Repositorio.RepositorioClientes;
 import java.util.List;

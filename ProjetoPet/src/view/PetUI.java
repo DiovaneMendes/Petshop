@@ -8,7 +8,7 @@ import Util.Console;
 import view_menu.PetMenu;
 import Negocio.PetNegocio;
 import Negocio.TipoServicoNegocio;
-import negocio.NegocioException;
+import Negocio.NegocioException;
 import Repositorio.RepositorioPet;
 import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioTipoServico;
@@ -21,7 +21,6 @@ import Repositorio.RepositorioTipoServico;
 //Aqui é criada toda a lógica de adicionar e listar pet
 public class PetUI {
     private PetNegocio petNegocio;
-    private TipoServicoNegocio servicoNegocio;
     
     //Executnado menu de cliente
     public void executar() {
