@@ -54,7 +54,6 @@ public class PetUI {
         }else{
             String nomePet = Console.scanString("Nome: ");
             String tipoAnimal = Console.scanString("Tipo pet: ");
-            Cliente dono = null;
 
             //LISTANDO CLIENTES PARA ESCOLHA DE DONO
             System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
@@ -65,9 +64,7 @@ public class PetUI {
             System.out.println("------------------------");
             //ESCOLHENDO DONO
             String donoString = Console.scanString("Dono: ");            
-            dono = RepositorioClientes.getInstance().testeParaPet(donoString);
-            
-            TipoServico servicoRealizado = null; 
+            Cliente dono = RepositorioClientes.getInstance().testeParaPet(donoString);
             
             //LISTANDO SERVICOS PARA ESCOLHA
             System.out.println(String.format("%-20s","\n|LISTA DE SERVICOS:"));
@@ -78,7 +75,7 @@ public class PetUI {
             
             //ESCOLHENDO SERVICO DESEJADO
             String servicoString = Console.scanString("Servico Realizado: ");            
-            servicoRealizado = RepositorioTipoServico.getInstance().testeParaPet(servicoString);
+            TipoServico servicoRealizado = RepositorioTipoServico.getInstance().testeParaPet(servicoString);
             
             try{
                 petNegocio.salvar(new Pet(nomePet, tipoAnimal, dono, servicoRealizado));
