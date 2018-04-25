@@ -34,15 +34,17 @@ public class ClienteNegocio {
     private void validarCamposObrigatorios(Cliente c) throws NegocioException{
         if(c.getNome() == null || c.getNome().isEmpty()){
             throw new NegocioException("Campo Nome nao informado!");
+        }       
+        
+        String apoioRg = Long.toString(c.getRg());
+        if(apoioRg.length() < 10 || apoioRg.length() > 10){
+            throw new NegocioException("Rg informado nao é valido!");
         }
         
-        if(c.getRg() <= 0){
-            throw new NegocioException("Campo RG nao informado!");
-        }          
-        
-        if(c.getTelefone() <= 0){
-            throw new NegocioException("Campo Telefone nao informado!");
-        } 
+        String apoioTelefone = Long.toString(c.getTelefone());
+        if(apoioTelefone.length() < 9 || apoioTelefone.length() > 9){ 
+            throw new NegocioException("Telefone informado nao é valido!");
+        }        
     }
     
     //Validando com o rg se o cliente é existente

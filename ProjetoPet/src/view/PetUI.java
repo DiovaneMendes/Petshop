@@ -20,6 +20,10 @@ import Repositorio.RepositorioTipoServico;
 public class PetUI {
     private PetNegocio petNegocio;
     
+    public PetUI() {
+        petNegocio = new PetNegocio();
+    }
+    
     //Executnado menu de cliente
     public void executar() {
         int opcao = 0;
@@ -91,15 +95,15 @@ public class PetUI {
             System.out.println("=============================\n");
         }else{
             System.out.println("=============================");
-            System.out.print(String.format("%-10s","|NOME") + "\t" 
+            System.out.println(String.format("%-10s","|NOME") + "\t" 
                 + String.format("%-15s","|TIPO ANIMAL") + "\t"
                 + String.format("%-20s","|CLIENTE") + "\t"
                 + String.format("%-10s","|TIPO SERVICO"));
             for(Pet p: petNegocio.listarPets()){
                 System.out.println(String.format("%-10s",p.getNomePet()) + "\t"
-                    + String.format("%-15s",p.getTipoAnimal()) + "\t"
-                    + String.format("%-20s",p.getDono().getNome()) + "\t"
-                    + String.format("%-10s",p.getServicoRealizado().getNomeServico()));
+                    + String.format("%-15s", "|" + p.getTipoAnimal()) + "\t"
+                    + String.format("%-20s", "|" + p.getDono().getNome()) + "\t"
+                    + String.format("%-10s", "|" + p.getServicoRealizado().getNomeServico()));
             }
         }  
     }

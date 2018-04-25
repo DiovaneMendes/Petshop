@@ -43,13 +43,13 @@ public class RelatorioUI {
                     listaMaisGastam();
                     break;
                 case RelatorioMenu.OP_PET_GERA_MAIS_LUCRO:
-                    listaVendaPorMes();
+                    listaPetsMaisLucro();
                     break;
                 case RelatorioMenu.OP_SERVICO_MAIS_VENDIDO:
-                    //listarClientes();
+                    listaServicoMaisVendido();
                     break;
                 case RelatorioMenu.OP_VENDAS_POR_MES:
-                    //listarClientes();
+                    listaVendaPorMes();
                     break;
                 case RelatorioMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
@@ -96,8 +96,8 @@ public class RelatorioUI {
             for(MaisFrequente mf: listaMaisFrequente){
                 i++;
                 if(i<4){
-                    System.out.print(String.format("%-15s", mf.getQuantidade()));
-                    System.out.println(String.format("%-15s", mf.getCliente()));
+                    System.out.print(String.format("%-15s", "|" + mf.getQuantidade()));
+                    System.out.println(String.format("%-15s", "|" + mf.getCliente()));
                 }
             }
         }
@@ -137,8 +137,8 @@ public class RelatorioUI {
             for(MaisGastam mg: listaMaisGastam){
                 i++;
                 if(i<4){
-                    System.out.print(String.format("%-15s", mg.getCliente()));
-                    System.out.println(String.format("%-15s", mg.getValorTotal()));
+                    System.out.print(String.format("%-15s", "|" + mg.getCliente()));
+                    System.out.println(String.format("%-15s", "|" + mg.getValorTotal()));
                 }
             }
         }
@@ -196,9 +196,9 @@ public class RelatorioUI {
             System.out.print(String.format("%-15s","|QTD VENDAS"));
             System.out.println(String.format("%-15s","|VALOR"));
             for(VendasPorMes vpm: listaVendasPorMes){
-                System.out.print(String.format("%-15s", vpm.getMes()+"/"+vpm.getAno()));
-                System.out.print(String.format("%-15s", vpm.getQuantidadeVenda()));
-                System.out.println(String.format("%-15s", vpm.getValorPorMes()));
+                System.out.print(String.format("%-15s", "|" + vpm.getMes()+"/"+vpm.getAno()));
+                System.out.print(String.format("%-15s", "|" + vpm.getQuantidadeVenda()));
+                System.out.println(String.format("%-15s", "|" + vpm.getValorPorMes()));
             }
         }
     }
@@ -266,8 +266,8 @@ public class RelatorioUI {
             System.out.print(String.format("%-15s","|QTD VENDAS"));
             System.out.println(String.format("%-15s","|TIPO SERVICO"));
             for(ServicoMaisVendido smv: listaServicoMaisVendido){
-                System.out.print(String.format("%-15s", smv.getQuantidade()));
-                System.out.println(String.format("%-15s", smv.getNomeServico()));
+                System.out.print(String.format("%-15s", "|" + smv.getQuantidade()));
+                System.out.println(String.format("%-15s", "|" + smv.getNomeServico()));
             }
         }
     }
@@ -332,8 +332,8 @@ public class RelatorioUI {
             System.out.print(String.format("%-15s","|QTD VENDAS"));
             System.out.println(String.format("%-15s","|TIPO PET"));
             for(PetGeraMaisLucro pgml: listaPetMaisLucro){
-                System.out.print(String.format("%-15s", pgml.getQuantidade()));
-                System.out.println(String.format("%-15s", pgml.getTipoPet()));
+                System.out.print(String.format("%-15s", "|" + pgml.getQuantidade()));
+                System.out.println(String.format("%-15s", "|" + pgml.getTipoPet()));
             }
         }
     }

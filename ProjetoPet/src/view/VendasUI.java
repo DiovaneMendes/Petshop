@@ -59,13 +59,15 @@ public class VendasUI {
     //REALIZANDO UMA VENDA
     private void adicionarVendas(){        
         //INSERINDO DATA ATUAL
-        String data = Console.scanString("Data e hora: ");
-
+        String dataString = Console.scanString("Data e hora: ");
+        LocalDateTime data = DateTimeUtil.stringToDateTime(dataString);
+        
         //MOSTRA A LISTA DE CLIENTES
         System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
         for(Cliente c: RepositorioClientes.getInstance().getClientes()){
             System.out.println(String.format("%-20s",c.getNome()));
-        }
+        } 
+        System.out.println("------------------------");
 
         //INCLUINDO NOME DE CLIENTE E VERIFICANDO SE CONSTA NA LISTA DE CLIENTES
         String nomeCliente = Console.scanString("Nome cliente: ");
@@ -74,7 +76,7 @@ public class VendasUI {
             if(nomeCliente.equals(c.getNome())){
                 cliente = c;
             }
-        }               
+        }
         //LISTANDO SERVICOS REALIZADOS E INCLUINDO VALOR TOTAL
         TipoServico tipoServico;
         ArrayList<TipoServico> listaServicoVenda = new ArrayList<>();
@@ -89,12 +91,12 @@ public class VendasUI {
 
         //INSERINDO INFORMACOES COLETADAS ACIMA PARA CRIAR UM NOVO OBJETO E DEPOIS ADICIONANDO NO ARRAY
         try{
-            vendaNegocio.salvar(new VendaServico (DateTimeUtil.stringToDateTime(data), cliente, listaServicoVenda, valorTotal));
+            vendaNegocio.salvar(new VendaServico (data, cliente, listaServicoVenda, valorTotal));
             System.out.println("Venda concluida!");
         }catch (DateTimeParseException ex) {
             System.out.println("Formato de Data inválido!");
-        } catch (NegocioException ex) {
-            Logger.getLogger(VendasUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch(NegocioException ne){
+            System.err.println(ne.getMessage());
         }
     }
 
@@ -102,19 +104,19 @@ public class VendasUI {
     private void listarVendas(){
         if (vendaNegocio.naoHaVendas()) {
             System.out.println("=============================");
-            System.out.println("Nao ha vendas realizadas");
+            System.out.println("  Nao ha vendas realizadas");
             System.out.println("=============================\n");
         }else{
             System.out.println("=============================\n");
             System.out.println(String.format("%-20s","|DATA E HORA") + "\t"
                 + String.format("%-15s","|NOME CLIENTE") + "\t"
-                + String.format("%-25s","|SERVICOS REALIZADOS") + "\t"
+                + String.format("%-20s","|SERVICOS REALIZADOS") + "\t"
                 + String.format("%-15s","|VALOR TOTAL"));
             for(VendaServico vs: RepositorioVenda.getInstance().getVendas()){
-                System.out.print(String.format("%-20s",vs.getDataEHora().format(DateTimeUtil.formatadorData)));
-                System.out.print(String.format("%-15s",vs.getCliente().getNome()));
-                System.out.print(String.format("%-25s",vs.getListaServico()));
-                System.out.println(String.format("%-15s",vs.getValorTotal()));
+                System.out.println(String.format("%-20s", "|" + vs.getDataEHora().format(DateTimeUtil.formatadorDataHora)) + "\t"
+                    + String.format("%-15s", "|" + vs.getCliente().getNome()) + "\t"
+                    + String.format("%-20s", "|" + vs.getListaServico()) + "\t"
+                    + String.format("%-15s", "|" + vs.getValorTotal()));
             }
         }        
     } 

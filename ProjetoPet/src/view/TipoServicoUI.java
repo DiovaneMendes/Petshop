@@ -2,7 +2,6 @@
 package view;
 
 import Negocio.TipoServicoNegocio;
-import Repositorio.RepositorioTipoServico;
 import Util.Console;
 import model.TipoServico;
 import Negocio.NegocioException;
@@ -63,7 +62,7 @@ public class TipoServicoUI {
     private void listarServicos() {
         if (servicoNegocio.naoHaServicos()) {            
                 System.out.println("=============================");
-                System.out.println("Nao ha servicos cadastrados");
+                System.out.println(" Nao ha servicos cadastrados");
                 System.out.println("=============================\n");
         }else{
             System.out.println("=============================\n");
@@ -73,9 +72,9 @@ public class TipoServicoUI {
                 + String.format("%-15s","|PRECO"));
             for(TipoServico ts: servicoNegocio.listar()){
                 System.out.println(String.format("%-10s",ts.getNumeroServico()) + "\t"
-                    + String.format("%-15s",ts.getNomeServico()) + "\t"
-                    + String.format("%-20s",ts.getTipoDeAtendimento()) + "\t"
-                    + String.format("%-15s",ts.getPrecoServico()));
+                    + String.format("%-15s", "|" +ts.getNomeServico()) + "\t"
+                    + String.format("%-20s", "|" +ts.getTipoDeAtendimento()) + "\t"
+                    + String.format("%-15s", "|" +ts.getPrecoServico()));
             }        
         }
     }

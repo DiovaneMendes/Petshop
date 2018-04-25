@@ -10,6 +10,7 @@ import model.Pet;
  * @author Diovane
  */
 
+//Cria o repositório/lista de pets
 public class RepositorioPet {
     private List<Pet> pets;
     private static RepositorioPet instance = null;

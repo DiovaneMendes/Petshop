@@ -48,7 +48,7 @@ public class TipoServicoNegocio {
         }
         
         if(!ts.getTipoDeAtendimento().equals("estetico") && !ts.getTipoDeAtendimento().equals("clinico")){
-            throw new Negocio.NegocioException("Informacao nao corresponde as opcoes!");
+            throw new Negocio.NegocioException("Informacao de servico nao corresponde as opcoes!");
         }          
         
         if(ts.getTipoDeAtendimento() == null || ts.getTipoDeAtendimento().isEmpty()){

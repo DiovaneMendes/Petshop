@@ -1,10 +1,8 @@
 
 package Negocio;
 
-import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioVenda;
 import java.util.List;
-import model.Cliente;
 import model.VendaServico;
 
 /**
@@ -35,12 +33,6 @@ public class VendaNegocio{
     private void validarCamposObrigatorios(VendaServico vs) throws NegocioException{
         if(vs.getCliente() == null){
             throw new NegocioException("Campo Cliente nao informado!");
-        }
-    }
-    
-    private void vendaExiste (VendaServico vs) throws NegocioException{
-        if(RepositorioVenda.getInstance().conferirVenda(vs.getDataEHora())){
-            throw new NegocioException("Venda ja existente!");
         }
     }
 }

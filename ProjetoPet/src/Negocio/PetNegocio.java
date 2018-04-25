@@ -11,7 +11,7 @@ import model.Pet;
  */
 
 //Tudo que for preciso em referencia ao objeto pet, é feito aqui
-public class PetNegocio {
+public class PetNegocio{
     
     //Validando campos e adicionando a lista
     public void salvar(Pet p) throws NegocioException{
