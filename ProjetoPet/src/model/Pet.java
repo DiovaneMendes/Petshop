@@ -6,8 +6,8 @@ o tipo de animal (String) e o cliente (dono do animal).
 package model;
 
 public class Pet {
-    private int id_pet;
-    private String nomePet, tipoAnimal;
+    private int idPet, fkDono, fkServicoRealizado;
+    private String nomePet, tipoAnimal, nomeDono, nomeServicoRealizado;
     private Cliente dono;
     private TipoServico servicoRealizado;
     
@@ -18,20 +18,27 @@ public class Pet {
         this.servicoRealizado = servicoRealizado;
     }
     
-    public Pet(int id_pet, String nomePet, String tipoAnimal, Cliente dono, TipoServico servicoRealizado){
-        this.id_pet = id_pet;
+    public Pet(int idPet, String nomePet, String tipoAnimal, int fkDono, int fkServicoRealizado){
+        this.idPet = idPet;
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
-        this.dono = dono;
-        this.servicoRealizado = servicoRealizado;
+        this.fkDono = fkDono;
+        this.fkServicoRealizado = fkServicoRealizado;
     }
     
-    public int getId_pet() {
-        return id_pet;
+    public Pet(String nomePet, String tipoAnimal, String nomeDono, String nomeServicoRealizado){
+        this.nomePet = nomePet;
+        this.tipoAnimal = tipoAnimal;
+        this.nomeDono = nomeDono;
+        this.nomeServicoRealizado = nomeServicoRealizado;
+    }
+    
+    public int getIdPet() {
+        return idPet;
     }
 
-    public void setId_pet(int id_pet) {
-        this.id_pet = id_pet;
+    public void setIdPet(int idPet) {
+        this.idPet = idPet;
     }
     
     public String getNomePet(){
@@ -40,6 +47,22 @@ public class Pet {
     
     public void setNomePet(String nomePet){
         this.nomePet = nomePet;
+    }
+    
+    public int getFkDono() {
+        return fkDono;
+    }
+    
+    public void setFkDono(int fkDono) {
+        this.fkDono = fkDono;
+    }
+    
+    public int getFkServicoRealizado() {
+        return fkServicoRealizado;
+    }
+    
+    public void setFkServicoRealizado(int fkServicoRealizado) {
+        this.fkServicoRealizado = fkServicoRealizado;
     }
     
     public String getTipoAnimal(){

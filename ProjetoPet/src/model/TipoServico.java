@@ -7,8 +7,7 @@ e o preço do serviço.
 package model;
 
 public class TipoServico {
-    private int id_tipoServico;
-    private int numeroServico;
+    private int numeroServico, id;
     private String nomeServico, tipoDeAtendimento;
     private double precoServico;
     
@@ -19,20 +18,20 @@ public class TipoServico {
         this.precoServico = precoServico;
     }
     
-    public TipoServico(int id_tipoServico, int numeroServico, String nomeServico, String tipoDeAtendimento, double precoServico){
-        this.id_tipoServico = id_tipoServico;
+    public TipoServico(int id, int numeroServico, String nomeServico, String tipoDeAtendimento, double precoServico){
+        this.id = id;
         this.numeroServico = numeroServico;
         this.nomeServico = nomeServico;
         this.tipoDeAtendimento = tipoDeAtendimento;
         this.precoServico = precoServico;
     }
     
-    public int getId_tipoServico() {
-        return id_tipoServico;
+    public int getId() {
+        return id;
     }
     
-    public void setId_tipoServico(int id_tipoServico) {
-        this.id_tipoServico = id_tipoServico;
+    public void setId(int id) {
+        this.id = id;
     }
     
     public int getNumeroServico() {

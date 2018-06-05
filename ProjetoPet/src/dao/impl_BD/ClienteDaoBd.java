@@ -60,7 +60,6 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao{
         } finally {
             fecharConexao();
         }
-
     }
     
     @Override
@@ -191,7 +190,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao{
                 listaClientes.add(cliente);
             }
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os pacientes pelo nome do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar os clientes pelo nome do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
