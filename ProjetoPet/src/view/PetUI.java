@@ -10,6 +10,8 @@ import Negocio.NegocioException;
 import Repositorio.RepositorioPet;
 import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioTipoServico;
+import java.util.InputMismatchException;
+import java.util.List;
 
 /*
  *
@@ -26,26 +28,102 @@ public class PetUI {
     
     //Executnado menu de cliente
     public void executar() {
-        int opcao = 0;
+        int opcao = -1;
         do {
-            System.out.println(PetMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            switch (opcao) {
-                case PetMenu.OP_ADICIONAR:
-                    adicionarPet();
-                    break;
-                case PetMenu.OP_LISTAR:
-                    listarPets();
-                    break;
-                case PetMenu.OP_VOLTAR:
-                    System.out.println("Retornando ao menu principal..");
-                    break;
-                default:
-                    System.out.println("Opção inválida..");
-
+            try {
+                System.out.println(PetMenu.getOpcoes());
+                opcao = Console.scanInt("Digite sua opção:");
+                switch (opcao) {
+                    case PetMenu.OP_CADASTRAR:
+                        cadastrarPet();
+                        break;
+                    case PetMenu.OP_DELETAR:
+                        deletarPet();
+                        break;
+                    case PetMenu.OP_ATUALIZAR:
+                        atualizarPet();
+                        break;
+                    case PetMenu.OP_LISTAR:
+                        mostrarPets();
+                        break;
+                    case PetMenu.OP_CONSULTAR:
+                        consultarPetsPorNome();
+                        break;
+                    case PetMenu.OP_SAIR:
+                        System.out.println("Finalizando a aplicacao..");
+                        break;
+                    default:
+                        System.out.println("Opção inválida..");
+                }
+            } catch (InputMismatchException ex) {
+                UIUtil.mostrarErro("Somente numeros sao permitidos!");
             }
-        } while (opcao != PetMenu.OP_VOLTAR);
+
+        } while (opcao != PetMenu.OP_SAIR);
     }
+    
+    private void cadastrarPet() {
+        String nome = Console.scanString("Nome: ");
+        String tipoAnimal = Console.scanString("Tipo Animal: ");
+        listarDonos();
+        String dono = Console.scanString("Qual o dono? ");
+        try {
+            petNegocio.salvar(new Pet(nome, tipoAnimal, telefone));
+            System.out.println("Pet " + nome + " cadastrado com sucesso!");
+        } catch (NegocioException ex) {
+            UIUtil.mostrarErro(ex.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     private void adicionarPet() {
         if (RepositorioTipoServico.getInstance().estaVazio() || RepositorioClientes.getInstance().estaVazio()) {
