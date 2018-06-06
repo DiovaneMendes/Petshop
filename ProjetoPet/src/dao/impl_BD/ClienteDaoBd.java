@@ -101,7 +101,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao{
                 long telefone = resultado.getLong("telefone");
 
                 Cliente cliente = new Cliente(id, nome, rg, telefone);
-                listaPacientes.add(cliente);
+                listaClientes.add(cliente);
 
             }
         } catch (SQLException ex) {

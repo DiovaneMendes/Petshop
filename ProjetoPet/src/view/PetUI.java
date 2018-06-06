@@ -11,8 +11,11 @@ import Negocio.NegocioException;
 import Repositorio.RepositorioPet;
 import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioTipoServico;
+<<<<<<< HEAD
 import dao.impl_BD.ClienteDaoBd;
 import java.util.ArrayList;
+=======
+>>>>>>> 676d14e2ff6acb250609c7785ee824cee78ef5f2
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -88,6 +91,78 @@ public class PetUI {
         for(Cliente c: retornaLista()){
             if(nomeD.equals(c.getNome())){
                 fkDono = c.getId();
+        try {
+            petNegocio.salvar(new Pet(nome, tipoAnimal, fkDono));
+            System.out.println("Pet " + nome + " cadastrado com sucesso!");
+        } catch (NegocioException ex) {
+            UIUtil.mostrarErro(ex.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    private void adicionarPet() {
+        if (RepositorioTipoServico.getInstance().estaVazio() || RepositorioClientes.getInstance().estaVazio()) {
+            System.out.println("    =============================");
+            System.out.println("Cadastrar clientes e servicos primeiro!");
+            System.out.println("    =============================\n");
+        }else{
+            String nomePet = Console.scanString("Nome: ");
+            String tipoAnimal = Console.scanString("Tipo pet: ");
+
+            //LISTANDO CLIENTES PARA ESCOLHA DE DONO
+            System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
+            for(Cliente c: RepositorioClientes.getInstance().getClientes()){
+                System.out.println(String.format("%-20s",c.getNome()));
+>>>>>>> 676d14e2ff6acb250609c7785ee824cee78ef5f2
             }
         }
         

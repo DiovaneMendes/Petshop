@@ -54,9 +54,9 @@ public class RepositorioPet {
     //Verifica se o dono é igual
     public boolean conferirDono(String nomeDono) {
         for(Pet pet : pets) {
-            if (pet.getDono().getNome().equals(nomeDono)) {
-                return true;
-           }
+//            if (pet.getDono().getNome().equals(nomeDono)) {
+//                return true;
+//           }
         }
         return false;
     }

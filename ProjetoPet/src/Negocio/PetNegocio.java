@@ -23,7 +23,7 @@ public class PetNegocio{
     
     //Validando campos e adicionando a lista
     public void salvar(Pet p) throws NegocioException{
-        this.validarCamposObrigatorios(p);        
+        this.validarCamposObrigatorios(p);
         //this.validarPetsExistente(p);
         petDao.salvar(p);
     }
