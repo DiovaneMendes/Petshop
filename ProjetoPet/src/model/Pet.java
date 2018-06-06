@@ -8,22 +8,19 @@ package model;
 public class Pet {
     private int idPet, fkDono, fkServicoRealizado;
     private String nomePet, tipoAnimal, nomeDono, nomeServicoRealizado;
-    private Cliente dono;
     private TipoServico servicoRealizado;
     
-    public Pet(String nomePet, String tipoAnimal, Cliente dono, TipoServico servicoRealizado){
+    public Pet(String nomePet, String tipoAnimal, int fkDono){
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
-        this.dono = dono;
-        this.servicoRealizado = servicoRealizado;
+        this.fkDono = fkDono;
     }
     
-    public Pet(int idPet, String nomePet, String tipoAnimal, int fkDono, int fkServicoRealizado){
+    public Pet(int idPet, String nomePet, String tipoAnimal, int fkDono){
         this.idPet = idPet;
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
         this.fkDono = fkDono;
-        this.fkServicoRealizado = fkServicoRealizado;
     }
     
     public Pet(String nomePet, String tipoAnimal, String nomeDono, String nomeServicoRealizado){
@@ -73,19 +70,39 @@ public class Pet {
         this.tipoAnimal = tipoAnimal;
     }
     
-    public Cliente getDono(){
-        return dono;
-    }
-    
-    public void setDono(Cliente dono){
-        this.dono = dono;
-    }
-    
     public TipoServico getServicoRealizado(){
         return servicoRealizado;
     }
     
     public void setTipoServico(TipoServico servicoRealizado){
         this.servicoRealizado = servicoRealizado;
+    }
+
+    /**
+     * @return the nomeDono
+     */
+    public String getNomeDono() {
+        return nomeDono;
+    }
+
+    /**
+     * @param nomeDono the nomeDono to set
+     */
+    public void setNomeDono(String nomeDono) {
+        this.nomeDono = nomeDono;
+    }
+
+    /**
+     * @return the nomeServicoRealizado
+     */
+    public String getNomeServicoRealizado() {
+        return nomeServicoRealizado;
+    }
+
+    /**
+     * @param nomeServicoRealizado the nomeServicoRealizado to set
+     */
+    public void setNomeServicoRealizado(String nomeServicoRealizado) {
+        this.nomeServicoRealizado = nomeServicoRealizado;
     }
 }

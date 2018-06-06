@@ -16,15 +16,14 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     public void salvar(Pet pet) {
         int idPet = 0;
         try {
-            String sql = "INSERT INTO pet (nome, tipoAnimal, fkDono, fkServicoRealizado) "
-                    + "VALUES (?,?,?,?)";
+            String sql = "INSERT INTO pet (nome, tipoAnimal, fkDono) "
+                    + "VALUES (?,?,?)";
 
             //Foi criado um novo método conectar para obter o id
             conectarObtendoId(sql);
             comando.setString(1, pet.getNomePet());
             comando.setString(2, pet.getTipoAnimal());
             comando.setInt(3, pet.getFkDono());
-            comando.setInt(4, pet.getFkServicoRealizado());
             comando.executeUpdate();
             //Obtém o resultSet para pegar o id
             ResultSet resultado = comando.getGeneratedKeys();
@@ -66,15 +65,14 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public void atualizar(Pet pet) {
         try {
-            String sql = "UPDATE pet SET nomePet=?, tipoAnimal=?, fkDono=?, fkServicoRealizado=?"
+            String sql = "UPDATE pet SET nomePet=?, tipoAnimal=?, fkDono=?"
                     + "WHERE id=?";
 
             conectar(sql);
             comando.setString(1, pet.getNomePet());
             comando.setString(2, pet.getTipoAnimal());
             comando.setInt(3, pet.getFkDono());
-            comando.setInt(4, pet.getFkServicoRealizado());
-            comando.setInt(5, pet.getIdPet());
+            comando.setInt(4, pet.getIdPet());
             comando.executeUpdate();
 
         } catch (SQLException ex) {

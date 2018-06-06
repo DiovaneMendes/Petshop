@@ -8,15 +8,21 @@ package view_menu;
 
 //Cria o modelo de menu para o objeto pet
 public class PetMenu{
-    public static final int OP_ADICIONAR = 1;
-    public static final int OP_LISTAR = 2;
-    public static final int OP_VOLTAR = 0;
+    public static final int OP_CADASTRAR = 1;
+    public static final int OP_DELETAR = 2;
+    public static final int OP_ATUALIZAR = 3;
+    public static final int OP_LISTAR = 4;
+    public static final int OP_CONSULTAR = 5;
+    public static final int OP_SAIR = 0;
 
-    public static String getOpcoes(){
-        return ("\n==============MENU PET================\n"
-                + "1- Adicionar Pets\n"
-                + "2- Listar Pets\n"
-                + "0- Voltar"
-                + "\n======================================");
-    }
+    public static String getOpcoes() {
+        return ("\n--------------------------------------\n"
+                + "1- Cadastrar Pet\n"
+                + "2- Deletar Pet\n"
+                + "3- Atualizar dados do Pet\n"
+                + "4- Listar Pets\n"
+                + "5- Consultar Pets por Nome\n"
+                + "0- Sair"
+                + "\n--------------------------------------");
+    } 
 }

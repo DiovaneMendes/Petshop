@@ -85,7 +85,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao{
     
     @Override
     public List<Cliente> listar() {
-        List<Cliente> listaPacientes = new ArrayList<>();
+        List<Cliente> listaClientes = new ArrayList<>();
 
         String sql = "SELECT * FROM cliente";
 
@@ -110,7 +110,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao{
         } finally {
             fecharConexao();
         }
-        return (listaPacientes);
+        return (listaClientes);
     }
     
     @Override

@@ -92,7 +92,7 @@ public class ClienteUI {
     }
     
     private void atualizarCliente() {
-        long rg = Console.scanLong("RG do paciente a ser alterado: ");
+        long rg = Console.scanLong("RG do cliente a ser alterado: ");
         try {
             Cliente cliente = clienteNegocio.procurarPorRg(rg);
             this.mostraCliente(cliente);
@@ -124,7 +124,7 @@ public class ClienteUI {
         }
     }
     
-    private void mostraCliente(Cliente c) {
+    private void mostraCliente(Cliente c){
         System.out.println("Cliente");
         System.out.println("Nome: " + c.getNome());
         System.out.println("RG: " + c.getRg());
@@ -133,7 +133,7 @@ public class ClienteUI {
     
     //Listando clientes cadastrados
     private void listarClientes(List<Cliente> listaClientes) {
-        if (clienteNegocio.naoHaClientes()) {
+        if (listaClientes.isEmpty()) {
             System.out.println("=============================");
             System.out.println("Nao ha clientes cadastrados");
             System.out.println("=============================\n");
