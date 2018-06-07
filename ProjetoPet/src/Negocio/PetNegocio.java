@@ -65,6 +65,17 @@ public class PetNegocio{
         return RepositorioPet.getInstance().estaVazio();
     }
     
+    public Pet procurarPorNome(String nome) throws NegocioException {
+        if (nome == null) {
+            throw new NegocioException("Campo RG nao informado");
+        }
+        Pet pet = petDao.procurarPorNome(nome);
+        if (pet == null) {
+            throw new NegocioException("Pet nao encontrado");
+        }
+        return (pet);
+    }
+    
     //Validando campos para não ficar em branco
     private void validarCamposObrigatorios(Pet p) throws NegocioException{
         if(p.getNomePet() == null || p.getNomePet().isEmpty()){

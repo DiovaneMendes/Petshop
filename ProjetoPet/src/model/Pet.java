@@ -23,11 +23,10 @@ public class Pet {
         this.fkDono = fkDono;
     }
     
-    public Pet(String nomePet, String tipoAnimal, String nomeDono, String nomeServicoRealizado){
+    public Pet(String nomePet, String tipoAnimal, String nomeDono){
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
         this.nomeDono = nomeDono;
-        this.nomeServicoRealizado = nomeServicoRealizado;
     }
     
     public int getIdPet() {

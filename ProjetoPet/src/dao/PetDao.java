@@ -10,5 +10,6 @@ import model.Pet;
 public interface PetDao extends Dao<Pet>{
     @Override
     public Pet procurarPorId(int idPet);
+    public Pet procurarPorNome(String nome);
     public List<Pet> listarPorNome(String nome);    
 }

@@ -89,10 +89,9 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
 
         String sql = "SELECT"
                 + "pet.nome, pet.tipoAnimal"
-                + "cliente.nome, tipoServico.nome"
+                + "cliente.nome"
                 + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.fkDono)"
-                + "JOIN tipoServico ON(pet.idPet = tipoServico.fkServicoRealizado)";
+                + "JOIN cliente ON(cliente.id = pet.fkDono)";
 
         try {
             conectar(sql);
@@ -103,9 +102,8 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
                 String nomePet = resultado.getString("pet.nome");
                 String tipoAnimal = resultado.getString("pet.tipoAnimal");
                 String nomeDono = resultado.getString("cliente.nome");
-                String nomeServicoRealizado = resultado.getString("tipoServico.nome");
 
-                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono, nomeServicoRealizado);
+                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
                 listaPets.add(pet);
             }
         } catch (SQLException ex) {
@@ -121,10 +119,9 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     public Pet procurarPorId(int idPet) {
         String sql = "SELECT"
                 + "pet.nome, pet.tipoAnimal"
-                + "cliente.nome, tipoServico.nome"
+                + "cliente.nome"
                 + "FROM pet"
                 + "JOIN cliente ON(cliente.id = pet.fkDono)"
-                + "JOIN tipoServico ON(pet.idPet = tipoServico.fkServicoRealizado)"
                 + "WHERE id=?";
 
         try {
@@ -137,9 +134,8 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
                 String nomePet = resultado.getString("pet.nome");
                 String tipoAnimal = resultado.getString("pet.tipoAnimal");
                 String nomeDono = resultado.getString("cliente.nome");
-                String nomeServicoRealizado = resultado.getString("tipoServico.nome");
 
-                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono, nomeServicoRealizado);
+                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
 
                 return pet;
             }
@@ -160,7 +156,6 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
                 + "cliente.nome, tipoServico.nome"
                 + "FROM pet"
                 + "JOIN cliente ON(cliente.id = pet.fkDono)"
-                + "JOIN tipoServico ON(pet.idPet = tipoServico.fkServicoRealizado)"
                 + "WHERE pet.nome LIKE ?";
         try {
             conectar(sql);
@@ -171,9 +166,8 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
                 String nomePet = resultado.getString("pet.nome");
                 String tipoAnimal = resultado.getString("pet.tipoAnimal");
                 String nomeDono = resultado.getString("cliente.nome");
-                String nomeServicoRealizado = resultado.getString("tipoServico.nome");
 
-                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono, nomeServicoRealizado);
+                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
 
                 listaPets.add(pet);
             }
@@ -184,5 +178,31 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             fecharConexao();
         }
         return (listaPets);
+    }
+    
+    @Override
+    public Pet procurarPorNome(String nome) {
+        String sql = "SELECT * FROM pet WHERE nome = ?";
+        try {
+            conectar(sql);
+            comando.setString(1, nome);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                String nomePet = resultado.getString("nome");
+                String tipoAnimal = resultado.getString("tipoAnimal");
+                int fkdono = resultado.getInt("fkdono");
+
+                Pet pet = new Pet(nome, tipoAnimal, fkdono);
+                return pet;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar o pet pelo o nome no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        return (null);
     }
 }

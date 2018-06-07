@@ -6,6 +6,8 @@ nome varchar(30),
 dataNascimento date
 );
 
+/* PARA REINICIAR A CONTAGEM DE ID */
+
 DELETE FROM paciente;
 ALTER SEQUENCE paciente_id_seq RESTART WITH 1;
 
