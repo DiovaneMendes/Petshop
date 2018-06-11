@@ -16,7 +16,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     public void salvar(Pet pet) {
         int idPet = 0;
         try {
-            String sql = "INSERT INTO pet (nome, tipoAnimal, fkDono) "
+            String sql = "INSERT INTO pet (nome, tipo_animal, cliente) "
                     + "VALUES (?,?,?)";
 
             //Foi criado um novo método conectar para obter o id
@@ -65,7 +65,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public void atualizar(Pet pet) {
         try {
-            String sql = "UPDATE pet SET nomePet=?, tipoAnimal=?, fkDono=?"
+            String sql = "UPDATE pet SET nomePet=?, tipo_animal=?, cliente=?"
                     + "WHERE id=?";
 
             conectar(sql);
@@ -88,10 +88,10 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
         List<Pet> listaPets = new ArrayList<>();
 
         String sql = "SELECT"
-                + "pet.nome, pet.tipoAnimal"
+                + "pet.nome, pet.tipo_animal"
                 + "cliente.nome"
                 + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.fkDono)";
+                + "JOIN cliente ON(cliente.id = pet.cliente)";
 
         try {
             conectar(sql);
@@ -100,7 +100,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
 
             while (resultado.next()) {
                 String nomePet = resultado.getString("pet.nome");
-                String tipoAnimal = resultado.getString("pet.tipoAnimal");
+                String tipoAnimal = resultado.getString("pet.tipo_animal");
                 String nomeDono = resultado.getString("cliente.nome");
 
                 Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
@@ -118,10 +118,10 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public Pet procurarPorId(int idPet) {
         String sql = "SELECT"
-                + "pet.nome, pet.tipoAnimal"
+                + "pet.nome, pet.tipo_animal"
                 + "cliente.nome"
                 + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.fkDono)"
+                + "JOIN cliente ON(cliente.id = pet.cliente)"
                 + "WHERE id=?";
 
         try {
@@ -132,7 +132,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
 
             if (resultado.next()) {
                 String nomePet = resultado.getString("pet.nome");
-                String tipoAnimal = resultado.getString("pet.tipoAnimal");
+                String tipoAnimal = resultado.getString("pet.tipo_animal");
                 String nomeDono = resultado.getString("cliente.nome");
 
                 Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
@@ -152,10 +152,10 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     public List<Pet> listarPorNome(String nome) {
         List<Pet> listaPets = new ArrayList<>();
         String sql = "SELECT"
-                + "pet.nome, pet.tipoAnimal"
-                + "cliente.nome, tipoServico.nome"
+                + "pet.nome, pet.tipo_animal"
+                + "cliente.nome"
                 + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.fkDono)"
+                + "JOIN cliente ON(cliente.id = pet.cliente)"
                 + "WHERE pet.nome LIKE ?";
         try {
             conectar(sql);
@@ -191,8 +191,8 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
 
             if (resultado.next()) {
                 String nomePet = resultado.getString("nome");
-                String tipoAnimal = resultado.getString("tipoAnimal");
-                int fkdono = resultado.getInt("fkdono");
+                String tipoAnimal = resultado.getString("tipo_animal");
+                int fkdono = resultado.getInt("cliente");
 
                 Pet pet = new Pet(nome, tipoAnimal, fkdono);
                 return pet;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import model.Cliente;
 import model.Pet;
 import model.TipoServico;
-import model.VendaServico;
+import model.Venda;
 import Negocio.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,7 +91,7 @@ public class VendasUI {
 
         //INSERINDO INFORMACOES COLETADAS ACIMA PARA CRIAR UM NOVO OBJETO E DEPOIS ADICIONANDO NO ARRAY
         try{
-            vendaNegocio.salvar(new VendaServico (data, cliente, listaServicoVenda, valorTotal));
+            vendaNegocio.salvar(new Venda (data, cliente, listaServicoVenda, valorTotal));
             System.out.println("Venda concluida!");
         }catch (DateTimeParseException ex) {
             System.out.println("Formato de Data inválido!");
@@ -112,7 +112,7 @@ public class VendasUI {
                 + String.format("%-15s","|NOME CLIENTE") + "\t"
                 + String.format("%-20s","|SERVICOS REALIZADOS") + "\t"
                 + String.format("%-15s","|VALOR TOTAL"));
-            for(VendaServico vs: RepositorioVenda.getInstance().getVendas()){
+            for(Venda vs: RepositorioVenda.getInstance().getVendas()){
                 System.out.println(String.format("%-20s", "|" + vs.getDataEHora().format(DateTimeUtil.formatadorDataHora)) + "\t"
                     + String.format("%-15s", "|" + vs.getCliente().getNome()) + "\t"
                     + String.format("%-20s", "|" + vs.getListaServico()) + "\t"

@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 /**
  *
  * @author Diovane
@@ -175,6 +172,33 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
             fecharConexao();
         }
         return (listaTipoServicos);
+    }
+
+    @Override
+    public TipoServico procurarPorNome(String nomeX) {
+        String sql = "SELECT * FROM tipo_servico WHERE nome = ?";
+        try {
+            conectar(sql);
+            comando.setString(1, nomeX);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                int numero = resultado.getInt("numero_servico");
+                String nome = resultado.getString("nome");
+                String tipoAtendimento = resultado.getString("tipo_atendimento");
+                double valor = resultado.getInt("preco");
+
+                TipoServico pet = new TipoServico(numero, nome, tipoAtendimento, valor);
+                return pet;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar o servico pelo o nome no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        return (null);
     }
     
     

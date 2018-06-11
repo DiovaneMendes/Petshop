@@ -16,7 +16,7 @@ import java.util.Collections;
 import model.Pet;
 import model.Cliente;
 import model.TipoServico;
-import model.VendaServico;
+import model.Venda;
 import view_menu.RelatorioMenu;
 
 /**
@@ -74,7 +74,7 @@ public class RelatorioUI {
             for(Cliente c: RepositorioClientes.getInstance().getClientes()){
                 String nome = null;
                 int acumulador = 0;
-                for(VendaServico vs: RepositorioVenda.getInstance().getVendas()){
+                for(Venda vs: RepositorioVenda.getInstance().getVendas()){
                     if(c.getNome().equals(vs.getCliente().getNome())){
                         if(acumulador==0){
                             nome = c.getNome();
@@ -115,7 +115,7 @@ public class RelatorioUI {
             for(Cliente c: RepositorioClientes.getInstance().getClientes()){
                 String nome = null;
                 double valorTotal = 0;
-                for(VendaServico vs:RepositorioVenda.getInstance().getVendas()){
+                for(Venda vs:RepositorioVenda.getInstance().getVendas()){
                     if(c.getNome().equals(vs.getCliente().getNome())){
                         if(valorTotal==0){
                             nome = c.getNome();
@@ -159,7 +159,7 @@ public class RelatorioUI {
             int ano;
             
 
-            for(VendaServico vs1: RepositorioVenda.getInstance().getVendas()){
+            for(Venda vs1: RepositorioVenda.getInstance().getVendas()){
                 mes = vs1.getDataEHora().getMonthValue();
                 ano = vs1.getDataEHora().getYear();
                 int quantidade = 0;
@@ -172,7 +172,7 @@ public class RelatorioUI {
                     }
                 }
 
-                for(VendaServico vs2: RepositorioVenda.getInstance().getVendas()){
+                for(Venda vs2: RepositorioVenda.getInstance().getVendas()){
                     if(mes == vs2.getDataEHora().getMonthValue() && ano == vs2.getDataEHora().getYear()){
                         quantidade++;
                         valorTotalMes = valorTotalMes + vs2.getValorTotal();
@@ -221,7 +221,7 @@ public class RelatorioUI {
             String nomeServico, tipoDeAtendimento;
             double precoServico;
             
-            for(VendaServico vs: RepositorioVenda.getInstance().getVendas()){                
+            for(Venda vs: RepositorioVenda.getInstance().getVendas()){                
                 for(TipoServico tsDaVenda: vs.getListaServico()){
                     numeroServico = tsDaVenda.getNumeroServico();
                     nomeServico = tsDaVenda.getNomeServico();
@@ -287,7 +287,7 @@ public class RelatorioUI {
             ArrayList<String> listaSegundariaTipoPet = new ArrayList<String>();
             
             for(Pet p: RepositorioPet.getInstance().getPets()){
-                for(VendaServico vs: RepositorioVenda.getInstance().getVendas()){                
+                for(Venda vs: RepositorioVenda.getInstance().getVendas()){                
                     String tipoPet = null;
                     if(p.getDono() == vs.getCliente()){
                         tipoPet = p.getTipoAnimal();

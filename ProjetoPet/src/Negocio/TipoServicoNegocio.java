@@ -2,6 +2,8 @@
 package Negocio;
 
 import Repositorio.RepositorioTipoServico;
+import dao.TipoServicoDao;
+import dao.impl_BD.TipoServicoDaoBd;
 import java.util.List;
 import model.TipoServico;
 
@@ -12,21 +14,59 @@ import model.TipoServico;
 
 //Tudo que for preciso em referencia ao objeto tipo serviço é feito aqui
 public class TipoServicoNegocio {
+    private TipoServicoDao tipoServicoDao;
+    
+    public TipoServicoNegocio(){
+        tipoServicoDao = new TipoServicoDaoBd();
+    }
     
     //Validando campos e adicionando a lista
     public void salvar(TipoServico ts) throws NegocioException{
         this.validarCamposObrigatorios(ts);
-        RepositorioTipoServico.getInstance().add(ts);
+        tipoServicoDao.salvar(ts);
     }
     
     //Listar a lista de clientes
     public List<TipoServico> listar() {
-        return(RepositorioTipoServico.getInstance().getTipoServico());
+        return(tipoServicoDao.listar());
     }
     
     //Retorn se não há clientes na lista
     public boolean naoHaServicos(){
         return RepositorioTipoServico.getInstance().estaVazio();
+    }
+    
+    public void deletar(TipoServico tipoServico) throws NegocioException {
+        if (tipoServico == null || tipoServico.getNomeServico() == null) {
+            throw new NegocioException("Servico nao existe!");
+        }
+        tipoServicoDao.deletar(tipoServico);
+    }
+    
+    public void atualizar(TipoServico tipoServico) throws NegocioException {
+        if (tipoServico == null || tipoServico.getNomeServico() == null) {
+            throw new NegocioException("Servico nao existe!");
+        }
+        this.validarCamposObrigatorios(tipoServico);
+        tipoServicoDao.atualizar(tipoServico);
+    }
+    
+    public TipoServico procurarPorNome(String nome) throws NegocioException {
+        if (nome == null) {
+            throw new NegocioException("Servico nao encontrado");
+        }
+        TipoServico tipoServico = tipoServicoDao.procurarPorNome(nome);
+        if (tipoServico == null) {
+            throw new NegocioException("Servico nao encontrado");
+        }
+        return (tipoServico);
+    }
+    
+    public List<TipoServico> listarPorNome(String nome) throws NegocioException {
+        if (nome == null || nome.isEmpty()) {
+            throw new NegocioException("Campo nome nao informado");
+        }
+        return(tipoServicoDao.listarPorNome(nome));
     }
     
     //Validando campos

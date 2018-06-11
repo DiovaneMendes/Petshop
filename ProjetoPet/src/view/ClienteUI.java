@@ -70,11 +70,6 @@ public class ClienteUI {
         } 
     }
     
-    public void mostrarClientes() {
-        List<Cliente> listaClientes = clienteNegocio.listar();
-        this.listarClientes(listaClientes);
-    }
-    
     private void deletarCliente() {
         long rg = Console.scanLong("RG do cliente a ser deletado: ");
         try {
@@ -98,8 +93,8 @@ public class ClienteUI {
             this.mostraCliente(cliente);
 
             System.out.println("Digite os dados do cliente que quer alterar");
-            String nome = Console.scanString("Nome[Deixe vazio caso não queira]: ");
-            long telefone = Console.scanLong("Telefone[Digite zero caso não queira]: ");
+            String nome = Console.scanString("Nome[Deixe vazio caso nao queira]: ");
+            long telefone = Console.scanLong("Telefone[Digite zero caso nao queira]: ");
             if (!nome.isEmpty()) {
                 cliente.setNome(nome);
             }
@@ -129,6 +124,11 @@ public class ClienteUI {
         System.out.println("Nome: " + c.getNome());
         System.out.println("RG: " + c.getRg());
         System.out.println("Telefone: " + c.getTelefone());
+    }
+    
+    public void mostrarClientes() {
+        List<Cliente> listaClientes = clienteNegocio.listar();
+        this.listarClientes(listaClientes);
     }
     
     //Listando clientes cadastrados

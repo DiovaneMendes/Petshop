@@ -20,7 +20,7 @@ public class TipoServicoMenu{
                 + "2- Deletar Servico\n"
                 + "3- Atualizar dados do Servico\n"
                 + "4- Listar Servicos\n"
-                + "5- Consultar Servicos por Nome\n"
+                + "5- Consultar Servicos por nome\n"
                 + "0- Sair"
                 + "\n--------------------------------------");
     }

@@ -67,7 +67,7 @@ public class PetNegocio{
     
     public Pet procurarPorNome(String nome) throws NegocioException {
         if (nome == null) {
-            throw new NegocioException("Campo RG nao informado");
+            throw new NegocioException("Pet nao encontrado");
         }
         Pet pet = petDao.procurarPorNome(nome);
         if (pet == null) {

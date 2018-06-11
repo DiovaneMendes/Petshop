@@ -4,7 +4,7 @@ package Repositorio;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import model.VendaServico;
+import model.Venda;
 
 /**
  *
@@ -13,12 +13,12 @@ import model.VendaServico;
 
 //Cria o repositório/lista de vendas
 public class RepositorioVenda {
-    private List<VendaServico> vendas;
+    private List<Venda> vendas;
     private static RepositorioVenda instance = null;
     
     //Nova lista de vendas
     private RepositorioVenda() {
-        vendas = new ArrayList<VendaServico>();
+        vendas = new ArrayList<Venda>();
     }
     
     //Retorna um novo repositorio caso esteja vazio
@@ -28,7 +28,7 @@ public class RepositorioVenda {
     }
     
     //Adiciona venda
-    public boolean add(VendaServico venda) {
+    public boolean add(Venda venda) {
         return (vendas.add(venda));
     }
     
@@ -38,13 +38,13 @@ public class RepositorioVenda {
     }
     
     //Busca a lista de vendas
-    public List<VendaServico> getVendas() {
+    public List<Venda> getVendas() {
         return vendas;
     }
     
     //Conferi a venda
     public boolean conferirVenda(LocalDateTime dataHora){
-        for(VendaServico venda: vendas){
+        for(Venda venda: vendas){
             if(venda.getDataEHora() == dataHora){
                 return true;
             }

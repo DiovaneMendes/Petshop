@@ -1,17 +1,8 @@
-
 CREATE TABLE cliente(
 	id SERIAL PRIMARY KEY,
 	nome VARCHAR(50) NOT NULL,
-	rg INTEGER,
-	telefone INTEGER
-);
-
-CREATE TABLE pet(
-	id SERIAL PRIMARY KEY,
-	nome VARCHAR(20) NOT NULL,
-	tipo_animal VARCHAR(20) NOT NULL,
-	cliente INTEGER REFERENCES CLIENTE(id),
-	tipo_servico INTEGER REFERENCES TIPO_SERVICO(id)
+	rg BIGINT,
+	telefone BIGINT
 );
 
 CREATE TABLE tipo_servico(
@@ -22,10 +13,24 @@ CREATE TABLE tipo_servico(
 	preco DECIMAL
 );
 
+CREATE TABLE pet(
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(20) NOT NULL,
+	tipo_animal VARCHAR(20) NOT NULL,
+	cliente INTEGER REFERENCES CLIENTE(id)
+);
+
+
+
 CREATE TABLE venda(
 	id SERIAL PRIMARY KEY,
-	cliente VARCHAR(50) REFERENCES CLIENTE(id),
 	data_hora TIMESTAMP NOT NULL,
-	tipo_servico INTEGER REFERENCES TIPO_SERVICO(id),
+	cliente INTEGER REFERENCES CLIENTE(id),
+	tipo_servico INTEGER REFERENCES tipo_servico(id),
 	valor_total DECIMAL 
 );
+
+drop table pet;
+drop table venda;
+drop table cliente;
+drop table tipo_servico;
