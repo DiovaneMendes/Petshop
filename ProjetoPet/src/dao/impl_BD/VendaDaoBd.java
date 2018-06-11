@@ -30,7 +30,7 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
             conectarObtendoId(sql);
             Timestamp timestamp = Timestamp.valueOf(venda.getDataEHora());
             comando.setTimestamp(1, timestamp);
-            comando.setInt(2, venda.getFkDono());
+            comando.setInt(2, venda.getFkPet());
             comando.setInt(3, venda.getFkServico());
             comando.setDouble(4, venda.getValorTotal());
             comando.executeUpdate();
@@ -79,7 +79,7 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
             conectar(sql);
             Timestamp timestamp = Timestamp.valueOf(venda.getDataEHora());
             comando.setTimestamp(1, timestamp);
-            comando.setLong(2, venda.getFkDono());
+            comando.setLong(2, venda.getFkPet());
             comando.setLong(3, venda.getFkServico());
             comando.setInt(4, venda.getId());
             comando.executeUpdate();
@@ -108,14 +108,13 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int id = resultado.getInt("venda.id");
                 Timestamp dataT = resultado.getTimestamp("venda.data_hora");
                 LocalDateTime dataL = dataT.toLocalDateTime();
                 String dono = resultado.getString("cliente.nome");
                 String servico = resultado.getString("tipo_servico.nome");
                 double valorTotal = resultado.getDouble("venda.valor_total");
 
-                Venda venda = new Venda(id, dataL, dono, servico, valorTotal);
+                Venda venda = new Venda(dataL, dono, servico, valorTotal);
                 listaVendas.add(venda);
             }
         } catch (SQLException ex) {
@@ -144,7 +143,7 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
                 String servico = resultado.getString("tipo_servico.nome");
                 double valorTotal = resultado.getDouble("venda.valor_total");
 
-                Venda venda = new Venda(id, dataL, dono, servico, valorTotal);
+                Venda venda = new Venda(dataL, dono, servico, valorTotal);
 
                 return venda;
             }
@@ -155,5 +154,35 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
             fecharConexao();
         }
         return (null);
+    }
+
+    @Override
+    public List<Venda> listarPorData(LocalDateTime dataHora) {
+        List<Venda> listaVendas = new ArrayList<>();
+        String sql = "SELECT * FROM venda WHERE data_hora LIKE ?";
+
+        try {
+            conectar(sql);
+            comando.setString(1, "%" + dataHora + "%");
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                Timestamp dataT = resultado.getTimestamp("data_hora");
+                LocalDateTime dataL = dataT.toLocalDateTime();
+                String dono = resultado.getString("cliente");
+                String servico = resultado.getString("tipo_servico");
+                double valorTotal = resultado.getDouble("valor_total");
+
+                Venda venda = new Venda(dataL, dono, servico, valorTotal);
+
+                listaVendas.add(venda);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar as vendas pela data no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        return (listaVendas);
     }
 }

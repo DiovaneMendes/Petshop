@@ -16,6 +16,10 @@ import model.Pet;
 import model.TipoServico;
 import model.Venda;
 import Negocio.NegocioException;
+import dao.impl_BD.ClienteDaoBd;
+import dao.impl_BD.PetDaoBd;
+import dao.impl_BD.TipoServicoDaoBd;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view_menu.VendaMenu;
@@ -35,26 +39,172 @@ public class VendasUI {
     
     //Executnado menu de vendas
     public void executar() {
-        int opcao = 0;
+        int opcao = -1;
         do {
-            System.out.println(VendaMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            switch (opcao) {
-                case VendaMenu.OP_ADICIONAR:
-                    adicionarVendas();
-                    break;
-                case VendaMenu.OP_LISTAR:
-                    listarVendas();
-                    break;
-                case VendaMenu.OP_VOLTAR:
-                    System.out.println("Retornando ao menu principal..");
-                    break;
-                default:
-                    System.out.println("Opção inválida..");
-
+            try {
+                System.out.println(VendaMenu.getOpcoes());
+                opcao = Console.scanInt("Digite sua opção:");
+                switch (opcao) {
+                    case VendaMenu.OP_CADASTRAR:
+                        efetuarVenda();
+                        break;
+                    case VendaMenu.OP_DELETAR:
+                        deletarVenda();
+                        break;
+                    case VendaMenu.OP_ATUALIZAR:
+                        atualizarVenda();
+                        break;
+                    case VendaMenu.OP_LISTAR:
+                        mostrarVendas();
+                        break;
+                    case VendaMenu.OP_CONSULTAR:
+                        consultarVendasPorNome();
+                        break;
+                    case VendaMenu.OP_SAIR:
+                        System.out.println("Finalizando a aplicacao..");
+                        break;
+                    default:
+                        System.out.println("Opção inválida..");
+                }
+            } catch (InputMismatchException ex) {
+                UIUtil.mostrarErro("Somente numeros sao permitidos!");
             }
-        } while (opcao != VendaMenu.OP_VOLTAR);
+
+        } while (opcao != VendaMenu.OP_SAIR);
     }
+    
+    private void efetuarVenda(){
+        String dataString = Console.scanString("Data e hora: ex: 19/05/2017 21:51 ");
+        LocalDateTime data = DateTimeUtil.stringToDateTime(dataString);
+        int opcao = 0;
+        
+        do(
+                
+            System.out.println("");
+            listaPets();
+            String pet = Console.scanString("Nome pet: ");
+
+            listaServicos();
+            String servico = Console.scanString("Nome servico: ");
+                
+            try {
+                vendaNegocio.salvar(new Venda(data, retornaIdDono(cliente), retornaIdServico(servico), valorTotal));
+                System.out.println("Venda efetuada com sucesso!");
+            } catch (NegocioException ex) {
+                UIUtil.mostrarErro(ex.getMessage());
+            }
+        )while(opcao!=0);
+        
+        double valorTotal = 0;
+        for(TipoServico ts: retornaListaServicos()){
+            valorTotal += ts.getPrecoServico();
+        }
+        
+        try {
+            vendaNegocio.salvar(new Venda(data, retornaIdDono(cliente), retornaIdServico(servico), valorTotal));
+            System.out.println("Venda efetuada com sucesso!");
+        } catch (NegocioException ex) {
+            UIUtil.mostrarErro(ex.getMessage());
+        } 
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //=========================METODOS DE APOIO=================================
+    private List<Pet> retornaListaPets(){
+        List<Pet> listaPets = new ArrayList<>();
+        PetDaoBd pet = new PetDaoBd();    
+        return listaPets = pet.listar();    
+    }
+    
+    private void listaPets(){
+        System.out.println("PETS");
+        for(Pet p: retornaListaPets()){
+            System.out.println(p.getNomePet());
+        }
+    }
+    
+    private int retornaIdPet(String pet){
+        int fkPet = -1;
+        for(Pet p: retornaListaPets()){
+            if(pet.equals(p.getNomePet())){
+                fkPet = p.getIdPet();                
+            }
+        }
+        return fkPet;
+    }    
+    
+    private List<TipoServico> retornaListaServicos(){
+        List<TipoServico> listaServicos = new ArrayList<>();
+        TipoServicoDaoBd servico = new TipoServicoDaoBd();    
+        return listaServicos = servico.listar();    
+    }
+    
+    private void listaServicos(){
+        System.out.println("SERVICOS");
+        for(TipoServico ts: retornaListaServicos()){
+            System.out.println(ts.getNomeServico());
+        }
+    }
+    
+    private int retornaIdServico(String servico){
+        int fkServico = -1;
+        for(TipoServico ts: retornaListaServicos()){
+            if(servico.equals(ts.getNomeServico())){
+                fkServico = ts.getId();                
+            }
+        }
+        return fkServico;
+    }
+    //==========================================================================
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //REALIZANDO UMA VENDA
     private void adicionarVendas(){        

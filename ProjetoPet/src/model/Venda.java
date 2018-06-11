@@ -7,25 +7,31 @@ O sistema deverá calcular o valor total da venda.
 package model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Venda {
-    private int id, fkDono, fkServico;
+    private int id, fkPet, fkServico;
     private LocalDateTime dataEHora;
-    private String cliente, servico;
+    private String pet, servico;
     private double valorTotal;
     
-    public Venda(int id, LocalDateTime dataEHora, String cliente, String servico, double valorTotal){
+    public Venda(LocalDateTime dataEHora, String pet, String servico, double valorTotal){
         this.dataEHora = dataEHora;
-        this.cliente = cliente;
+        this.pet = pet;
         this.servico = servico;
         this.valorTotal = valorTotal;
     }
     
-    public Venda(int id, LocalDateTime dataEHora, int fkDono, int fkServico, double valorTotal){
+    public Venda( LocalDateTime dataEHora, int fkPet, int fkServico, double valorTotal){
+        this.dataEHora = dataEHora;
+        this.fkPet = fkPet;
+        this.fkServico = fkServico;
+        this.valorTotal = valorTotal;
+    }
+    
+    public Venda(int id, LocalDateTime dataEHora, int fkPet, int fkServico, double valorTotal){
         this.id = id;
         this.dataEHora = dataEHora;
-        this.fkDono = fkDono;
+        this.fkPet = fkPet;
         this.fkServico = fkServico;
         this.valorTotal = valorTotal;
     }
@@ -46,12 +52,12 @@ public class Venda {
         this.id = id;
     }
 
-    public int getFkDono() {
-        return fkDono;
+    public int getFkPet() {
+        return fkPet;
     }
 
-    public void setFkDono(int fkDono) {
-        this.fkDono = fkDono;
+    public void setFkPet(int fkPet) {
+        this.fkPet = fkPet;
     }
 
     public int getFkServico() {
@@ -62,12 +68,12 @@ public class Venda {
         this.fkServico = fkServico;
     }
 
-    public String getCliente() {
-        return cliente;
+    public String getPet() {
+        return pet;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+    public void setPet(String pet) {
+        this.pet = pet;
     }
 
     public String getServico() {

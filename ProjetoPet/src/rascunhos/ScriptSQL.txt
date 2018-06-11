@@ -20,17 +20,21 @@ CREATE TABLE pet(
 	cliente INTEGER REFERENCES CLIENTE(id)
 );
 
-
-
 CREATE TABLE venda(
 	id SERIAL PRIMARY KEY,
 	data_hora TIMESTAMP NOT NULL,
-	cliente INTEGER REFERENCES CLIENTE(id),
-	tipo_servico INTEGER REFERENCES tipo_servico(id),
 	valor_total DECIMAL 
+);
+
+CREATE TABLE item_venda(
+	id SERIAL PRIMARY KEY,
+	venda INTEGER REFERENCES venda(id),
+	pet INTEGER REFERENCES pet(id),
+	tipo_servico INTEGER REFERENCES tipo_servico(id)
 );
 
 drop table pet;
 drop table venda;
 drop table cliente;
 drop table tipo_servico;
+drop table item_venda;
