@@ -9,7 +9,7 @@ package model;
 import java.time.LocalDateTime;
 
 public class Venda {
-    private int id, fkPet, fkServico;
+    private int id, fkVenda;
     private LocalDateTime dataEHora;
     private String pet, servico;
     private double valorTotal;
@@ -21,18 +21,16 @@ public class Venda {
         this.valorTotal = valorTotal;
     }
     
-    public Venda( LocalDateTime dataEHora, int fkPet, int fkServico, double valorTotal){
+    public Venda( LocalDateTime dataEHora, int fkVenda, double valorTotal){
         this.dataEHora = dataEHora;
-        this.fkPet = fkPet;
-        this.fkServico = fkServico;
+        this.fkVenda = fkVenda;
         this.valorTotal = valorTotal;
     }
     
-    public Venda(int id, LocalDateTime dataEHora, int fkPet, int fkServico, double valorTotal){
+    public Venda(int id, LocalDateTime dataEHora, int fkVenda, double valorTotal){
         this.id = id;
         this.dataEHora = dataEHora;
-        this.fkPet = fkPet;
-        this.fkServico = fkServico;
+        this.fkVenda = fkVenda;
         this.valorTotal = valorTotal;
     }
 
@@ -52,20 +50,12 @@ public class Venda {
         this.id = id;
     }
 
-    public int getFkPet() {
-        return fkPet;
+    public int getFkVenda() {
+        return fkVenda;
     }
 
-    public void setFkPet(int fkPet) {
-        this.fkPet = fkPet;
-    }
-
-    public int getFkServico() {
-        return fkServico;
-    }
-
-    public void setFkServico(int fkServico) {
-        this.fkServico = fkServico;
+    public void setFkVenda(int fkVenda) {
+        this.fkVenda = fkVenda;
     }
 
     public String getPet() {

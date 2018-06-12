@@ -19,16 +19,14 @@ public class ItemVendaDaoBd extends DaoBd<ItemVenda> implements ItemVendaDao{
             String sql = "INSERT INTO item_venda (venda, pet, tipo_servico) "
                     + "VALUES (?,?,?)";
 
-            //Foi criado um novo método conectar para obter o id
             conectarObtendoId(sql);
             comando.setInt(1, item.getFkVenda());
             comando.setInt(2, item.getFkPet());
             comando.setInt(3, item.getFkServico());
             comando.executeUpdate();
-            //Obtém o resultSet para pegar o id
+            
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()) {
-                //seta o id para o objeto
                 id = resultado.getInt(1);
                 item.setId(id);
             }

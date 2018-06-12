@@ -77,7 +77,7 @@ public class TipoServicoUI {
         try {
             TipoServico tipoServico = servicoNegocio.procurarPorNome(nome);
             this.mostraServico(tipoServico);
-            if (UIUtil.getConfirmacao("Realmente deseja excluir esse servico?")) {
+            if (UIUtil.getConfirmacao("Realmente deseja excluir esse servico? ")) {
                 servicoNegocio.deletar(tipoServico);
                 System.out.println("Servico deletado com sucesso!");
             } else {
@@ -94,7 +94,7 @@ public class TipoServicoUI {
             TipoServico tipoServico = servicoNegocio.procurarPorNome(nomeX);
             this.mostraServico(tipoServico);
 
-            System.out.println("Digite os dados do cliente que quer alterar");
+            System.out.println("\nDigite os dados do cliente que quer alterar");
             int numero = Console.scanInt("Numero[Digite zero caso nao queira]: ");
             String nome = Console.scanString("Nome[Deixe vazio caso nao queira]: ");
             String tipoAtendimento = Console.scanString("Tipo Atendimento:(estetico ou clinico)\n[Deixe vazio caso nao queira]: ");

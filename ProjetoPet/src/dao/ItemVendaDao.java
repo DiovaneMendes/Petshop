@@ -6,6 +6,7 @@ import model.ItemVenda;
  *
  * @author Diovane
  */
-public class ItemVendaDao extends Dao<ItemVenda>{
+public interface ItemVendaDao extends Dao<ItemVenda>{
+    @Override
     public ItemVenda procurarPorId(int id);    
 }

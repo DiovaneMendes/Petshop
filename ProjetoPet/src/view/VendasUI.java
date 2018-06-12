@@ -1,13 +1,13 @@
 
 package view;
 
+import Negocio.ItemVendaNegocio;
 import Negocio.VendaNegocio;
 import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioPet;
 import Repositorio.RepositorioVenda;
 import Util.Console;
 import Util.DateTimeUtil;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -16,12 +16,9 @@ import model.Pet;
 import model.TipoServico;
 import model.Venda;
 import Negocio.NegocioException;
-import dao.impl_BD.ClienteDaoBd;
 import dao.impl_BD.PetDaoBd;
 import dao.impl_BD.TipoServicoDaoBd;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import view_menu.VendaMenu;
 
 /**
@@ -74,26 +71,12 @@ public class VendasUI {
     }
     
     private void efetuarVenda(){
-        String dataString = Console.scanString("Data e hora: ex: 19/05/2017 21:51 ");
+        String dataString = Console.scanString("Data e hora: (ex: 01/01/1999 23:59) ");
         LocalDateTime data = DateTimeUtil.stringToDateTime(dataString);
-        int opcao = 0;
+        int opcao = -1;
         
-        do(
-                
-            System.out.println("");
-            listaPets();
-            String pet = Console.scanString("Nome pet: ");
-
-            listaServicos();
-            String servico = Console.scanString("Nome servico: ");
-                
-            try {
-                vendaNegocio.salvar(new Venda(data, retornaIdDono(cliente), retornaIdServico(servico), valorTotal));
-                System.out.println("Venda efetuada com sucesso!");
-            } catch (NegocioException ex) {
-                UIUtil.mostrarErro(ex.getMessage());
-            }
-        )while(opcao!=0);
+        
+        
         
         double valorTotal = 0;
         for(TipoServico ts: retornaListaServicos()){
@@ -101,7 +84,7 @@ public class VendasUI {
         }
         
         try {
-            vendaNegocio.salvar(new Venda(data, retornaIdDono(cliente), retornaIdServico(servico), valorTotal));
+            vendaNegocio.salvar(new Venda(data,  valorTotal));
             System.out.println("Venda efetuada com sucesso!");
         } catch (NegocioException ex) {
             UIUtil.mostrarErro(ex.getMessage());
@@ -125,53 +108,7 @@ public class VendasUI {
     
     
     
-    //=========================METODOS DE APOIO=================================
-    private List<Pet> retornaListaPets(){
-        List<Pet> listaPets = new ArrayList<>();
-        PetDaoBd pet = new PetDaoBd();    
-        return listaPets = pet.listar();    
-    }
     
-    private void listaPets(){
-        System.out.println("PETS");
-        for(Pet p: retornaListaPets()){
-            System.out.println(p.getNomePet());
-        }
-    }
-    
-    private int retornaIdPet(String pet){
-        int fkPet = -1;
-        for(Pet p: retornaListaPets()){
-            if(pet.equals(p.getNomePet())){
-                fkPet = p.getIdPet();                
-            }
-        }
-        return fkPet;
-    }    
-    
-    private List<TipoServico> retornaListaServicos(){
-        List<TipoServico> listaServicos = new ArrayList<>();
-        TipoServicoDaoBd servico = new TipoServicoDaoBd();    
-        return listaServicos = servico.listar();    
-    }
-    
-    private void listaServicos(){
-        System.out.println("SERVICOS");
-        for(TipoServico ts: retornaListaServicos()){
-            System.out.println(ts.getNomeServico());
-        }
-    }
-    
-    private int retornaIdServico(String servico){
-        int fkServico = -1;
-        for(TipoServico ts: retornaListaServicos()){
-            if(servico.equals(ts.getNomeServico())){
-                fkServico = ts.getId();                
-            }
-        }
-        return fkServico;
-    }
-    //==========================================================================
 
     
     

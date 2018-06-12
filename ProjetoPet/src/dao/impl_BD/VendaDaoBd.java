@@ -23,18 +23,14 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
     public void salvar(Venda venda) {
         int id = 0;
         try {
-            String sql = "INSERT INTO venda (data_hora, cliente, tipo_servico, valor_total) "
-                    + "VALUES (?,?,?,?)";
-
-            //Foi criado um novo método conectar para obter o id
-            conectarObtendoId(sql);
+            String sqlVenda = "INSERT INTO venda (data_hora, valor_total) "
+                    + "VALUES (?,?)";
+            
+            conectarObtendoId(sqlVenda);
             Timestamp timestamp = Timestamp.valueOf(venda.getDataEHora());
             comando.setTimestamp(1, timestamp);
-            comando.setInt(2, venda.getFkPet());
-            comando.setInt(3, venda.getFkServico());
-            comando.setDouble(4, venda.getValorTotal());
-            comando.executeUpdate();
-            //Obtém o resultSet para pegar o id
+            comando.setDouble(2, venda.getValorTotal());
+            comando.executeUpdate();           
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()){
                 id = resultado.getInt(1);
@@ -44,7 +40,6 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
                 System.err.println("Erro de Sistema - Nao gerou o id conforme esperado!");
                 throw new BDException("Nao gerou o id conforme esperado!");
             }
-
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao salvar venda no Banco de Dados!");
             throw new BDException(ex);
@@ -79,9 +74,7 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
             conectar(sql);
             Timestamp timestamp = Timestamp.valueOf(venda.getDataEHora());
             comando.setTimestamp(1, timestamp);
-            comando.setLong(2, venda.getFkPet());
-            comando.setLong(3, venda.getFkServico());
-            comando.setInt(4, venda.getId());
+            comando.setInt(2, venda.getId());
             comando.executeUpdate();
 
         } catch (SQLException ex) {

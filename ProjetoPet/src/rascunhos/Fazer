@@ -1,2 +1,5 @@
 
 Fazer toda a parte de banco para a VendasUI e VendaMenu;
+
+
+UPDATE do tipo de servico não funciona, parece que sim, mas quando da o select, nada mudou. 

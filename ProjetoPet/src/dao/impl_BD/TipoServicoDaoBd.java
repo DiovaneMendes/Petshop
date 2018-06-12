@@ -48,10 +48,10 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
     @Override
     public void deletar(TipoServico tipoServico) {
         try {
-            String sql = "DELETE FROM tipo_servico WHERE id = ?";
+            String sql = "DELETE FROM tipo_servico WHERE nome = ?";
 
             conectar(sql);
-            comando.setInt(1, tipoServico.getId());
+            comando.setString(1, tipoServico.getNomeServico());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -65,18 +65,19 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
     @Override
     public void atualizar(TipoServico tipoServico) {
         try {
-            String sql = "UPDATE tipo_servico SET numero_servico=?, nome=?, tipo_atendimento=?, preco=?"
+            String sql = "UPDATE tipo_servico SET numero=?, nome=?, tipo_atendimento=?, preco=?"
                     + "WHERE id=?";
 
-            conectarObtendoId(sql);
+            conectar(sql);
             comando.setInt(1, tipoServico.getNumeroServico());
             comando.setString(2, tipoServico.getNomeServico());
             comando.setString(3, tipoServico.getTipoDeAtendimento());
             comando.setDouble(4, tipoServico.getPrecoServico());
+            comando.setInt(5, tipoServico.getId());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao atualizar tipo de servico no Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao atualizar servico no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -96,7 +97,7 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
-                int numeroServico = resultado.getInt("numero_servico");
+                int numeroServico = resultado.getInt("numero");
                 String nome = resultado.getString("nome");
                 String tipoAtendimento = resultado.getString("tipo_atendimento");
                 double preco = resultado.getLong("preco");
@@ -126,7 +127,7 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
 
             if (resultado.next()) {
                 int idServico = resultado.getInt("id");
-                int numeroServico = resultado.getInt("numero_servico");
+                int numeroServico = resultado.getInt("numero");
                 String nome = resultado.getString("nome");
                 String tipoAtendimento = resultado.getString("tipo_atendimento");
                 double preco = resultado.getLong("preco");
@@ -156,7 +157,7 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
-                int numeroServico = resultado.getInt("numero_servico");
+                int numeroServico = resultado.getInt("numero");
                 String nomeServico = resultado.getString("nome");
                 String tipoAtendimento = resultado.getString("tipo_atendimento");
                 double preco = resultado.getLong("preco");
@@ -175,22 +176,22 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
     }
 
     @Override
-    public TipoServico procurarPorNome(String nomeX) {
+    public TipoServico procurarPorNome(String nome) {
         String sql = "SELECT * FROM tipo_servico WHERE nome = ?";
         try {
             conectar(sql);
-            comando.setString(1, nomeX);
+            comando.setString(1, nome);
 
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int numero = resultado.getInt("numero_servico");
-                String nome = resultado.getString("nome");
+                int id = resultado.getInt("id");
+                int numero = resultado.getInt("numero");
                 String tipoAtendimento = resultado.getString("tipo_atendimento");
                 double valor = resultado.getInt("preco");
 
-                TipoServico pet = new TipoServico(numero, nome, tipoAtendimento, valor);
-                return pet;
+                TipoServico servico = new TipoServico(id, numero, nome, tipoAtendimento, valor);
+                return servico;
             }
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao buscar o servico pelo o nome no Banco de Dados!");
@@ -200,23 +201,4 @@ public class TipoServicoDaoBd extends DaoBd<TipoServico> implements TipoServicoD
         }
         return (null);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

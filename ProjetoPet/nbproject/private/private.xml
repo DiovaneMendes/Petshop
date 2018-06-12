@@ -3,20 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view_menu/VendaMenu.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/ClienteDao.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/model/Cliente.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view/VendasUI.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/impl_BD/VendaDaoBd.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/rascunhos/Fazer</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view_menu/ClienteMenu.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/impl_BD/PetDaoBd.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/VendaDao.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Negocio/ClienteNegocio.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/Dao.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/rascunhos/ScriptSQL.txt</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/view/ClienteUI.java</file>
-            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/impl_BD/ClienteDaoBd.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/Negocio/TipoServicoNegocio.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/impl_BD/TipoServicoDaoBd.java</file>
+            <file>file:/C:/Users/Diovane/Desktop/Petshop/ProjetoPet/src/dao/TipoServicoDao.java</file>
         </group>
     </open-files>
 </project-private>

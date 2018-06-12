@@ -7,7 +7,7 @@ CREATE TABLE cliente(
 
 CREATE TABLE tipo_servico(
         id SERIAL PRIMARY KEY,
-	numero_servico INTEGER,
+	numero INTEGER,
 	nome VARCHAR(30) NOT NULL,
 	tipo_atendimento VARCHAR(20) NOT NULL,
 	preco DECIMAL
