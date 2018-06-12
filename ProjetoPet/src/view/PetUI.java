@@ -6,6 +6,7 @@ import Util.Console;
 import view_menu.PetMenu;
 import Negocio.PetNegocio;
 import Negocio.NegocioException;
+import Util.MostraCoisas;
 import dao.impl_BD.ClienteDaoBd;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -19,7 +20,8 @@ import java.util.List;
 //Aqui é criada toda a lógica de adicionar e listar pet
 public class PetUI {
     private PetNegocio petNegocio;  
-        
+    private MostraCoisas mc = new MostraCoisas();
+    
     public PetUI() {
         petNegocio = new PetNegocio();
     }
@@ -61,18 +63,18 @@ public class PetUI {
     }
     
     private void cadastrarPet() {
-        if (retornaListaClientes() == null) {
+        if (mc.retornaListaClientes() == null) {
             System.out.println("=============================");
             System.out.println("Cadastrar clientes primeiro!");
             System.out.println("=============================\n");
         }else{
             String nome = Console.scanString("Nome Pet: ");
             String tipoAnimal = Console.scanString("Tipo Animal: ");      
-            listaDonos(); 
+            mc.listaDonos(); 
             String nomeDono = Console.scanString("Escolha o dono: ");
-            retornaIdDono(nomeDono);
+            
             try {
-                petNegocio.salvar(new Pet(nome, tipoAnimal, retornaIdDono(nomeDono)));
+                petNegocio.salvar(new Pet(nome, tipoAnimal, mc.retornaIdDono(nomeDono)));
                 System.out.println("Pet " + nome + " cadastrado com sucesso!");
             } catch (NegocioException ex) {
                 UIUtil.mostrarErro(ex.getMessage());
@@ -85,6 +87,7 @@ public class PetUI {
         try {            
             Pet pet = petNegocio.procurarPorNome(nome);
             this.mostraPet(pet);
+            
             if (UIUtil.getConfirmacao("Realmente deseja excluir esse pet?")) {
                 petNegocio.deletar(pet);
                 System.out.println("Pet deletado com sucesso!");
@@ -105,11 +108,12 @@ public class PetUI {
             System.out.println("Digite os dados do pet que quer alterar");
             String nome = Console.scanString("Nome[Deixe vazio caso não queira]: ");
             String tipoAnimal = Console.scanString("Tipo de animal[Deixe vazio caso não queira]: ");
-            listaDonos(); 
+            mc.listaDonos(); 
             String nomeDono = Console.scanString("Escolha o dono: ");
-            int fkDono = retornaIdDono(nomeDono);
+            int fkDono = mc.retornaIdDono(nomeDono);
+            
             if (!nome.isEmpty()) {
-                pet.setNomePet(nomeP);
+                pet.setNomePet(nome);
             }
             if (!tipoAnimal.isEmpty()) {
                 pet.setTipoAnimal(tipoAnimal);
@@ -137,17 +141,19 @@ public class PetUI {
     private void listarPets(List<Pet> listaPets) {
         if (listaPets.isEmpty()) {
             System.out.println("=============================");
-            System.out.println("Nao ha pets cadastrados");
+            System.out.println("   Nao ha pets cadastrados");
             System.out.println("=============================\n");
         } else {
             System.out.println("=============================\n");
-            System.out.println(String.format("%-20s", "NOME") + "\t"
+            System.out.println(String.format("%-2s", "ID") + "\t"
+                    + String.format("%-10s", "|NOME") + "\t"
                     + String.format("%-10s", "|TIPO ANIMAL") + "\t"
                     + String.format("%-10s", "|DONO"));
             for(Pet p : listaPets) {
-                System.out.println(String.format("%-20s", p.getNomePet()) + "\t"
+                System.out.println(String.format("%-2s", p.getIdPet()) + "\t"
+                        + String.format("%-10s", "|" + p.getNomePet()) + "\t"
                         + String.format("%-10s", "|" + p.getTipoAnimal()) + "\t"
-                        + String.format("%-10s", "|" + p.getNomeDono()));
+                        + String.format("%-10s", "|" + mc.retornaNomeDono(p.getFkDono())));
             }
         }
     }
@@ -158,34 +164,9 @@ public class PetUI {
     }
     
     private void mostraPet(Pet p){
-        System.out.println("Pet");
+        System.out.println("\nPet");
         System.out.println("Nome: " + p.getNomePet());
         System.out.println("Tipo animal: " + p.getTipoAnimal());
-        System.out.println("Dono: " + p.getNomeDono());
+        System.out.println("Dono: " + mc.retornaNomeDono(p.getFkDono()) + "\n");
     }
-    
-    //=========================METODOS DE APOIO=================================
-    private List<Cliente> retornaListaClientes(){
-        List<Cliente> listaClientes = new ArrayList<>();
-        ClienteDaoBd dono = new ClienteDaoBd();    
-        return listaClientes = dono.listar();    
-    }
-    
-    private void listaDonos(){
-        System.out.println("CLIENTES");
-        for(Cliente c: retornaListaClientes()){
-            System.out.println(c.getNome());
-        }
-    }
-    
-    private int retornaIdDono(String dono){
-        int fkDono = -1;
-        for(Cliente c: retornaListaClientes()){
-            if(dono.equals(c.getNome())){
-                fkDono = c.getId();                
-            }
-        }
-        return fkDono;
-    }
-    //==========================================================================
 }

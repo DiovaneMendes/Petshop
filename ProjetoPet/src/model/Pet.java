@@ -16,6 +16,12 @@ public class Pet {
         this.fkDono = fkDono;
     }
     
+    public Pet(String nomePet, String tipoAnimal, String nomeDono){
+        this.nomePet = nomePet;
+        this.tipoAnimal = tipoAnimal;
+        this.nomeDono = nomeDono;
+    }
+    
     public Pet(int idPet, String nomePet, String tipoAnimal, int fkDono){
         this.idPet = idPet;
         this.nomePet = nomePet;
@@ -23,7 +29,8 @@ public class Pet {
         this.fkDono = fkDono;
     }
     
-    public Pet(String nomePet, String tipoAnimal, String nomeDono){
+    public Pet(int idPet, String nomePet, String tipoAnimal, String nomeDono){
+        this.idPet = idPet;
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
         this.nomeDono = nomeDono;

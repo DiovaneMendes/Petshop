@@ -41,7 +41,7 @@ public class PetNegocio{
     }
     
     public void atualizar(Pet pet) throws NegocioException {
-        if (pet == null) {
+        if (pet == null || pet.getNomePet() == null) {
             throw new NegocioException("Pet nao existe!");
         }
         this.validarCamposObrigatorios(pet);
@@ -90,12 +90,4 @@ public class PetNegocio{
             throw new NegocioException("Campo Dono nao informado!");
         }
     }
-    
-    //Validando se o pet é existente
-//    private void validarPetsExistente(Pet p) throws NegocioException {
-//        if(RepositorioPet.getInstance().petExiste(p.getNomePet()) && 
-//              RepositorioPet.getInstance().conferirDono(p.getDono().getNome())){
-//            throw new NegocioException("Pet ja existente!");
-//        }
-//    }
 }

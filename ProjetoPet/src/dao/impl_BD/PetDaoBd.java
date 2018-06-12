@@ -1,5 +1,6 @@
 package dao.impl_BD;
 
+import Util.MostraCoisas;
 import dao.PetDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import model.Pet;
  * @author Diovane
  */
 public class PetDaoBd extends DaoBd<Pet> implements PetDao {
+    MostraCoisas mc = new MostraCoisas();
     @Override
     public void salvar(Pet pet) {
         int idPet = 0;
@@ -48,7 +50,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public void deletar(Pet pet) {
         try {
-            String sql = "DELETE FROM pet WHERE idPet = ?";
+            String sql = "DELETE FROM pet WHERE id = ?";
 
             conectar(sql);
             comando.setInt(1, pet.getIdPet());
@@ -65,7 +67,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public void atualizar(Pet pet) {
         try {
-            String sql = "UPDATE pet SET nomePet=?, tipo_animal=?, cliente=?"
+            String sql = "UPDATE pet SET nome=?, tipo_animal=?, cliente=?"
                     + "WHERE id=?";
 
             conectar(sql);
@@ -87,11 +89,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     public List<Pet> listar() {
         List<Pet> listaPets = new ArrayList<>();
 
-        String sql = "SELECT"
-                + "pet.nome, pet.tipo_animal"
-                + "cliente.nome"
-                + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.cliente)";
+        String sql = "SELECT * FROM pet";
 
         try {
             conectar(sql);
@@ -99,11 +97,12 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                String nomePet = resultado.getString("pet.nome");
-                String tipoAnimal = resultado.getString("pet.tipo_animal");
-                String nomeDono = resultado.getString("cliente.nome");
-
-                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
+                int id = resultado.getInt("id");
+                String nomePet = resultado.getString("nome");
+                String tipoAnimal = resultado.getString("tipo_animal");
+                int fkDono = resultado.getInt("cliente");
+                
+                Pet pet = new Pet(id, nomePet, tipoAnimal, fkDono);
                 listaPets.add(pet);
             }
         } catch (SQLException ex) {
@@ -118,11 +117,10 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public Pet procurarPorId(int idPet) {
         String sql = "SELECT"
-                + "pet.nome, pet.tipo_animal"
-                + "cliente.nome"
-                + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.cliente)"
-                + "WHERE id=?";
+                + "p.nome, p.tipo_animal, c.nome"
+                + "FROM pet p"
+                + "JOIN cliente c ON(c.id = p.cliente)"
+                + "WHERE p.idPet=?";
 
         try {
             conectar(sql);
@@ -131,10 +129,10 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                String nomePet = resultado.getString("pet.nome");
-                String tipoAnimal = resultado.getString("pet.tipo_animal");
-                String nomeDono = resultado.getString("cliente.nome");
-
+                String nomePet = resultado.getString("p.nome");
+                String tipoAnimal = resultado.getString("p.tipo_animal");
+                String nomeDono = resultado.getString("c.nome");
+                
                 Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
 
                 return pet;
@@ -151,23 +149,18 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
     @Override
     public List<Pet> listarPorNome(String nome) {
         List<Pet> listaPets = new ArrayList<>();
-        String sql = "SELECT"
-                + "pet.nome, pet.tipo_animal"
-                + "cliente.nome"
-                + "FROM pet"
-                + "JOIN cliente ON(cliente.id = pet.cliente)"
-                + "WHERE pet.nome LIKE ?";
+        String sql = "SELECT * FROM pet WHERE nome LIKE ?";
         try {
             conectar(sql);
             comando.setString(1, "%" + nome + "%");
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                String nomePet = resultado.getString("pet.nome");
-                String tipoAnimal = resultado.getString("pet.tipoAnimal");
-                String nomeDono = resultado.getString("cliente.nome");
+                int id = resultado.getInt("id");
+                String tipoAnimal = resultado.getString("tipo_animal");
+                int fkDono = resultado.getInt("cliente");
 
-                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
+                Pet pet = new Pet(id, nome, tipoAnimal, fkDono);
 
                 listaPets.add(pet);
             }
@@ -190,11 +183,11 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                String nomePet = resultado.getString("nome");
+                int id = resultado.getInt("id");
                 String tipoAnimal = resultado.getString("tipo_animal");
-                int fkdono = resultado.getInt("cliente");
+                int NomeDono = resultado.getInt("cliente");
 
-                Pet pet = new Pet(nome, tipoAnimal, fkdono);
+                Pet pet = new Pet(id, nome, tipoAnimal, NomeDono);
                 return pet;
             }
         } catch (SQLException ex) {
