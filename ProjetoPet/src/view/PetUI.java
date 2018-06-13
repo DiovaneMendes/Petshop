@@ -1,14 +1,11 @@
 package view;
 
 import model.Pet;
-import model.Cliente;
 import Util.Console;
 import view_menu.PetMenu;
 import Negocio.PetNegocio;
 import Negocio.NegocioException;
 import Util.MostraCoisas;
-import dao.impl_BD.ClienteDaoBd;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 

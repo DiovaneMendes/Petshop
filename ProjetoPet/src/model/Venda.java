@@ -9,7 +9,7 @@ package model;
 import java.time.LocalDateTime;
 
 public class Venda {
-    private int id, fkVenda;
+    private int id;
     private LocalDateTime dataEHora;
     private String pet, servico;
     private double valorTotal;
@@ -21,16 +21,14 @@ public class Venda {
         this.valorTotal = valorTotal;
     }
     
-    public Venda( LocalDateTime dataEHora, int fkVenda, double valorTotal){
+    public Venda( LocalDateTime dataEHora, double valorTotal){
         this.dataEHora = dataEHora;
-        this.fkVenda = fkVenda;
         this.valorTotal = valorTotal;
     }
     
-    public Venda(int id, LocalDateTime dataEHora, int fkVenda, double valorTotal){
+    public Venda(int id, LocalDateTime dataEHora, double valorTotal){
         this.id = id;
         this.dataEHora = dataEHora;
-        this.fkVenda = fkVenda;
         this.valorTotal = valorTotal;
     }
 
@@ -48,14 +46,6 @@ public class Venda {
     
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getFkVenda() {
-        return fkVenda;
-    }
-
-    public void setFkVenda(int fkVenda) {
-        this.fkVenda = fkVenda;
     }
 
     public String getPet() {

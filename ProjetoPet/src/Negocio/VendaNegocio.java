@@ -52,7 +52,7 @@ public class VendaNegocio{
         }
         Venda venda = vendaDao.procurarPorId(id);
         if (venda == null) {
-            throw new NegocioException("Venda nao encontrado");
+            throw new NegocioException("Venda nao encontrada");
         }
         return (venda);
     }

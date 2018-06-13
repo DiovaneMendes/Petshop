@@ -8,8 +8,8 @@ import java.util.List;
  */
 public interface Dao<T> {
     public void salvar(T dominio);
-    public void deletar(T paciente);
-    public void atualizar(T paciente);
+    public void deletar(T tezinho);
+    public void atualizar(T tezinho);
     public List<T> listar();
     public T procurarPorId(int id);
 }

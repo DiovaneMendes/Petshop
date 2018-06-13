@@ -3,23 +3,20 @@ package view;
 import Negocio.ItemVendaNegocio;
 import Negocio.NegocioException;
 import Util.Console;
-import dao.impl_BD.PetDaoBd;
-import dao.impl_BD.TipoServicoDaoBd;
-import java.util.ArrayList;
+import Util.MostraCoisas;
+import dao.impl_BD.VendaDaoBd;
 import java.util.InputMismatchException;
-import java.util.List;
 import model.ItemVenda;
-import model.Pet;
-import model.TipoServico;
 import view_menu.ItemVendaMenu;
 
 /**
  *
  * @author Diovane
  */
-public class ItemVendaUI {    
+public class ItemVendaUI {
+    private MostraCoisas mc = new MostraCoisas();
+    private VendaDaoBd vDaoDB;    
     private ItemVendaNegocio ivNegocio;
-    
     public ItemVendaUI(){
         ivNegocio = new ItemVendaNegocio();
     }
@@ -35,10 +32,10 @@ public class ItemVendaUI {
                         cadastrarItem();
                         break;
                     case ItemVendaMenu.OP_DELETAR:
-                        deletarItem();
+                        //deletarItem();
                         break;
                     case ItemVendaMenu.OP_ATUALIZAR:
-                        atualizarItem();
+                        //atualizarItem();
                         break;
                     case ItemVendaMenu.OP_SAIR:
                         System.out.println("Finalizando a aplicacao..");
@@ -53,68 +50,35 @@ public class ItemVendaUI {
         } while (opcao != ItemVendaMenu.OP_SAIR);
     }
     
-    private void cadastrarItem(){
-        listaPets();
-        String pet = Console.scanString("Nome Pet: ");
-        listaServicos();
-        String servico = Console.scanString("Nome Servico: ");
-        try {
-            ivNegocio.salvar(new ItemVenda(nome, retornaIdPet(pet), retornaIdServico(servico)));
-            System.out.println("Item cadastrado com sucesso!");
+    public double cadastrarItem(){
+        double valorTotal;
+        do{
+            mc.listaPets();
+            String pet = Console.scanString("Nome Pet: ");
+            mc.listaServicos();
+            String servico = Console.scanString("Nome Servico: ");
+            int fkVenda = vDaoDB.id;
+            try {
+                ivNegocio.salvar(new ItemVenda(fkVenda, mc.retornaIdPet(pet), mc.retornaIdServico(servico)));
+                System.out.println("Item cadastrado com sucesso!");
+            } catch (NegocioException ex) {
+                UIUtil.mostrarErro(ex.getMessage());
+            }
+            valorTotal = mc.retornaValorItem(vDaoDB.id);
+        }while(UIUtil.getConfirmacao("Deseja adicionar mais um item?"));
+        return valorTotal;
+    }
+    
+    public void deletar(int fk){
+        try { 
+            ItemVenda iv;
+            for(ItemVenda ivList: mc.retornaListaItens()){
+                if(ivList.getFkVenda() == fk){                    
+                    ivNegocio.deletar(ivNegocio.procurarPorId(fk));
+                }
+            }
         } catch (NegocioException ex) {
             UIUtil.mostrarErro(ex.getMessage());
-        } 
-    }
-    
-    
-    
-    
-    
-    //=========================METODOS DE APOIO=================================
-    private List<Pet> retornaListaPets(){
-        List<Pet> listaPets = new ArrayList<>();
-        PetDaoBd pet = new PetDaoBd();    
-        return listaPets = pet.listar();    
-    }
-    
-    private void listaPets(){
-        System.out.println("PETS");
-        for(Pet p: retornaListaPets()){
-            System.out.println(p.getNomePet());
         }
     }
-    
-    private int retornaIdPet(String pet){
-        int fkPet = -1;
-        for(Pet p: retornaListaPets()){
-            if(pet.equals(p.getNomePet())){
-                fkPet = p.getIdPet();                
-            }
-        }
-        return fkPet;
-    }    
-    
-    private List<TipoServico> retornaListaServicos(){
-        List<TipoServico> listaServicos = new ArrayList<>();
-        TipoServicoDaoBd servico = new TipoServicoDaoBd();    
-        return listaServicos = servico.listar();    
-    }
-    
-    private void listaServicos(){
-        System.out.println("SERVICOS");
-        for(TipoServico ts: retornaListaServicos()){
-            System.out.println(ts.getNomeServico());
-        }
-    }
-    
-    private int retornaIdServico(String servico){
-        int fkServico = -1;
-        for(TipoServico ts: retornaListaServicos()){
-            if(servico.equals(ts.getNomeServico())){
-                fkServico = ts.getId();                
-            }
-        }
-        return fkServico;
-    }
-    //==========================================================================
 }

@@ -1,5 +1,6 @@
 package Negocio;
 
+import Util.MostraCoisas;
 import dao.ItemVendaDao;
 import dao.impl_BD.ItemVendaDaoBd;
 import java.util.List;
@@ -11,6 +12,7 @@ import model.ItemVenda;
  */
 public class ItemVendaNegocio {
     private ItemVendaDao ivDao;
+    private MostraCoisas mc = new MostraCoisas();
     
     public ItemVendaNegocio(){
         ivDao = new ItemVendaDaoBd();
@@ -41,6 +43,7 @@ public class ItemVendaNegocio {
     }
     
     public ItemVenda procurarPorId(int id) throws NegocioException {
+        
         if (id == 0) {
             throw new NegocioException("Campo id nao informado");
         }

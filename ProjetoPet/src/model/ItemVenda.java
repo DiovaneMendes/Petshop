@@ -8,6 +8,11 @@ public class ItemVenda {
     private int id, fkVenda, fkPet, fkServico;
     private String pet, servico;
     
+    public ItemVenda(String pet, String servico){
+        this.pet = pet;
+        this.servico = servico;
+    }
+    
     public ItemVenda(int id, String pet, String servico){
         this.id = id;
         this.pet = pet;

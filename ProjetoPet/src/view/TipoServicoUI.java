@@ -99,16 +99,16 @@ public class TipoServicoUI {
             String nome = Console.scanString("Nome[Deixe vazio caso nao queira]: ");
             String tipoAtendimento = Console.scanString("Tipo Atendimento:(estetico ou clinico)\n[Deixe vazio caso nao queira]: ");
             double valor = Console.scanDouble("Valor[Digite zero caso nao queira]: ");
-            if (numero == 0) {
+            if (numero != 0) {
                 tipoServico.setNumeroServico(numero);
             }
             if (!nome.isEmpty()) {
                 tipoServico.setNomeServico(nome);
             }
-            if (tipoAtendimento.isEmpty()) {
+            if (!tipoAtendimento.isEmpty()) {
                 tipoServico.setTipoDeAtendimento(tipoAtendimento);
             }
-            if (valor == 0) {
+            if (valor != 0) {
                 tipoServico.setPrecoServico(valor);
             }
 

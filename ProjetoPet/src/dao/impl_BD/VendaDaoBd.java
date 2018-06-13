@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao.impl_BD;
 
 import dao.VendaDao;
@@ -13,24 +8,36 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.Venda;
+import view.ItemVendaUI;
 
 /**
  *
  * @author Diovane
  */
-public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
+public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{ 
+    private ItemVendaUI ivUI = new ItemVendaUI();
+  
+    public int id = 0;
+    
+    public VendaDaoBd(){
+        
+    }
+
     @Override
     public void salvar(Venda venda) {
-        int id = 0;
-        try {
+        try {           
             String sqlVenda = "INSERT INTO venda (data_hora, valor_total) "
                     + "VALUES (?,?)";
             
             conectarObtendoId(sqlVenda);
             Timestamp timestamp = Timestamp.valueOf(venda.getDataEHora());
             comando.setTimestamp(1, timestamp);
+            
+            ivUI.cadastrarItem();
+            
             comando.setDouble(2, venda.getValorTotal());
-            comando.executeUpdate();           
+            comando.executeUpdate();
+            
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()){
                 id = resultado.getInt(1);
@@ -40,12 +47,15 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
                 System.err.println("Erro de Sistema - Nao gerou o id conforme esperado!");
                 throw new BDException("Nao gerou o id conforme esperado!");
             }
+            
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao salvar venda no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
         }
+        
+        
     }
     
     @Override
@@ -56,7 +66,7 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
             conectar(sql);
             comando.setInt(1, venda.getId());
             comando.executeUpdate();
-
+            
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao deletar venda no Banco de Dados!");
             throw new RuntimeException(ex);
@@ -178,4 +188,3 @@ public class VendaDaoBd extends DaoBd<Venda> implements VendaDao{
         }
         return (listaVendas);
     }
-}

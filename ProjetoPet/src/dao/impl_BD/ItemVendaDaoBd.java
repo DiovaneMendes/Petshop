@@ -12,7 +12,11 @@ import model.ItemVenda;
  * @author Diovane
  */
 public class ItemVendaDaoBd extends DaoBd<ItemVenda> implements ItemVendaDao{
-    @Override
+    
+    public ItemVendaDaoBd(){
+        
+    }
+    
     public void salvar(ItemVenda item) {
         int id = 0;
         try {
@@ -83,10 +87,8 @@ public class ItemVendaDaoBd extends DaoBd<ItemVenda> implements ItemVendaDao{
     public List<ItemVenda> listar() {
         List<ItemVenda> listaItemVendas = new ArrayList<>();
 
-        String sql = "SELECT iv.id, p.nome, s.nome"
-                + "FROM item_venda iv"
-                + "JOIN pet p ON(pet.iv = p.id)"
-                + "JOIN servico s ON(servico.iv = s.id);";
+        String sql = "SELECT id, pet, servico"
+                + "FROM item_venda";
 
         try {
             conectar(sql);
@@ -94,9 +96,9 @@ public class ItemVendaDaoBd extends DaoBd<ItemVenda> implements ItemVendaDao{
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int id = resultado.getInt("iv.id");
-                String pet = resultado.getString("p.nome");
-                String servico = resultado.getString("s.nome");
+                int id = resultado.getInt("id");
+                int pet = resultado.getInt("pet");
+                int servico = resultado.getInt("servico");
 
                 ItemVenda item = new ItemVenda(id, pet, servico);
                 listaItemVendas.add(item);

@@ -32,9 +32,3 @@ CREATE TABLE item_venda(
 	pet INTEGER REFERENCES pet(id),
 	tipo_servico INTEGER REFERENCES tipo_servico(id)
 );
-
-drop table pet;
-drop table venda;
-drop table cliente;
-drop table tipo_servico;
-drop table item_venda;

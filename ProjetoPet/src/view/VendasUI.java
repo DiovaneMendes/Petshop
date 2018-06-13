@@ -1,24 +1,17 @@
 
 package view;
 
-import Negocio.ItemVendaNegocio;
 import Negocio.VendaNegocio;
-import Repositorio.RepositorioClientes;
-import Repositorio.RepositorioPet;
 import Repositorio.RepositorioVenda;
 import Util.Console;
 import Util.DateTimeUtil;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import model.Cliente;
-import model.Pet;
 import model.TipoServico;
 import model.Venda;
 import Negocio.NegocioException;
-import dao.impl_BD.PetDaoBd;
-import dao.impl_BD.TipoServicoDaoBd;
-import java.util.List;
+import Util.MostraCoisas;
+import dao.impl_BD.VendaDaoBd;
+import java.util.InputMismatchException;
 import view_menu.VendaMenu;
 
 /**
@@ -28,7 +21,10 @@ import view_menu.VendaMenu;
 
 //Aqui é criada toda a lógica de adicionar e listar venda
 public class VendasUI {
+    private MostraCoisas mc = new MostraCoisas();
     private VendaNegocio vendaNegocio;
+    private ItemVendaUI ivUI = new ItemVendaUI();
+    private VendaDaoBd vDaoDB = new VendaDaoBd();
     
     public VendasUI() {
         vendaNegocio = new VendaNegocio();
@@ -49,13 +45,13 @@ public class VendasUI {
                         deletarVenda();
                         break;
                     case VendaMenu.OP_ATUALIZAR:
-                        atualizarVenda();
+                        //atualizarVenda();
                         break;
                     case VendaMenu.OP_LISTAR:
-                        mostrarVendas();
+                        //mostrarVendas();
                         break;
                     case VendaMenu.OP_CONSULTAR:
-                        consultarVendasPorNome();
+                        //consultarVendasPorNome();
                         break;
                     case VendaMenu.OP_SAIR:
                         System.out.println("Finalizando a aplicacao..");
@@ -73,15 +69,8 @@ public class VendasUI {
     private void efetuarVenda(){
         String dataString = Console.scanString("Data e hora: (ex: 01/01/1999 23:59) ");
         LocalDateTime data = DateTimeUtil.stringToDateTime(dataString);
-        int opcao = -1;
-        
-        
-        
-        
-        double valorTotal = 0;
-        for(TipoServico ts: retornaListaServicos()){
-            valorTotal += ts.getPrecoServico();
-        }
+               
+        double valorTotal = ivUI.cadastrarItem();
         
         try {
             vendaNegocio.salvar(new Venda(data,  valorTotal));
@@ -91,101 +80,77 @@ public class VendasUI {
         } 
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //REALIZANDO UMA VENDA
-    private void adicionarVendas(){        
-        //INSERINDO DATA ATUAL
-        String dataString = Console.scanString("Data e hora: ");
-        LocalDateTime data = DateTimeUtil.stringToDateTime(dataString);
-        
-        //MOSTRA A LISTA DE CLIENTES
-        System.out.println(String.format("%-20s","\n|LISTA DE CLIENTES:"));
-        for(Cliente c: RepositorioClientes.getInstance().getClientes()){
-            System.out.println(String.format("%-20s",c.getNome()));
-        } 
-        System.out.println("------------------------");
-
-        //INCLUINDO NOME DE CLIENTE E VERIFICANDO SE CONSTA NA LISTA DE CLIENTES
-        String nomeCliente = Console.scanString("Nome cliente: ");
-        Cliente cliente = null;
-        for(Cliente c: RepositorioClientes.getInstance().getClientes()){
-            if(nomeCliente.equals(c.getNome())){
-                cliente = c;
+    private void deletarVenda(){
+        mc.retornaListaItens();
+        int id = Console.scanInt("Id da venda a ser deletado: ");
+        try {            
+            Venda venda = vendaNegocio.procurarPorId(id);
+            
+            if(UIUtil.getConfirmacao("Realmente deseja excluir essa venda?")){
+                ivUI.deletar(id);
+                vendaNegocio.deletar(venda);
+                System.out.println("Venda deletada com sucesso!");
+            } else {
+                System.out.println("Operacao cancelada!");
             }
-        }
-        //LISTANDO SERVICOS REALIZADOS E INCLUINDO VALOR TOTAL
-        TipoServico tipoServico;
-        ArrayList<TipoServico> listaServicoVenda = new ArrayList<>();
-        double valorTotal = 0;
-        for(Pet p: RepositorioPet.getInstance().getPets()){
-            if(nomeCliente.equals(p.getDono().getNome())){
-                tipoServico = p.getServicoRealizado();
-                listaServicoVenda.add(tipoServico);
-                valorTotal = valorTotal + tipoServico.getPrecoServico();
-            }                
-        }
-
-        //INSERINDO INFORMACOES COLETADAS ACIMA PARA CRIAR UM NOVO OBJETO E DEPOIS ADICIONANDO NO ARRAY
-        try{
-            vendaNegocio.salvar(new Venda (data, cliente, listaServicoVenda, valorTotal));
-            System.out.println("Venda concluida!");
-        }catch (DateTimeParseException ex) {
-            System.out.println("Formato de Data inválido!");
-        } catch(NegocioException ne){
-            System.err.println(ne.getMessage());
+        } catch (NegocioException ex) {
+            UIUtil.mostrarErro(ex.getMessage());
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     //LISTANDO VENDAS REALIZADAS
     private void listarVendas(){
