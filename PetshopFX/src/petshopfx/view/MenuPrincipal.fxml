@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="painelMenuInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petshopfx.controller.MenuPrincipalController">
+   <children>
+      <Text fill="#0c7204" layoutX="70.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SISTEMA PETSHOP" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="button" layoutX="97.0" layoutY="58.0" mnemonicParsing="false" onAction="#irTelaCliente" prefHeight="30.0" prefWidth="113.0" text="Menu cliente">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="97.0" layoutY="97.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu pet">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="97.0" layoutY="136.0" mnemonicParsing="false" onAction="#irTelaServico" prefHeight="30.0" prefWidth="113.0" text="Menu Serviço">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

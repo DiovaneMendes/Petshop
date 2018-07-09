@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="menuCliente" prefHeight="350.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petshopfx.controller.MenuClienteController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+            <Button mnemonicParsing="false" onAction="#botaoCadastrar" text="Cadastrar" />
+            <Button mnemonicParsing="false" onAction="#botaoEditar" text="Editar" />
+            <Button mnemonicParsing="false" onAction="#botaoRemover" text="Remover" />
+            <Text fill="#0c7204" strokeType="OUTSIDE" strokeWidth="0.0" text="MENU CLIENTE" textAlignment="RIGHT" wrappingWidth="152.5341796875">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <Blend />
+               </effect>
+            </Text>
+        </items>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ToolBar>
+      <TableView fx:id="tableViewCliente" prefHeight="269.0" prefWidth="411.0">
+        <columns>
+            <TableColumn fx:id="tableColumnNome" prefWidth="189.0" text="Nome" />
+            <TableColumn fx:id="tableColumnRg" prefWidth="113.0" text="RG" />
+            <TableColumn fx:id="tableColumnTelefone" prefWidth="111.0" text="Telefone" />
+        </columns>
+      </TableView>
+      <Button mnemonicParsing="false" onAction="#voltarMenuPrincipal" text="Voltar">
+         <VBox.margin>
+            <Insets left="360.0" top="8.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
