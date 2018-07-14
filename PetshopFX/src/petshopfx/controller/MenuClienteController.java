@@ -24,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Cliente;
+import Model.Cliente;
 import petshopfx.PetshopFX;
 
 /**
