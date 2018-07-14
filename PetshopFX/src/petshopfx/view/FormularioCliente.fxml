@@ -22,12 +22,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <Label text="Nome:" />
             <Label text="RG:" GridPane.rowIndex="1" />
             <Label text="Telefone:" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldRg" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldTelefone1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Nome:" />
+            <TextField fx:id="textFieldRg" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldTelefone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldNome" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <Group AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">

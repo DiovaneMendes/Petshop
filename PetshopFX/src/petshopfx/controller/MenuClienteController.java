@@ -5,11 +5,9 @@ import petshopfx.view.PrintUtil;
 import Negocio.ClienteNegocio;
 import Negocio.NegocioException;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Cliente;
+import Model.Cliente;
 import petshopfx.PetshopFX;
 
 /**
@@ -58,7 +56,7 @@ public class MenuClienteController implements Initializable {
     private List<Cliente> listaClientes;
     private Cliente clienteSelecionado;
     
-    private ObservableList<Cliente> observableListaPacientes;
+    private ObservableList<Cliente> observableListaClientes;
     private ClienteNegocio clienteNegocio;
     
     @Override
@@ -77,8 +75,8 @@ public class MenuClienteController implements Initializable {
 
         listaClientes = clienteNegocio.listar();
 
-        observableListaPacientes = FXCollections.observableArrayList(listaClientes);
-        tableViewClientes.setItems(observableListaPacientes);
+        observableListaClientes = FXCollections.observableArrayList(listaClientes);
+        tableViewClientes.setItems(observableListaClientes);
     }
     
     @FXML
