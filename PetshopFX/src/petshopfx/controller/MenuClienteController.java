@@ -24,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import Model.Cliente;
+import model.Cliente;
 import petshopfx.PetshopFX;
 
 /**
@@ -34,7 +34,7 @@ import petshopfx.PetshopFX;
  */
 public class MenuClienteController implements Initializable {
     @FXML
-    VBox menuCliente;
+    private VBox menuCliente;
     @FXML
     private TableView<Cliente> tableViewClientes;
     @FXML
@@ -93,13 +93,13 @@ public class MenuClienteController implements Initializable {
     
     @FXML
     private void botaoEditar(ActionEvent event) throws IOException, IllegalArgumentException, IllegalAccessException {
-        Cliente clienteSelecionado = tableViewClientes.getSelectionModel().getSelectedItem();
-        if (clienteSelecionado != null) {
+        Cliente clienteSelec = tableViewClientes.getSelectionModel().getSelectedItem();
+        if (clienteSelec != null) {
             FXMLLoader loader = new FXMLLoader(PetshopFX.class.getResource("/petshopfx/view/FormularioCliente.fxml"));
             Parent root = (Parent) loader.load();
 
             MenuClienteController controller = (MenuClienteController) loader.getController();
-            controller.setClienteSelecionado(clienteSelecionado);
+            controller.setClienteSelecionado(clienteSelec);
 
             Stage dialogStage = new Stage();
             dialogStage.setScene(new Scene(root));
@@ -114,10 +114,10 @@ public class MenuClienteController implements Initializable {
     
     @FXML
     private void botaoRemover(ActionEvent event) throws IOException, NegocioException {
-        Cliente clienteSelecionado = tableViewClientes.getSelectionModel().getSelectedItem();
-        if (clienteSelecionado != null) {
+        Cliente clienteSelec = tableViewClientes.getSelectionModel().getSelectedItem();
+        if (clienteSelec != null) {
             try {
-                clienteNegocio.deletar(clienteSelecionado);
+                clienteNegocio.deletar(clienteSelec);
                 this.carregarTableViewClientes();
             } catch (NegocioException ex) {
                 PrintUtil.printMessageError(ex.getMessage());
@@ -160,11 +160,16 @@ public class MenuClienteController implements Initializable {
         Stage stage = (Stage) painelFormularioCliente.getScene().getWindow();
         stage.close();
     }
+    
+    public Cliente getPacienteSelecionado() {
+        return clienteSelecionado;
+    }
 
     private void setClienteSelecionado(Cliente clienteSelecionado){
         this.clienteSelecionado = clienteSelecionado;
         textFieldNome.setText(clienteSelecionado.getNome());
         textFieldRg.setText(String.valueOf(clienteSelecionado.getRg()));
+        textFieldRg.setEditable(false);
         textFieldTelefone.setText(String.valueOf(clienteSelecionado.getTelefone()));
     }
     
