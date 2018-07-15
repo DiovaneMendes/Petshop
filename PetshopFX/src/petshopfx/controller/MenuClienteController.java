@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Model.Cliente;
+import Model.TipoServico;
 import petshopfx.PetshopFX;
 
 /**
@@ -92,7 +93,7 @@ public class MenuClienteController implements Initializable {
     }
     
     @FXML
-    private void botaoEditar(ActionEvent event) throws IOException, IllegalArgumentException, IllegalAccessException {
+    private void botaoEditar(ActionEvent event) throws IOException{
         Cliente clienteSelec = tableViewClientes.getSelectionModel().getSelectedItem();
         if (clienteSelec != null) {
             FXMLLoader loader = new FXMLLoader(PetshopFX.class.getResource("/petshopfx/view/FormularioCliente.fxml"));
@@ -131,7 +132,7 @@ public class MenuClienteController implements Initializable {
     public void botaoSalvar(ActionEvent event) throws IOException{
         Stage stage = (Stage) painelFormularioCliente.getScene().getWindow();
         
-        if(clienteSelecionado == null){ //Se for cadastrar
+        if(clienteSelecionado == null){ 
             try {
                 clienteNegocio.salvar(new Cliente( 
                         textFieldNome.getText(),
@@ -143,7 +144,7 @@ public class MenuClienteController implements Initializable {
                 PrintUtil.printMessageError(ex.getMessage());
             }            
         }
-        else { //se for editar
+        else { 
             try {
                 clienteSelecionado.setNome(textFieldNome.getText());
                 clienteSelecionado.setTelefone(Long.parseLong(textFieldTelefone.getText()));
@@ -161,7 +162,7 @@ public class MenuClienteController implements Initializable {
         stage.close();
     }
     
-    public Cliente getPacienteSelecionado() {
+    public Cliente getClienteSelecionado() {
         return clienteSelecionado;
     }
 
