@@ -6,33 +6,21 @@ o tipo de animal (String) e o cliente (dono do animal).
 package Model;
 
 public class Pet {
-    private int idPet, fkDono, fkServicoRealizado;
+    private int idPet, fkDono;
     private String nomePet, tipoAnimal, nomeDono, nomeServicoRealizado;
+    private Cliente dono;
     
-    public Pet(String nomePet, String tipoAnimal, int fkDono){
+    public Pet(String nomePet, String tipoAnimal, Cliente dono){
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
-        this.fkDono = fkDono;
+        this.dono = dono;
     }
     
-    public Pet(String nomePet, String tipoAnimal, String nomeDono){
-        this.nomePet = nomePet;
-        this.tipoAnimal = tipoAnimal;
-        this.nomeDono = nomeDono;
-    }
-    
-    public Pet(int idPet, String nomePet, String tipoAnimal, int fkDono){
+    public Pet(int idPet, String nomePet, String tipoAnimal, Cliente dono){
         this.idPet = idPet;
         this.nomePet = nomePet;
         this.tipoAnimal = tipoAnimal;
-        this.fkDono = fkDono;
-    }
-    
-    public Pet(int idPet, String nomePet, String tipoAnimal, String nomeDono){
-        this.idPet = idPet;
-        this.nomePet = nomePet;
-        this.tipoAnimal = tipoAnimal;
-        this.nomeDono = nomeDono;
+        this.dono = dono;
     }
     
     public int getIdPet() {
@@ -51,22 +39,6 @@ public class Pet {
         this.nomePet = nomePet;
     }
     
-    public int getFkDono() {
-        return fkDono;
-    }
-    
-    public void setFkDono(int fkDono) {
-        this.fkDono = fkDono;
-    }
-    
-    public int getFkServicoRealizado() {
-        return fkServicoRealizado;
-    }
-    
-    public void setFkServicoRealizado(int fkServicoRealizado) {
-        this.fkServicoRealizado = fkServicoRealizado;
-    }
-    
     public String getTipoAnimal(){
         return tipoAnimal;
     }
@@ -75,31 +47,11 @@ public class Pet {
         this.tipoAnimal = tipoAnimal;
     }
 
-    /**
-     * @return the nomeDono
-     */
-    public String getNomeDono() {
-        return nomeDono;
+    public Cliente getDono() {
+        return dono;
     }
 
-    /**
-     * @param nomeDono the nomeDono to set
-     */
-    public void setNomeDono(String nomeDono) {
-        this.nomeDono = nomeDono;
-    }
-
-    /**
-     * @return the nomeServicoRealizado
-     */
-    public String getNomeServicoRealizado() {
-        return nomeServicoRealizado;
-    }
-
-    /**
-     * @param nomeServicoRealizado the nomeServicoRealizado to set
-     */
-    public void setNomeServicoRealizado(String nomeServicoRealizado) {
-        this.nomeServicoRealizado = nomeServicoRealizado;
-    }
+    public void setDono(Cliente dono) {
+        this.dono = dono;
+    }    
 }

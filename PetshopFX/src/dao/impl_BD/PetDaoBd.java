@@ -1,5 +1,6 @@
 package dao.impl_BD;
 
+import Model.Cliente;
 import dao.PetDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             conectarObtendoId(sql);
             comando.setString(1, pet.getNomePet());
             comando.setString(2, pet.getTipoAnimal());
-            comando.setInt(3, pet.getFkDono());
+            comando.setObject(3, pet.getDono()); 
             comando.executeUpdate();
             //Obtém o resultSet para pegar o id
             ResultSet resultado = comando.getGeneratedKeys();
@@ -71,7 +72,7 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             conectar(sql);
             comando.setString(1, pet.getNomePet());
             comando.setString(2, pet.getTipoAnimal());
-            comando.setInt(3, pet.getFkDono());
+            comando.setObject(3, pet.getDono());
             comando.setInt(4, pet.getIdPet());
             comando.executeUpdate();
 
@@ -98,9 +99,9 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
                 int id = resultado.getInt("id");
                 String nomePet = resultado.getString("nome");
                 String tipoAnimal = resultado.getString("tipo_animal");
-                int fkDono = resultado.getInt("cliente");
+                Cliente dono = (Cliente) resultado.getObject("cliente");
                 
-                Pet pet = new Pet(id, nomePet, tipoAnimal, fkDono);
+                Pet pet = new Pet(id, nomePet, tipoAnimal, dono);
                 listaPets.add(pet);
             }
         } catch (SQLException ex) {
@@ -129,9 +130,9 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             if (resultado.next()) {
                 String nomePet = resultado.getString("p.nome");
                 String tipoAnimal = resultado.getString("p.tipo_animal");
-                String nomeDono = resultado.getString("c.nome");
+                Cliente dono = (Cliente) resultado.getObject("c.nome");
                 
-                Pet pet = new Pet(nomePet, tipoAnimal, nomeDono);
+                Pet pet = new Pet(nomePet, tipoAnimal, dono);
 
                 return pet;
             }
@@ -156,9 +157,9 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             while (resultado.next()) {
                 int id = resultado.getInt("id");
                 String tipoAnimal = resultado.getString("tipo_animal");
-                int fkDono = resultado.getInt("cliente");
+                Cliente dono = (Cliente) resultado.getObject("cliente");
 
-                Pet pet = new Pet(id, nome, tipoAnimal, fkDono);
+                Pet pet = new Pet(id, nome, tipoAnimal, dono);
 
                 listaPets.add(pet);
             }
@@ -183,9 +184,9 @@ public class PetDaoBd extends DaoBd<Pet> implements PetDao {
             if (resultado.next()) {
                 int id = resultado.getInt("id");
                 String tipoAnimal = resultado.getString("tipo_animal");
-                int NomeDono = resultado.getInt("cliente");
+                Cliente dono = (Cliente) resultado.getObject("cliente");
 
-                Pet pet = new Pet(id, nome, tipoAnimal, NomeDono);
+                Pet pet = new Pet(id, nome, tipoAnimal, dono);
                 return pet;
             }
         } catch (SQLException ex) {

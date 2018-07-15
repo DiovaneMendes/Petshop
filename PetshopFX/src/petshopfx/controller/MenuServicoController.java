@@ -57,12 +57,10 @@ public class MenuServicoController implements Initializable {
     @FXML
     private TextField textFieldPreco;
     
-    private int tela;
     private List<TipoServico> listaServicos;
     private TipoServico servicoSelecionado;
     
-    private ObservableList<TipoServico> observableListaServicos;   
-    
+    private ObservableList<TipoServico> observableListaServicos;      
     private TipoServicoNegocio tipoServicoNegocio;
     
     @Override
@@ -75,10 +73,10 @@ public class MenuServicoController implements Initializable {
     }  
 
     private void carregarTableViewServicos() {
-        tableColumnNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
-        tableColumnNomeServico.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tableColumnTipoAtendimento.setCellValueFactory(new PropertyValueFactory<>("tipo_atendimento"));
-        tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        tableColumnNumero.setCellValueFactory(new PropertyValueFactory<>("numeroServico"));
+        tableColumnNomeServico.setCellValueFactory(new PropertyValueFactory<>("nomeServico"));
+        tableColumnTipoAtendimento.setCellValueFactory(new PropertyValueFactory<>("tipoDeAtendimento"));
+        tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("precoServico"));
 
         listaServicos = tipoServicoNegocio.listar();
 

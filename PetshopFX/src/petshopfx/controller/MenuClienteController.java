@@ -53,7 +53,6 @@ public class MenuClienteController implements Initializable {
     @FXML
     private TextField textFieldTelefone;
     
-    private int tela;
     private List<Cliente> listaClientes;
     private Cliente clienteSelecionado;
     
