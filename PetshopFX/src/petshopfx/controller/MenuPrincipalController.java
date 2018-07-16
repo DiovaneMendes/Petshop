@@ -24,6 +24,13 @@ public class MenuPrincipalController implements Initializable {
     }
     
     @FXML
+    private void irTelaPet(ActionEvent event) throws IOException{
+        Parent painelPet = FXMLLoader.load(this.getClass().getResource("/petshopfx/view/MenuPet.fxml"));
+        Stage janela = (Stage) painelMenuInicial.getScene().getWindow();
+        janela.setScene(new Scene(painelPet));
+    }
+        
+    @FXML
     private void irTelaServico(ActionEvent event) throws IOException{
         Parent painelServico = FXMLLoader.load(this.getClass().getResource("/petshopfx/view/MenuServico.fxml"));
         Stage janela = (Stage) painelMenuInicial.getScene().getWindow();

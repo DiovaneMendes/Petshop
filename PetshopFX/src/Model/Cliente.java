@@ -9,7 +9,6 @@ public class Cliente{
     private int id;
     private String nome;
     private long rg, telefone;
-    private int quantidadeCompra;
 
     public Cliente(String nome, long rg, long telefone) {
         this.nome = nome;
@@ -52,11 +51,8 @@ public class Cliente{
         this.telefone = telefone;
     }
     
-    public void setQuantidadeCompra(int quantidadeCompra){
-        this.quantidadeCompra = quantidadeCompra;
-    }
-    
-    public int getQuantidadeCompra(){
-        return quantidadeCompra;
+    @Override
+    public String toString(){
+        return " " + getNome();
     }
 }

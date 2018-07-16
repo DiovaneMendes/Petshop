@@ -30,7 +30,7 @@
             <TextField fx:id="textFieldNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldPreco" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             
-            <Label text="Tipo" GridPane.rowIndex="2" />
+            <Label text="Tipo:" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="seletorTipo" layoutX="16.0" layoutY="52.0" prefHeight="25.0" prefWidth="229.0" value="5 minutes" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -48,7 +48,7 @@
             <Button layoutX="233.0" layoutY="233.0" mnemonicParsing="false" onAction="#botaoSalvar" prefWidth="75.0" text="Salvar" />
          </children>
       </Group>
-      <Text fill="0c7204" layoutX="73.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserindo novo cliente">
+      <Text fill="0c7204" layoutX="71.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserindo novo serviço">
          <font>
             <Font size="18.0" />
          </font>

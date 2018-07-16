@@ -6,8 +6,8 @@ o tipo de animal (String) e o cliente (dono do animal).
 package Model;
 
 public class Pet {
-    private int idPet, fkDono;
-    private String nomePet, tipoAnimal, nomeDono, nomeServicoRealizado;
+    private int idPet;
+    private String nomePet, tipoAnimal;
     private Cliente dono;
     
     public Pet(String nomePet, String tipoAnimal, Cliente dono){
@@ -53,5 +53,10 @@ public class Pet {
 
     public void setDono(Cliente dono) {
         this.dono = dono;
-    }    
+    }
+
+    @Override
+    public String toString(){
+        return "" + getDono().getNome();
+    }
 }

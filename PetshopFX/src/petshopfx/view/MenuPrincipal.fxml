@@ -21,7 +21,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="97.0" layoutY="97.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu pet">
+      <Button layoutX="97.0" layoutY="97.0" mnemonicParsing="false" onAction="#irTelaPet" prefHeight="30.0" prefWidth="113.0" text="Menu pet">
          <font>
             <Font size="14.0" />
          </font></Button>
